@@ -6,7 +6,6 @@ const Monitoring = require('./Monitoring');
 const Seller = require('../seller/Seller');
 var datas = require("../../helpers/datas");
 var pesquisas = require("../../helpers/pesquisas");
-//var arquivos = require("../../helpers/arquivos");
 const puppeteer = require('puppeteer');
 const ejs = require ('ejs');
 
@@ -498,8 +497,7 @@ router.post("/applyfeedback", adminAuth,(req, res) =>{
 	})
 });
 
-
-//Relatórios da Monitoria
+//***********************************Relatórios da Monitoria******************************************
 
 //Relatório geral Mes atual
 router.get("/admin/monitoring/reports", adminAuth, (req, res)=>{
@@ -825,7 +823,7 @@ router.post("/admin/monitoring/reports", adminAuth, (req, res)=>{
 
 })
 
-//Relatório por equipe Ainda não funciona
+//Relatório por equipe
 router.get("/admin/monitoring/report/:team",  adminAuth, (req,res)=>{
 	let team = req.params.team;
 	var dtInicial = datas.dia1Str();
@@ -834,6 +832,7 @@ router.get("/admin/monitoring/report/:team",  adminAuth, (req,res)=>{
 	
 	const Op = Sequelize.Op;
 
+	//where com sequelize funcionando
 	Monitoring.findAll({
 		order:[
 			['updatedAt','DESC'] //ASC
@@ -842,10 +841,8 @@ router.get("/admin/monitoring/report/:team",  adminAuth, (req,res)=>{
 		where: {
 			dtMonitoria:{
 				[Op.between]: [dtInicial, dtFinal]},
+				[Op.and]: {equipe: team}
 			},
-			equipe:{
-				team
-			}
 	}).then(monitorings => {
 		//inicializando variaveis
 		var nota = 0;
@@ -943,9 +940,140 @@ router.get("/admin/monitoring/report/:team",  adminAuth, (req,res)=>{
 			var media = nota/ qtd;
 		}
 		
-		res.render('admin/monitoring/reports/index', {
+		res.render('admin/monitoring/reports/team', {
+			dtInicial, dtFinal: hoje,media,team,
 			of1,of2,of3,of4,of5,of6,of7,of8,of9,of10,of11,of12,of13,of14,
-			media: media.toFixed(2),adm: req.session.adm});
+			media: media.toFixed(2),adm: req.session.adm
+		});
+
+		//res.json(monitorings)
+
+	});
+
+	
+})
+
+
+//Relatório por equipe por período informado
+router.post("/admin/monitoring/report/team",  adminAuth, (req,res)=>{
+	let team = req.body.team;
+	var dtInicial = req.body.dtInicial;
+	var dtFinal =datas.diaMaisUm(req.body.dtFinal);
+	
+	const Op = Sequelize.Op;
+
+	Monitoring.findAll({
+		order:[
+			['updatedAt','DESC'] //ASC
+		],
+		include:[{model: Seller}],
+		where: {
+			dtMonitoria:{
+				[Op.between]: [dtInicial, dtFinal]},
+				[Op.and]: {equipe: team}
+			},
+	}).then(monitorings => {
+		//inicializando variaveis
+		var nota = 0;
+		var qtd =0;		
+
+		var of1 = 0;
+		var of2 = 0;
+		var of3 = 0;
+		var of4 = 0;
+		var of5 = 0;
+		var of6 = 0;
+		var of7 = 0;
+		var of8 = 0;
+		var of9 = 0;
+		var of10 = 0;
+		var of11 = 0;
+		var of12 = 0;
+		var of13 = 0;
+		var of14 = 0;
+
+		//definindo qtd de apontamentos negativos para cada ofensor
+		monitorings.forEach(m=>{
+			if(m.abordagem == "nao"){
+				of1++
+			}
+			if(m.fechamento == "nao"){
+				of2++
+			}
+			if(m.ausente == "nao"){
+				of3++
+			}
+			if(m.empatia == "nao"){
+				of4++
+			}
+			if(m.seguro == "nao"){
+				of5++
+			}
+			if(m.giria == "sim"){
+				of6++
+			}
+			if(m.objetivo == "nao"){
+				of7++
+			}
+			if(m.conhecimento == "nao"){
+				of8++
+			}
+			if(m.sondagem == "nao"){
+				of9++
+			}
+			if(m.argumento == "nao"){
+				of10++
+			}
+			if(m.negociacao == "nao"){
+				of11++
+			}
+			if(m.etica == "nao"){
+				of12++
+			}
+			if(m.faltaCordialidade == "sim"){
+				of13++
+			}
+			if(m.risco == "sim"){
+				of14++
+			}
+
+		})
+
+		var qtdM = monitorings.length;//qtd de monitorias no período informado
+		//definindo porcentagem de apontamentos negativos de cada ofensor
+		of1 = ((of1*100)/qtdM).toFixed(2);
+		of2 = ((of2*100)/qtdM).toFixed(2);
+		of3 = ((of3*100)/qtdM).toFixed(2);
+		of4 = ((of4*100)/qtdM).toFixed(2);
+		of5 = ((of5*100)/qtdM).toFixed(2);
+		of6 = ((of6*100)/qtdM).toFixed(2);
+		of7 = ((of7*100)/qtdM).toFixed(2);
+		of8 = ((of8*100)/qtdM).toFixed(2);
+		of9 = ((of9*100)/qtdM).toFixed(2);
+		of10 = ((of10*100)/qtdM).toFixed(2);
+		of11 = ((of11*100)/qtdM).toFixed(2);
+		of12 = ((of12*100)/qtdM).toFixed(2);
+		of13 = ((of13*100)/qtdM).toFixed(2);
+		of14 = ((of14*100)/qtdM).toFixed(2);
+
+		//atribuir notas da equipe
+		monitorings.forEach(m => {				
+			nota = nota + m.nota
+			qtd ++				
+		});			
+
+		//Define média da equipe e evitando NaN
+		if(nota == 0){
+			var media = 0;
+		}else{
+			var media = nota/ qtd;
+		}
+		
+		res.render('admin/monitoring/reports/team', {
+			dtInicial, dtFinal,media,team,
+			of1,of2,of3,of4,of5,of6,of7,of8,of9,of10,of11,of12,of13,of14,
+			media: media.toFixed(2),adm: req.session.adm
+		});
 
 	});
 
