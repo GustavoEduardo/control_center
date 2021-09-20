@@ -1,0 +1,512 @@
+
+<%- include ("../../partials/head.ejs"); %>
+
+<body>
+	<%- include ("../../partials/header-admin.ejs"); %>
+   
+	<div class="limiter">
+		<div class="container-table100">			
+			<div   class="wrap-table100">        
+        <div class="card">
+          <div class="card-header">
+            <h2>Edição de Monitoria</h2>
+          </div>
+          <form class="feedback mt-3" method="POST" action="/updateMonitoring">
+            <div class="row" style="margin: 10px 15px;">
+              <div class="col-md-2">
+                <input type="hidden" name="id" value="<%=m.id%>">
+                <label for="vendedor" class="form-label"><h6>Vendedor</h6></label>
+                <select class="form-control " id="vendedor" name="vendedor" required>
+                  <% sellers.forEach(seller =>{ %>
+                    <% if(seller.id == m.sellerId) { %>
+                      <option value="<%=seller.id%>" selected><%=seller.name%></option>
+                    <% }else{ %>
+                      <option value="<%=seller.id%>"><%=seller.name%></option>
+                    <% } %>
+                  
+                  <% }); %>
+                </select>
+              </div> 
+              <div class="col-md-2">
+                <label for="telefone" class="form-label"><h6>Telefone</h6></label>
+                <input name="telefone" class="form-control border border-1" id="telefone" type="text" required value="<%= m.telefone %>">
+              </div>
+              <div class="col-md-2">
+                <label for="dtAtendimento" name="dtAtendimento" class="form-label"><h6>Data do Atendimento</h6></label>
+                <input name="dtAtendimento" class="form-control border border-1" id="dtAtendimento" type="date" required >
+                <input type="hidden" value="<%= m.dtAtendimento %>" id="dataAtendimento">
+              </div>
+              <div class="col-md-1">
+                <label for="ramal" class="form-label"><h6>Ramal</h6></label>
+                <input name="ramal" value="<%= m.ramal %>" class="form-control border border-1" id="ramal" type="number" min="2000" max="4000"  required >
+              </div>
+              <div class="col-md-1">
+                <label for="venda" class="form-label"><h6>Venda</h6></label>
+                <select name="venda" class="form-control" aria-label="venda">
+                  <%if (m.venda == "n"){ %>
+                    <option value="s">SIM</option>
+                    <option selected value="n">NÃO</option>
+                  <%}else{%>
+                    <option selected value="s">SIM</option>
+                    <option value="n">NÃO</option>  
+                  <%}%>            
+                </select>
+              </div>              
+              <div class="col-md-4 nota">
+                <h3>Nota Final: <span  id="notaFinal"><%= m.nota %></span></h3>
+              </div>
+              <input value="<%= m.nota %>" type="hidden" name="nota" id="nota">
+            </div>            
+            <hr>
+            <h3 class="display-6">Responda as perguntas sobre o atendimento</h3>              
+            <hr>
+
+            <div class="container positivos">
+              <label for="positivos">Pontos Posivitos</label>
+              <textarea style="display: inline-block;" class="form-control mb-4" name="positivos"><%=m.positivos%></textarea>              
+            </div>
+
+            <h6 class="sub-titulo">Abertura e Encerramento</h6><br>        
+            <h5>Teve boa Abordagem/ apresentação?</h5><!--Não-->
+            <input  type="radio" class="btn-check" name="ofensor1" id="1-s" value="sim" onclick="voltaNota(this.id)" autocomplete="off" >
+            <label class="btn btn-outline-success" for="1-s">SIM</label>
+            <input required type="radio" class="btn-check" name="ofensor1" id="1-n" value="nao" onclick="resNao(this.id)" autocomplete="off">
+            <label class="btn btn-outline-danger" for="1-n">NÃO</label>
+            <br>
+            <div class="mb-3 motivo" >
+              <textarea class="form-control" name="ofensor1Txt" id="ofensor1" rows="4" placeholder="Descreva aqui oque fez o consultor perder essa nota..."><%= m.abordagemTxt %></textarea>
+            </div>
+            <br>
+            <h5>Teve bom Fechamento /Poder de decisão/ Confirmação de dados?</h5><!--Não-->
+            <input type="radio" class="btn-check" name="ofensor2" id="2-s" value="sim" onclick="voltaNota(this.id)" autocomplete="off" >
+            <label class="btn btn-outline-success" for="2-s">SIM</label>
+            <input required type="radio" class="btn-check" name="ofensor2" id="2-n" value="nao" onclick="resNao(this.id)" autocomplete="off">
+            <label class="btn btn-outline-danger" for="2-n">NÃO</label>
+            <br>
+            <div class="mb-3 motivo" >
+              <textarea class="form-control" name="ofensor2Txt" id="ofensor2" rows="4" placeholder="Descreva aqui oque fez o consultor perder essa nota..."><%= m.fechamentoTxt %></textarea>
+            </div>
+            <hr>
+            <h6 class="sub-titulo"> Condução do atendimento</h6><br>
+            <h5>Deu posicionamento ao se ausentar?</h5><!--Não-->
+            <input type="radio" class="btn-check" name="ofensor3" id="3-s" value="sim" onclick="voltaNota(this.id)" autocomplete="off" >
+            <label class="btn btn-outline-success" for="3-s">SIM</label>
+            <input required type="radio" class="btn-check" name="ofensor3" id="3-n" value="nao" onclick="resNao(this.id)" autocomplete="off">
+            <label class="btn btn-outline-danger" for="3-n">NÃO</label>
+            <br>
+            <div class="mb-3 motivo" >
+              <textarea class="form-control" id="ofensor3" name="ofensor3Txt" rows="4" placeholder="Descreva aqui oque fez o consultor perder essa nota..."><%= m.ausenteTxt %></textarea>
+            </div>
+            <br>
+            <h5>Teve Entusiasmo/ Sorriso na voz/ Empatia?</h5><!--Não-->
+            <input type="radio" class="btn-check" name="ofensor4" id="4-s" value="sim" onclick="voltaNota(this.id)" autocomplete="off" >
+            <label class="btn btn-outline-success" for="4-s">SIM</label>
+            <input required type="radio" class="btn-check" name="ofensor4" id="4-n" value="nao" onclick="resNao(this.id)" autocomplete="off">
+            <label class="btn btn-outline-danger" for="4-n">NÃO</label>
+            <br>
+            <div class="mb-3 motivo" >
+              <textarea class="form-control" id="ofensor4" name="ofensor4Txt" rows="4" placeholder="Descreva aqui oque fez o consultor perder essa nota..."><%= m.empatiaTxt %></textarea>
+            </div>
+            <br>
+            <h5>Seguro(a) nas informações passadas?</h5><!--Não-->
+            <input type="radio" class="btn-check" name="ofensor5" id="5-s" value="sim" onclick="voltaNota(this.id)" autocomplete="off" >
+            <label class="btn btn-outline-success" for="5-s">SIM</label>
+            <input required type="radio" class="btn-check" name="ofensor5" id="5-n" value="nao" onclick="resNao(this.id)" autocomplete="off">
+            <label class="btn btn-outline-danger" for="5-n">NÃO</label>
+            <br>
+            <div class="mb-3 motivo" >
+              <textarea class="form-control" id="ofensor5" name="ofensor5Txt" rows="4" placeholder="Descreva aqui oque fez o consultor perder essa nota..."><%= m.seguroTxt %></textarea>
+            </div>
+            <br>
+            <h5>Vícios de linguagem/girias?</h5><!--Sim-->
+            <input type="radio" class="btn-check" name="ofensor6" id="6-s" value="sim" onclick="resSim(this.id)" autocomplete="off" >
+            <label class="btn btn-outline-success" for="6-s">SIM</label>
+            <input required type="radio" class="btn-check" name="ofensor6" id="6-n" value="nao" onclick="voltaNota(this.id)" autocomplete="off">
+            <label class="btn btn-outline-danger" for="6-n">NÃO</label>
+            <br>
+            <div class="mb-3 motivo" >
+              <textarea class="form-control" id="ofensor6" name="ofensor6Txt" rows="4" placeholder="Descreva aqui oque fez o consultor perder essa nota..."><%= m.giriaTxt %></textarea>
+            </div>
+            <br>
+            <h5>Objetividade/ esculta ativa?</h5><!--Não-->
+            <input type="radio" class="btn-check" name="ofensor7" id="7-s" value="sim" onclick="voltaNota(this.id)" autocomplete="off" >
+            <label class="btn btn-outline-success" for="7-s">SIM</label>
+            <input required type="radio" class="btn-check" name="ofensor7" id="7-n" value="nao" onclick="resNao(this.id)" autocomplete="off">
+            <label class="btn btn-outline-danger" for="7-n">NÃO</label>
+            <br>
+            <div class="mb-3 motivo" >
+              <textarea class="form-control" id="ofensor7" name="ofensor7Txt" rows="4" placeholder="Descreva aqui oque fez o consultor perder essa nota..."><%= m.objetivoTxt %></textarea>
+            </div>
+            <hr>
+            <h6 class="sub-titulo">Tenicas de venda</h6><br>
+            <h5>Apresentação do produto/ conhecimento?</h5><!--Não-->
+            <input type="radio" class="btn-check" name="ofensor8" id="8-s" value="sim" onclick="voltaNota(this.id)" autocomplete="off" >
+            <label class="btn btn-outline-success" for="8-s">SIM</label>
+            <input required type="radio" class="btn-check" name="ofensor8" id="8-n" value="nao" onclick="resNao(this.id)" autocomplete="off">
+            <label class="btn btn-outline-danger" for="8-n">NÃO</label>
+            <br>
+            <div class="mb-3 motivo" >
+              <textarea class="form-control" id="ofensor8" name="ofensor8Txt" rows="4" placeholder="Descreva aqui oque fez o consultor perder essa nota..."><%= m.conhecimentoTxt %></textarea>
+            </div>
+            <br>
+            <h5>Sondagem?</h5><!--Não-->
+            <input type="radio" class="btn-check" name="ofensor9" id="9-s" value="sim" onclick="voltaNota(this.id)" autocomplete="off" >
+            <label class="btn btn-outline-success" for="9-s">SIM</label>
+            <input required type="radio" class="btn-check" name="ofensor9" id="9-n" value="nao" onclick="resNao(this.id)" autocomplete="off">
+            <label class="btn btn-outline-danger" for="9-n">NÃO</label>
+            <br>
+            <div class="mb-3 motivo" >
+              <textarea class="form-control" id="ofensor9" name="ofensor9Txt" rows="4" placeholder="Descreva aqui oque fez o consultor perder essa nota..."><%= m.sondagemTxt %></textarea>
+            </div>
+            <br>
+            <h5>Argumentação/ quebra de objeção?</h5><!--Não-->
+            <input type="radio" class="btn-check" name="ofensor10" id="10-s" value="sim" onclick="voltaNota(this.id)" autocomplete="off" >
+            <label class="btn btn-outline-success" for="10-s">SIM</label>
+            <input required type="radio" class="btn-check" name="ofensor10" id="10-n" value="nao" onclick="resNao(this.id)" autocomplete="off">
+            <label class="btn btn-outline-danger" for="10-n">NÃO</label>
+            <br>
+            <div class="mb-3 motivo" >
+              <textarea class="form-control" id="ofensor10" name="ofensor10Txt" rows="4" placeholder="Descreva aqui oque fez o consultor perder essa nota..."><%= m.argumentoTxt %></textarea>
+            </div>
+            <br>
+            <h5>Negociação?</h5><!--Não-->
+            <input type="radio" class="btn-check" name="ofensor11" id="11-s" value="sim" onclick="voltaNota(this.id)" autocomplete="off" >
+            <label class="btn btn-outline-success" for="11-s">SIM</label>
+            <input required type="radio" class="btn-check" name="ofensor11" id="11-n" value="nao" onclick="resNao(this.id)" autocomplete="off">
+            <label class="btn btn-outline-danger" for="11-n">NÃO</label>
+            <br>
+            <div class="mb-3 motivo">
+              <textarea class="form-control" id="ofensor11" name="ofensor11Txt" rows="4" placeholder="Descreva aqui oque fez o consultor perder essa nota..."><%= m.negociacaoTxt %></textarea>
+            </div>
+            <hr>
+            <h6 class="sub-titulo" style="color: red;">Não conformidade Grave</h6><br>
+            <h5>Ética?</h5><!--Não-->
+            <input type="radio" class="btn-check" name="ofensor12" id="12-s" value="sim" onclick="voltaNota(this.id)" autocomplete="off" >
+            <label class="btn btn-outline-success" for="12-s">SIM</label>
+            <input required type="radio" class="btn-check" name="ofensor12" id="12-n" value="nao" onclick="resNao(this.id)" autocomplete="off">
+            <label class="btn btn-outline-danger" for="12-n">NÃO</label>
+            <br>
+            <div class="mb-3 motivo" >
+              <textarea class="form-control" id="ofensor12" name="ofensor12Txt" rows="4" placeholder="Descreva aqui oque fez o consultor perder essa nota..."><%= m.eticaTxt %></textarea>
+            </div>
+            <br>
+            <h5>Falta de Cordialidade?</h5><!--Sim-->
+            <input type="radio" class="btn-check" name="ofensor13" id="13-s" value="sim" onclick="resSim(this.id)" autocomplete="off" >
+            <label class="btn btn-outline-success" for="13-s">SIM</label>
+            <input required type="radio" class="btn-check" name="ofensor13" id="13-n" value="nao" onclick="voltaNota(this.id)" autocomplete="off">
+            <label class="btn btn-outline-danger" for="13-n">NÃO</label>
+            <br>
+            <div class="mb-3 motivo" >
+              <textarea class="form-control" id="ofensor13" name="ofensor13Txt" rows="4" placeholder="Descreva aqui oque fez o consultor perder essa nota..."><%= m.faltaCordialidadeTxt %></textarea>
+            </div>
+            <br>
+            <h5>Risco em venda?</h5><!--Sim-->
+            <input type="radio" class="btn-check" name="ofensor14" id="14-s" value="sim" onclick="resSim(this.id)" autocomplete="off" >
+            <label class="btn btn-outline-success" for="14-s">SIM</label>
+            <input required type="radio" class="btn-check" name="ofensor14" id="14-n" value="nao" onclick="voltaNota(this.id)" autocomplete="off">
+            <label class="btn btn-outline-danger" for="14-n">NÃO</label>
+            <br>
+            <div class="mb-3 motivo">
+              <textarea class="form-control" id="ofensor14" name="ofensor14Txt" rows="4" placeholder="Descreva aqui oque fez o consultor perder essa nota..."><%= m.riscoTxt %></textarea>
+            </div>
+            <hr><br>
+            
+                <div style="width: 100%; margin-top: 25px;" class="form-row">
+                    <div class="form-group col-md-8">									
+                    </div>
+                <div class="form-group col-md-2">												
+                        <button type="submit" class="form-control btn btn-success ml-1">Salvar <i class="fas fa-check"></i></button>
+                    </div>
+                    <div class="form-group col-md-2">
+                        <button onclick="window.history.back()" class="form-control btn btn-danger ml-1" >Cancelar <i class="fas fa-times"></i></button>
+                    </div>								
+                </div>
+              <br>
+    
+          </form>
+        </div>        
+			</div>
+		</div>			
+	</div>
+
+
+  <script>
+    //Função para preencher o campo da data
+    function data(){
+			var date = document.getElementById("dataAtendimento");
+      var newDate = new Date(date.value);
+      if(newDate.getMonth() < 9){//9 = outubro
+        if(newDate.getDate() < 10){
+          var d = newDate.getFullYear()+"-0"+(newDate.getMonth()+1)+"-0"+newDate.getDate();
+        }else{
+          var d = newDate.getFullYear()+"-0"+(newDate.getMonth()+1)+"-"+newDate.getDate();
+        }
+      }else{
+        console.log("getMonth() > 9")
+        if(newDate.getDate() < 10){
+          var d = newDate.getFullYear()+"-"+(newDate.getMonth()+1)+"-0"+newDate.getDate();
+        }else{
+          var d = newDate.getFullYear()+"-"+(newDate.getMonth()+1)+"-"+newDate.getDate();
+        }
+      }
+      console.log(d)
+      var dtAtendimento = document.getElementById("dtAtendimento")
+      dtAtendimento.value = d;
+		}
+		
+		data();
+
+  </script>
+
+  <script>
+    //para verificar  se a nota ja foi subtraaida
+    var notaSubtraida={
+        ofensor1: "n",
+        ofensor2: "n",
+        ofensor3: "n",
+        ofensor4: "n",
+        ofensor5: "n",  
+        ofensor6: "n",      
+        ofensor7: "n",
+        ofensor8: "n",
+        ofensor9: "n",
+        ofensor10: "n",
+        ofensor11: "n",
+        ofensor12: "n",
+        ofensor13: "n",
+        ofensor14: "n",
+    }
+  </script>
+
+
+<!--Sem for pq pode ser resposta Não
+Ifs verificam um por um para definir qual será checado e quais text area serão exibidos-->
+ <%if (m.abordagem == "sim") {%>
+  <script>
+    var p = document.getElementById("1-s");
+    p.setAttribute("checked", "checked");
+  </script>
+  <%}else{%>
+    <script>
+      var p = document.getElementById("1-n");
+      p.setAttribute("checked", "checked")
+      notaSubtraida.ofensor1 = "s";
+      var motivo = document.getElementById("ofensor1")
+        motivo.style.display = "inline";
+        motivo.setAttribute("required", "required");
+    </script>
+  <%}%>
+
+  <%if (m.fechamento == "sim") {%>
+    <script>
+      var p = document.getElementById("2-s");
+      p.setAttribute("checked", "checked")
+    </script>
+  <%}else{%>
+    <script>
+      var p = document.getElementById("2-n");
+      p.setAttribute("checked", "checked")
+      notaSubtraida.ofensor2 = "s";
+      var motivo = document.getElementById("ofensor2")
+        motivo.style.display = "inline";
+        motivo.setAttribute("required", "required");
+    </script>
+  <%}%>
+
+  <%if (m.ausente == "sim") {%>
+    <script>
+      var p = document.getElementById("3-s");
+      p.setAttribute("checked", "checked")
+    </script>
+  <%}else{%>
+    <script>
+      var p = document.getElementById("3-n");
+      p.setAttribute("checked", "checked")
+      notaSubtraida.ofensor3 = "s";
+      var motivo = document.getElementById("ofensor3")
+        motivo.style.display = "inline";
+        motivo.setAttribute("required", "required");
+    </script>
+  <%}%>
+
+  <%if (m.empatia == "sim") {%>
+    <script>
+      var p = document.getElementById("4-s");
+      p.setAttribute("checked", "checked")      
+    </script>
+  <%}else{%>
+    <script>
+      var p = document.getElementById("4-n");
+      p.setAttribute("checked", "checked")
+      notaSubtraida.ofensor4 = "s";
+      var motivo = document.getElementById("ofensor4")
+        motivo.style.display = "inline";
+        motivo.setAttribute("required", "required");
+    </script>
+  <%}%>
+
+  <%if (m.seguro == "sim") {%>
+    <script>
+      var p = document.getElementById("5-s");
+      p.setAttribute("checked", "checked")      
+    </script>
+  <%}else{%>
+    <script>
+      var p = document.getElementById("5-n");
+      p.setAttribute("checked", "checked")
+      notaSubtraida.ofensor5 = "s";
+      var motivo = document.getElementById("ofensor5")
+        motivo.style.display = "inline";
+        motivo.setAttribute("required", "required");
+    </script>
+  <%}%>
+
+  <%if (m.giria == "sim") {%>
+    <script>
+      var p = document.getElementById("6-s");
+      p.setAttribute("checked", "checked")
+      notaSubtraida.ofensor6 = "s";
+      var motivo = document.getElementById("ofensor6")
+        motivo.style.display = "inline";
+        motivo.setAttribute("required", "required");
+    </script>
+  <%}else{%>
+    <script>
+      var p = document.getElementById("6-n");
+      p.setAttribute("checked", "checked")      
+    </script>
+  <%}%>
+
+  <%if (m.objetivo == "sim") {%>
+    <script>
+      var p = document.getElementById("7-s");
+      p.setAttribute("checked", "checked")      
+    </script>
+  <%}else{%>
+    <script>
+      var p = document.getElementById("7-n");
+      p.setAttribute("checked", "checked")
+      notaSubtraida.ofensor7 = "s";
+      var motivo = document.getElementById("ofensor7")
+        motivo.style.display = "inline";
+        motivo.setAttribute("required", "required");
+    </script>
+  <%}%>
+
+  <%if (m.conhecimento == "sim") {%>
+    <script>
+      var p = document.getElementById("8-s");
+      p.setAttribute("checked", "checked")      
+    </script>
+  <%}else{%>
+    <script>
+      var p = document.getElementById("8-n");
+      p.setAttribute("checked", "checked")
+      notaSubtraida.ofensor8 = "s";
+      var motivo = document.getElementById("ofensor8")
+        motivo.style.display = "inline";
+        motivo.setAttribute("required", "required");
+    </script>
+  <%}%>
+
+  <%if (m.sondagem == "sim") {%>
+    <script>
+      var p = document.getElementById("9-s");
+      p.setAttribute("checked", "checked")      
+    </script>
+  <%}else{%>
+    <script>
+      var p = document.getElementById("9-n");
+      p.setAttribute("checked", "checked")
+      notaSubtraida.ofensor9 = "s";
+      var motivo = document.getElementById("ofensor9")
+        motivo.style.display = "inline";
+        motivo.setAttribute("required", "required");
+    </script>
+  <%}%>
+
+  <%if (m.argumento == "sim") {%>
+    <script>
+      var p = document.getElementById("10-s");
+      p.setAttribute("checked", "checked")      
+    </script>
+  <%}else{%>
+    <script>
+      var p = document.getElementById("10-n");
+      p.setAttribute("checked", "checked")
+      notaSubtraida.ofensor10 = "s";
+      var motivo = document.getElementById("ofensor10")
+        motivo.style.display = "inline";
+        motivo.setAttribute("required", "required");
+    </script>
+  <%}%>
+
+  <%if (m.negociacao == "sim") {%>
+    <script>
+      var p = document.getElementById("11-s");
+      p.setAttribute("checked", "checked")      
+    </script>
+  <%}else{%>
+    <script>
+      var p = document.getElementById("11-n");
+      p.setAttribute("checked", "checked")
+      notaSubtraida.ofensor11 = "s";
+      var motivo = document.getElementById("ofensor11")
+        motivo.style.display = "inline";
+        motivo.setAttribute("required", "required");
+    </script>
+  <%}%>
+
+  <%if (m.etica == "sim") {%>
+    <script>
+      var p = document.getElementById("12-s");
+      p.setAttribute("checked", "checked")      
+    </script>
+  <%}else{%>
+    <script>
+      var p = document.getElementById("12-n");
+      p.setAttribute("checked", "checked")
+      notaSubtraida.ofensor11 = "s";
+      var motivo = document.getElementById("ofensor12")
+        motivo.style.display = "inline";
+        motivo.setAttribute("required", "required");
+    </script>
+  <%}%>
+
+  <%if (m.faltaCordialidade == "sim") {%>
+    <script>
+      var p = document.getElementById("13-s");
+      p.setAttribute("checked", "checked")
+      notaSubtraida.ofensor13 = "s";
+      var motivo = document.getElementById("ofensor13")
+        motivo.style.display = "inline";
+        motivo.setAttribute("required", "required");
+    </script>
+  <%}else{%>
+    <script>
+      var p = document.getElementById("13-n");
+      p.setAttribute("checked", "checked")      
+    </script>
+  <%}%>
+
+  <%if (m.risco == "sim") {%>
+    <script>
+      var p = document.getElementById("14-s");
+      p.setAttribute("checked", "checked")
+      notaSubtraida.ofensor14 = "s";
+      var motivo = document.getElementById("ofensor14")
+        motivo.style.display = "inline";
+        motivo.setAttribute("required", "required");
+    </script>
+  <%}else{%>
+    <script>
+      var p = document.getElementById("14-n");
+      p.setAttribute("checked", "checked")      
+    </script>
+  <%}%>
+
+  <script src="/js/editMonit.js"></script>
+ 
+<%- include ("../../partials/footer1.ejs"); %>
+</body>
+</html>

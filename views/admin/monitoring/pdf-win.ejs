@@ -1,0 +1,235 @@
+<%- include ("../../partials/head.ejs"); %>
+
+<style>
+  
+.container{
+    padding: 30px;
+    background-color: rgb(247, 247, 247);
+}
+.h4{
+    margin-top: 0px; 
+    text-align: center;
+    display: inline-block;
+}
+.info{
+    margin: 0px 5px;
+    width: 100%;
+}
+table {
+    border-radius: 0%;
+    border-collapse: collapse;
+    width: 100%;
+}
+table td {
+    border: 1px solid black;
+    text-align: center;
+    height: 25px;
+}
+table th {
+    border: 1px solid black;
+    text-align: center;
+    background-color: rgb(233, 233, 233);
+    height: 25px;
+}
+
+.ofensor{
+    border: 1px solid rgb(212, 212, 212); 
+    padding: 0 2px 2px 2px;
+    margin-bottom: 5px;
+
+}
+
+.subTitulo{
+    margin-top: 0px;
+    margin-bottom: 0px;
+    padding: 0;
+    text-align: center;
+}
+
+.assinatura{
+  width: 320px;
+  border-bottom: 1px solid rgb(163, 163, 163);
+  margin: 1px 5px 10px 5px;
+  padding: 0;
+  font-weight: bold;
+}
+
+</style>
+
+
+
+<body>
+   
+	<div class="limiter">
+		<div class="container-table100">			
+			<div   class="wrap-table100">        
+        <div class="container card" id="printable">
+          <div class="h4">
+            <!--<a class="btn btn-secondary" style="text-decoration: none;" target="_blank" href="/download/M-<%=m.telefone%>-<%=m.ramal%>">Baixar PFD</a>-->
+            <h4 style="display: inline-block; margin-left: 190px;">Análise do Contato</h4>
+            <a style="float: right;" href="/download/M-<%=m.telefone%>-<%=m.ramal%>"><img style="max-width: 120px; width: 120%; margin-left: 110px;" src="https://jmonix.com.br/wp-content/uploads/2021/05/cropped-cropped-jm_onix_group_logo.png"></a>
+          </div>
+          <div class="info">
+            <table class="detalhes">
+              <tr>
+                <th>Consultor</th>
+                <th>Equipe</th>
+                <th>Data do Atendimento</th>
+                <th>ID da ligação</th>
+                <th>Nota</th>
+              </tr>
+              <tbody>
+                <tr>
+                  <td><%=m.seller.name%></td>
+                  <td class="equipe"><%=m.seller.team%></td>
+                  <td id="dtAtendimento"></td>
+                  <td><%=m.telefone%></td>
+                  <td><%=m.nota%></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <input type="hidden" value="<%= m.dtAtendimento %>" id="dataAtendimento">   
+          <div class="subTitulo">
+            <h5><u>Informções da ligação:</u></h5>            
+          </div>
+          
+
+          <p class="sub-titulo2">Pontos Positivos:</p>
+          <div class="ofensor">
+            <p><%=m.positivos%></p>         
+          </div>
+          
+          <br>
+          <div class="subTitulo">
+            <b ><u>Abertura e Encerramento</u></b><br>
+          </div>
+          <div class="ofensor">
+            <p>Boa Abordagem/ Apresentação: <b> <span id="ofensor1"><%=m.abordagem%></span></b></p>
+            <p id="ofensor1Txt" class=""><%=m.abordagemTxt%></p>
+          </div>
+          <div class="ofensor">
+            <p>Bom Fechamento /Poder de decisão/ Confirmação de dados?: <b><span id="ofensor2"><%=m.fechamento%></span></b></p>
+            <p id="ofensor2Txt" ><%=m.fechamentoTxt%></p>
+          </div>
+          <div class="subTitulo">
+            <b><u>Condução do atendimento</u></b><br>
+          </div>
+          <div class="ofensor">
+            <p>Posicionamento ao se ausentar: <b><span id="ofensor3"><%=m.ausente%></span></b></p>
+            <p id="ofensor3Txt" ><%=m.ausenteTxt%></p>
+          </div>
+          <div class="ofensor">
+            <p>Teve Entusiasmo/ Sorriso na voz/ Empatia: <b><span id="ofensor4"><%=m.empatia%></span></b></p>
+            <p id="ofensor4Txt" ><%=m.empatiaTxt%></p>
+          </div>
+          <div class="ofensor">
+            <p>Seguro(a) nas informações passadas: <b><span id="ofensor5"><%=m.seguro%></span></b></p>
+            <p id="ofensor5Txt" ><%=m.seguroTxt%></p>
+          </div>
+          <div class="ofensor">
+            <p>Vícios de linguagem/girias: <b><span id="ofensor6"><%=m.giria%></span></b></p>
+            <p id="ofensor6Txt" ><%=m.giriaTxt%></p>
+          </div>
+          <div class="ofensor">
+            <p>Objetividade/ esculta ativa: <b><span id="ofensor7"><%=m.objetivo%></span></b></p>
+            <p id="ofensor7Txt" ><%=m.objetivoTxt%></p>
+          </div>
+          <div class="subTitulo">
+            <b ><u>Tenicas de venda</u></b><br>
+          </div>        
+          <div class="ofensor">
+            <p>Apresentação do produto/ conhecimento: <b><span id="ofensor8"><%=m.conhecimento%></span></b></p>
+            <p id="ofensor8Txt" ><%=m.conhecimentoTxt%></p>
+          </div>
+          <div class="ofensor">
+            <p>Sondagem: <b><span id="ofensor9"><%=m.sondagem%></span></b></p>
+            <p id="ofensor9Txt" ><%=m.sondagemTxt%></p>
+          </div>
+          <div class="ofensor">
+            <p>Argumentação/ quebra de objeção: <b><span id="ofensor10"><%=m.argumento%></span></b></p>
+            <p id="ofensor10Txt" ><%=m.argumentoTxt%></p>
+          </div>
+          <div class="ofensor">
+            <p>Negociação: <b><span id="ofensor11"><%=m.negociacao%></span></b></p>
+            <p id="ofensor11Txt" ><%=m.negociacaoTxt%></p>
+          </div>
+          <div class="subTitulo">
+            <b style="color: red;" ><u>Não conformidade Grave</u></b><br>
+          </div>          
+          <div class="ofensor">
+            <p>Ética: <b><span id="ofensor12"><%=m.etica%></span></b></p>
+            <p id="ofensor12Txt" ><%=m.eticaTxt%></p>
+          </div>
+          <div class="ofensor">
+            <p>Falta de Cordialidade: <b><span id="ofensor13"><%=m.faltaCordialidade%></span></b></p>
+            <p id="ofensor13Txt" ><%=m.faltaCordialidadeTxt%></p>
+          </div>
+          <div class="ofensor">
+            <p>Risco em venda: <b><span id="ofensor14"><%=m.risco%></span></b></p>
+            <p id="ofensor14Txt"><%=m.riscoTxt%></p>
+          </div>
+          <br>
+          <div>
+            <p>Assinaturas:</p>
+            <span class="assinatura"  style="display: inline-block;">Consultor: </span>
+            <span class="assinatura"  style="display: inline-block;">Auditor: </span>           
+
+          </div>
+        </div> 
+              
+			</div> 
+        
+    </div>
+  </div>
+
+
+  <script>
+    //Função para preencher o campo da data
+    function data(){
+			var date = document.getElementById("dataAtendimento");
+      var newDate = new Date(date.value);
+      if(newDate.getMonth() < 9){//9 = outubro
+        if(newDate.getDate() < 10){
+          var d = "0"+newDate.getDate()+"/0"+(newDate.getMonth()+1)+"/"+newDate.getFullYear();
+        }else{
+          var d = newDate.getDate()+"/0"+(newDate.getMonth()+1)+"/"+newDate.getFullYear();
+        }
+      }else{
+        if(newDate.getDate() < 10){
+          var d = "0"+newDate.getDate()+"/"+(newDate.getMonth()+1)+"/"+newDate.getFullYear();;
+        }else{
+          var d = newDate.getDate()+"/0"+(newDate.getMonth()+1)+"/"+newDate.getFullYear();
+        }
+      }
+      var dtAtendimento = document.getElementById("dtAtendimento")
+      dtAtendimento.innerHTML = d;
+		}
+		
+		data();
+
+    //Motrar nome da equipe
+    function equipe(){
+			var len = document.getElementsByClassName("equipe").length;
+			for (i = 0; i < len; i++){
+				var equipe = document.getElementsByClassName("equipe")[i];
+				if(equipe.innerHTML == "01"){
+					equipe.innerHTML = "Felipe";
+				}else if(equipe.innerHTML == "02"){
+					equipe.innerHTML = "Camila";
+        }else if(equipe.innerHTML == "03"){
+					equipe.innerHTML = "Gustavo";
+        }else{
+          equipe.innerHTML = "Sem Equipe";
+        }			
+			}
+		}
+
+		equipe();
+
+  </script>
+
+ 
+<%- include ("../../partials/footer1.ejs"); %>
+</body>
+</html>

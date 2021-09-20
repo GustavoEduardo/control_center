@@ -1,0 +1,180 @@
+
+<%- include ("../../partials/head.ejs"); %>
+<link rel="stylesheet" type="text/css" href="/css/details.css">
+
+<body>
+	<%- include ("../../partials/header-admin.ejs"); %>
+   
+	<div class="limiter">
+		<div class="container-table100">			
+			<div   class="wrap-table100">        
+        <div class="container card" id="printable">
+          <div style="text-align: right;">
+            <a class="btn btn-secondary" style="text-decoration: none;" target="_blank" href="/admin/monitoring/pdf/<%=m.id%>">Gerar PFD</a><!--/M-<%=m.telefone%>-<%=m.ramal%>-->
+          </div>
+          <div style="border: none;" class="h5">
+            <h5>Análise do Contato</h5>
+          </div>
+          <div class="info">
+            <table class="detalhes">
+              <tr>
+                <th>Consultor</th>
+                <th>Equipe</th>
+                <th>Data do Atendimento</th>
+                <th>ID da ligação</th>
+                <th>Nota</th>
+              </tr>
+              <tbody>
+                <tr>
+                  <td><%=m.seller.name%></td>
+                  <td class="equipe"><%=m.seller.team%></td>
+                  <td id="dtAtendimento"></td>
+                  <td><%=m.telefone%></td>
+                  <td><%=m.nota%></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <input type="hidden" value="<%= m.dtAtendimento %>" id="dataAtendimento">   
+          <div class="h6">
+            <h6>Informções da ligação:</h6>
+            <hr>
+          </div>
+
+          <h6 class="sub-titulo2">Pontos Positivos</h6><br> 
+          <div class="positivos">
+            <p><%=m.positivos%></p>            
+          </div>
+          
+          <br>
+          <h6 class="sub-titulo2">Abertura e Encerramento</h6><br> 
+          <div class="afensor">
+            <p>Boa Abordagem/ Apresentação: <b> <span id="ofensor1"><%=m.abordagem%></span></b></p>
+            <p id="ofensor1Txt" class="motivo"><%=m.abordagemTxt%></p>
+          </div>
+          <div class="afensor">
+            <p>Bom Fechamento /Poder de decisão/ Confirmação de dados?: <b><span id="ofensor2"><%=m.fechamento%></span></b></p>
+            <p id="ofensor2Txt" class="motivo"><%=m.fechamentoTxt%></p>
+          </div>
+          <h6 class="sub-titulo2">Condução do atendimento</h6><br> 
+          <div class="afensor">
+            <p>Posicionamento ao se ausentar: <b><span id="ofensor3"><%=m.ausente%></span></b></p>
+            <p id="ofensor3Txt" class="motivo"><%=m.ausenteTxt%></p>
+          </div>
+          <div class="afensor">
+            <p>Teve Entusiasmo/ Sorriso na voz/ Empatia: <b><span id="ofensor4"><%=m.empatia%></span></b></p>
+            <p id="ofensor4Txt" class="motivo"><%=m.empatiaTxt%></p>
+          </div>
+          <div class="afensor">
+            <p>Seguro(a) nas informações passadas: <b><span id="ofensor5"><%=m.seguro%></span></b></p>
+            <p id="ofensor5Txt" class="motivo"><%=m.seguroTxt%></p>
+          </div>
+          <div class="afensor">
+            <p>Vícios de linguagem/girias: <b><span id="ofensor6"><%=m.giria%></span></b></p>
+            <p id="ofensor6Txt" class="motivo"><%=m.giriaTxt%></p>
+          </div>
+          <div class="afensor">
+            <p>Objetividade/ esculta ativa: <b><span id="ofensor7"><%=m.objetivo%></span></b></p>
+            <p id="ofensor7Txt" class="motivo"><%=m.objetivoTxt%></p>
+          </div>
+          <h6 class="sub-titulo2">Tenicas de venda</h6><br>
+          <div class="afensor">
+            <p>Apresentação do produto/ conhecimento: <b><span id="ofensor8"><%=m.conhecimento%></span></b></p>
+            <p id="ofensor8Txt" class="motivo"><%=m.conhecimentoTxt%></p>
+          </div>
+          <div class="afensor">
+            <p>Sondagem: <b><span id="ofensor9"><%=m.sondagem%></span></b></p>
+            <p id="ofensor9Txt" class="motivo"><%=m.sondagemTxt%></p>
+          </div>
+          <div class="afensor">
+            <p>Argumentação/ quebra de objeção: <b><span id="ofensor10"><%=m.argumento%></span></b></p>
+            <p id="ofensor10Txt" class="motivo"><%=m.argumentoTxt%></p>
+          </div>
+          <div class="afensor">
+            <p>Negociação: <b><span id="ofensor11"><%=m.negociacao%></span></b></p>
+            <p id="ofensor11Txt" class="motivo"><%=m.negociacaoTxt%></p>
+          </div>
+          <h6 class="sub-titulo2">Não conformidade Grave</h6><br>
+          <div class="afensor">
+            <p>Ética: <b><span id="ofensor12"><%=m.etica%></span></b></p>
+            <p id="ofensor12Txt" class="motivo"><%=m.eticaTxt%></p>
+          </div>
+          <div class="afensor">
+            <p>Falta de Cordialidade: <b><span id="ofensor13"><%=m.faltaCordialidade%></span></b></p>
+            <p id="ofensor13Txt" class="motivo"><%=m.faltaCordialidadeTxt%></p>
+          </div>
+          <div class="afensor">
+            <p>Risco em venda: <b><span id="ofensor14"><%=m.risco%></span></b></p>
+            <p id="ofensor14Txt" class="motivo"><%=m.riscoTxt%></p>
+          </div>
+        </div>        
+			</div>
+        <div style="width: 100%; margin-top: 25px;" class="form-row">
+          <div  class="form-group col-md-6"></div>
+        <div class="form-group col-md-2">
+          <%if(m.aplicada == "n"){%>
+            <form action="/applyfeedback" method="POST" >
+              <input type="hidden" name="id" value="<%=m.id%>">											
+              <button type="submit" class="form-control btn btn-primary md-1">Aplicar <i class="fas fa-check"></i></button>
+            </form> 
+          <%}%>
+                   
+        </div>        
+        <div class="form-group col-md-2">
+            <button onclick="window.history.back()" class="form-control btn btn-secondary ml-1" >Voltar <i class="fas fa-times"></i></button>
+        </div>								
+        </div>
+        <br>
+    </div>
+  </div>
+
+
+  <script>
+    //Função para preencher o campo da data
+    function data(){
+			var date = document.getElementById("dataAtendimento");
+      var newDate = new Date(date.value);
+      if(newDate.getMonth() < 9){//9 = outubro
+        if(newDate.getDate() < 10){
+          var d = "0"+newDate.getDate()+"/0"+(newDate.getMonth()+1)+"/"+newDate.getFullYear();
+        }else{
+          var d = newDate.getDate()+"/0"+(newDate.getMonth()+1)+"/"+newDate.getFullYear();
+        }
+      }else{
+        if(newDate.getDate() < 10){
+          var d = "0"+newDate.getDate()+"/"+(newDate.getMonth()+1)+"/"+newDate.getFullYear();;
+        }else{
+          var d = newDate.getDate()+"/0"+(newDate.getMonth()+1)+"/"+newDate.getFullYear();
+        }
+      }
+      var dtAtendimento = document.getElementById("dtAtendimento")
+      dtAtendimento.innerHTML = d;
+		}
+		
+		data();
+
+    //Motrar nome da equipe
+    function equipe(){
+			var len = document.getElementsByClassName("equipe").length;
+			for (i = 0; i < len; i++){
+				var equipe = document.getElementsByClassName("equipe")[i];
+				if(equipe.innerHTML == "01"){
+					equipe.innerHTML = "Felipe";
+				}else if(equipe.innerHTML == "02"){
+					equipe.innerHTML = "Camila";
+        }else if(equipe.innerHTML == "03"){
+					equipe.innerHTML = "Gustavo";
+        }else{
+          equipe.innerHTML = "Sem Equipe";
+        }			
+			}
+		}
+
+		equipe();
+
+  </script>
+
+ 
+<%- include ("../../partials/footer1.ejs"); %>
+</body>
+</html>

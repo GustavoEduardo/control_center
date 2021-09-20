@@ -1,0 +1,45 @@
+Tarefas:
+
+Data no pdf um dia a menos!!!
+
+
+Ralatórios
+Ofensores por equipe,
+por consultor
+media mensal por equipe
+e por consultor
+
+
+Campo de login do vendedor na tela de cadastro
+Validar se ja existe login
+Filtros tela de vendedores
+Status na tela de editar vendedor
+Definir nova senha na tela de editar vendedor
+
+
+
+Criar tela de cadastro de equipes
+Revisar inputs de equipe
+Rotas para ativar ou inativar equipe
+
+
+
+Dividir acessos (Admin, Supervisor, Monitor e vndedor)
+
+Guardar logs do sistema
+
+
+Enviar emails
+
+Melhorias
+
+Bug no navbar-collapse do header
+
+Validação de imagem filter
+Multiplas imagens para kit
+Corretor ortografico tiny
+Tornar Descrição e Argumentos Obrigatórios
+
+Buscas com sequelize
+
+https://sequelize.org/v3/docs/models-usage/

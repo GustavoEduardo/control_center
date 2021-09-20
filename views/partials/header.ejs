@@ -1,0 +1,47 @@
+<nav class="navbar navbar-expand-lg navbar-dark ">
+    <a class="navbar-brand" href="/"><img src="/images/onix_logo_branco.png"></a>
+    
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto">
+        <li id="produtos" class="nav-item active">
+          <a class="nav-link" href="/">Produtos</a>
+        </li> 
+        <li id="monitoria" class="nav-item active">
+          <a class="nav-link" href="/monitoring/glossario">Monitoria</a>
+        </li>     
+        <li id="login" class="nav-item">
+          <a class="nav-link" href="/login"><i class="fas fa-key"></i></a>
+        </li>
+      </ul>     
+    </div>    
+  </nav>
+
+  <script>
+    function active(){
+      if(window.location.href == "http://54.207.207.252:3000/login" || window.location.href == "http://54.207.207.252:3000/authenticate"){
+
+        document.getElementById("login").className = "nav-item active";
+        document.getElementById("produtos").className = "nav-item";
+        document.getElementById("monitoria").className = "nav-item";
+
+      }else if(window.location.href == "http://54.207.207.252:3000/monitoring/glossario"){
+
+        document.getElementById("login").className = "nav-item";
+        document.getElementById("produtos").className = "nav-item";
+        document.getElementById("monitoria").className = "nav-item active";
+
+      }else{
+        document.getElementById("login").className = "nav-item";
+        document.getElementById("produtos").className = "nav-item active";
+        document.getElementById("monitoria").className = "nav-item";
+      }
+    }
+     
+
+    active()
+    
+  </script>

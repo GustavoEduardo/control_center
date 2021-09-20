@@ -1,0 +1,51 @@
+<%- include ("../partials/head.ejs"); %>
+<link rel="stylesheet" type="text/css" href="/css/login.css">
+
+<body>
+<%- include ("../partials/header.ejs"); %>
+
+<div class="limiter">
+	<div class="container-table100">			
+		<div class="wrap-table100">
+			<div class="d-flex justify-content-center h-100">
+				<div class="card">
+					<div class="card-header">
+						<h3>Bem vindo</h3>
+					</div>
+					<div class="card-body">
+						<form method="POST" action="authenticate">
+							<div class="input-group form-group">
+								<div class="input-group-prepend">
+									<span class="input-group-text"><i class="fas fa-user"></i></span>
+								</div>
+								<input name="login" type="text" class="form-control" placeholder="Login" required>								
+							</div>
+							<div class="input-group form-group">
+								<div class="input-group-prepend">
+									<span class="input-group-text"><i class="fas fa-key"></i></span>
+								</div>
+								<input name="password" type="password" class="form-control" placeholder="Senha" required>
+							</div>							
+							<div class="form-group">
+								<span style="font-size: larger;"><%=msg%></span><input type="submit" value="Login" class="btn btn-success float-right login_btn">
+							</div>
+						</form>
+					</div>
+					<div class="card-footer">
+						
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+	
+
+	<div id="dropDownSelect1"></div>
+
+<%- include ("../partials/footer1.ejs"); %>     
+
+
+</body>
+</html>

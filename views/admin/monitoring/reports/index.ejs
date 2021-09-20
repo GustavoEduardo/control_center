@@ -1,0 +1,265 @@
+
+<%- include ("../../../partials/head.ejs"); %>
+<link rel="stylesheet" type="text/css" href="/css/details.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+  .medias-equipes{
+    padding: 10px;
+    margin-left: 5px;
+    width: 99%;
+  }
+  .media-equipe{
+    color: white;
+    height: 150px;
+    padding: 5px 5px 0 10px;
+    margin-bottom: 2px;
+
+  }
+  a{
+    display: inline-block;
+    text-decoration: none;
+  }
+</style>
+
+<body>
+	<%- include ("../../../partials/header-admin.ejs"); %>
+   
+	<div class="limiter">
+		<div class="container-table100">			
+			<div   class="wrap-table100">       
+                
+            <div style="background-color: white; padding: 15px 5px;" class="">
+
+              <nav class="navbar navbar-light bg-secondary mb-3">               
+                <span style="color: white; font-size: 1.5em;" >Relatório Geral</span>  
+                <form method="POST" action="/admin/monitoring/reports" class="ml-auto form-inline">
+                  <input name="dtInicial" value="<%=dtInicial%>" class="form-control mr-sm-2" type="date" >
+                  <input name="dtFinal" value="<%=dtFinal%>" class="form-control mr-sm-2" type="date" >
+                  <button class="btn btn-primary my-2 my-sm-0" type="submit">Pesquisar</button>
+                </form>
+              </nav>
+              
+              <div class="medias-equipes row mb-5">
+                <a class="col-md-3 mr-2" href="/admin/monitoring/report/01">
+                  <div style=" background-color: #d9534f;" class="media-equipe">
+                    <h4>Felipe</h4>
+                    <hr>
+                    <span>Média no período</span>
+                    <h3><%=media1%></h3>
+                    
+                  </div>
+                </a> 
+                  <a class="col-md-3 mr-2" href="/admin/monitoring/report/02">
+                    <div style=" background-color: #0275d8;" class="media-equipe"> 
+                      <h4>Camila</h4>
+                      <hr>
+                      <span>Média no período</span>
+                      <h3><%=media2%></h3>
+                    </div>
+                  </a>
+                
+                <a class="col-md-3 mr-2" href="/admin/monitoring/report/03">
+                  <div style=" background-color: #292b2c;" class="media-equipe">
+                    <h4>Gustavo</h4>
+                    <hr>
+                    <span>Média no período</span>
+                    <h3><%=media3%></h3>
+                  </div>
+                </a>
+                <a class="col-md-2" href="">
+                  <div style=" background-color: #e2a24e;" class="media-equipe">
+                    <h4>Geral</h4>
+                    <hr>
+                    <span>Média no período</span>
+                    <h3><%=mediaGeral%></h3>
+                  </div>
+                </a>
+
+              </div>
+              <hr>
+              <div class="row">
+                  <div class="col-md-5 mr-4"  >
+                      <canvas  id="pie" width="150" height="150"></canvas>
+                      
+                  </div>
+                  <div class="col-md-6" >
+                      <canvas  id="line" width="150" height="100"></canvas>
+
+                  </div>
+                  <div class="col-md-4">
+
+                  </div>    
+              </div>
+          </div>
+			</div>
+    </div>
+    <!--Média Ofensores-->
+    <input type="hidden" value="<%=of1%>" id="of1">
+    <input type="hidden" value="<%=of2%>" id="of2">
+    <input type="hidden" value="<%=of3%>" id="of3">
+    <input type="hidden" value="<%=of4%>" id="of4">
+    <input type="hidden" value="<%=of5%>" id="of5">
+    <input type="hidden" value="<%=of6%>" id="of6">
+    <input type="hidden" value="<%=of7%>" id="of7">
+    <input type="hidden" value="<%=of8%>" id="of8">
+    <input type="hidden" value="<%=of9%>" id="of9">
+    <input type="hidden" value="<%=of10%>" id="of10">
+    <input type="hidden" value="<%=of11%>" id="of11">
+    <input type="hidden" value="<%=of12%>" id="of12">
+    <input type="hidden" value="<%=of13%>" id="of13">
+    <input type="hidden" value="<%=of14%>" id="of14">
+</div>
+
+    <script>
+      var of1 = document.getElementById("of1").value;
+      var of2 = document.getElementById("of2").value;
+      var of3 = document.getElementById("of3").value;
+      var of4 = document.getElementById("of4").value;
+      var of5 = document.getElementById("of5").value;
+      var of6 = document.getElementById("of6").value;
+      var of7 = document.getElementById("of7").value;
+      var of8 = document.getElementById("of8").value;
+      var of9 = document.getElementById("of9").value;
+      var of10 = document.getElementById("of10").value;
+      var of11 = document.getElementById("of11").value;
+      var of12 = document.getElementById("of12").value;
+      var of13 = document.getElementById("of13").value;
+      var of14 = document.getElementById("of14").value;
+  
+
+    var ctx = document.getElementById('pie');
+    var myChart = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+            labels: ['Abordagem', 'Fechamento', 'Ausente', 'Empatia', 'Seguro', 'Giria', 'Objetivo','Conhecimento','Sondagem','Argumento','Negociacao','Ética','Falta Cordialidade','Risco'],
+            datasets: [{
+                label: '# of Votes',
+                data: [of1,of2,of3,of4,of5,of6,of7,of8,of9,of10,of11,of12,of13,of14],
+                backgroundColor: [
+                    'rgba(255, 99, 132)',
+                    'rgba(54, 162, 235)',
+                    'rgba(255, 206, 86)',
+                    'rgba(75, 192, 192)',
+                    'rgba(153, 102, 255)',
+                    'rgba(255, 159, 64)',
+                    '#0205d8',
+                    '#d96848',
+                    '#027518',
+                    '#9275d8',
+                    '#022511',
+                    '#0266d8',
+                    '#5250d8',
+                    '#1436d8'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+          plugins: {
+              title: {
+                display: true,
+                text: 'Média Geral por ofensores em %',
+              }
+          },
+        }
+    });
+    </script>
+
+<script>
+    var ctx2 = document.getElementById('line');
+    var myChart = new Chart(ctx2, {
+        type: 'line',
+        data: {
+            labels: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
+            datasets: [{
+                label: 'Felipe',
+                data: [10,20,30,40,45,50,55,60,80,70,75,80],
+                backgroundColor: [
+                    '#d9534f',
+                ],
+                borderColor: [
+                    '#d9534f',
+                ],
+                borderWidth: 1
+              },
+              {
+                label: 'Camila',
+                data: [20,30,36,40,52,60,70,55,59,60,70,77],
+                backgroundColor: [
+                    '#0275d8',
+                ],
+                borderColor: [
+                    '#0275d8',
+                ],
+                borderWidth: 1
+              },
+              {
+                label: 'Gustavo',
+                data: [20,50,55,60,80,75,76,90,85,80,60,40],
+                backgroundColor: [
+                    '#292b2c',
+                ],
+                borderColor: [
+                    '#292b2c',
+                ],
+                borderWidth: 1
+              },
+              {
+                label: 'Geral',
+                data: [50,60,80,80,90,85,70,60,40,50,66,70],
+                backgroundColor: [
+                    '#e2a24e',
+                ],
+                borderColor: [
+                    '#e2a24e',
+                ],
+                borderWidth: 1
+              }
+            
+            ],
+          
+      },        
+        options: {
+          responsive: true,
+          plugins: {
+            legend: {
+              position: 'top',
+            },
+            title: {
+              display: true,
+              text: 'Hístórico de Médias (*Em contrução*)'
+            }
+          }
+          
+        }
+    });
+    </script>
+
+
+  <script>
+    //Motrar nome da equipe
+    function equipe(){
+			var len = document.getElementsByClassName("equipe").length;
+			for (i = 0; i < len; i++){
+				var equipe = document.getElementsByClassName("equipe")[i];
+				if(equipe.innerHTML == "01"){
+					equipe.innerHTML = "Felipe";
+				}else if(equipe.innerHTML == "02"){
+					equipe.innerHTML = "Camila";
+        }else if(equipe.innerHTML == "03"){
+					equipe.innerHTML = "Gustavo";
+        }else{
+          equipe.innerHTML = "Sem Equipe";
+        }			
+			}
+		}
+
+		equipe();
+
+  </script>
+
+ 
+<%- include ("../../../partials/footer1.ejs"); %>
+</body>
+</html>
