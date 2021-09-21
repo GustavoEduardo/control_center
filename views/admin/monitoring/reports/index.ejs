@@ -79,14 +79,14 @@
               </div>
               <hr>
               <div class="row">
-                  <div class="col-md-5 mr-4"  >
-                      <canvas  id="pie" width="150" height="150"></canvas>
+                  <div class="col-md-12 mr-4"  >
+                      <canvas id="ofensores" width="150" height="50"></canvas>
                       
                   </div>
-                  <div class="col-md-6" >
+                  <!-- <div class="col-md-6" >
                       <canvas  id="line" width="150" height="100"></canvas>
 
-                  </div>   
+                  </div>    -->
               </div>
           </div>
 			</div>
@@ -125,29 +125,29 @@
       var of14 = document.getElementById("of14").value;
   
 
-    var ctx = document.getElementById('pie');
+    var ctx = document.getElementById('ofensores');
     var myChart = new Chart(ctx, {
-        type: 'doughnut',
+        type: 'bar',
         data: {
             labels: ['Abordagem', 'Fechamento', 'Ausência', 'Empatia', 'Segurança', 'Giria', 'Objetivo','Conhecimento','Sondagem','Argumento','Negociacao','Ética','Falta Cordialidade','Risco'],
             datasets: [{
-                label: '# of Votes',
+                label: 'Porcentagem',
                 data: [of1,of2,of3,of4,of5,of6,of7,of8,of9,of10,of11,of12,of13,of14],
                 backgroundColor: [
-                    'rgba(255, 99, 132)',
+                    'rgba(22, 99, 132)',                    
+                    'rgba(255,16, 126)',
                     'rgba(54, 162, 235)',
-                    'rgba(255, 206, 86)',
-                    'rgba(75, 192, 192)',
-                    'rgba(153, 102, 255)',
+                    '#022511',
+                    '#525548',
                     'rgba(255, 159, 64)',
-                    '#0205d8',
+                    '#739653',
                     '#d96848',
                     '#027518',
                     '#9275d8',
-                    '#022511',
-                    '#0266d8',
-                    '#5250d8',
-                    '#1436d8'
+                    '#F55E00',
+                    '#442261',
+                    '#000',
+                    '#C02323'
                 ],
                 borderWidth: 1
             }]
@@ -156,86 +156,17 @@
           plugins: {
               title: {
                 display: true,
-                text: 'Média Geral por ofensores em %',
+                text: 'Média Geral de apontamentos em %',
               }
           },
         }
     });
     </script>
 
-<script>
-    var ctx2 = document.getElementById('line');
-    var myChart = new Chart(ctx2, {
-        type: 'line',
-        data: {
-            labels: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
-            datasets: [{
-                label: 'Felipe',
-                data: [],
-                backgroundColor: [
-                    '#d9534f',
-                ],
-                borderColor: [
-                    '#d9534f',
-                ],
-                borderWidth: 1
-              },
-              {
-                label: 'Camila',
-                data: [],
-                backgroundColor: [
-                    '#0275d8',
-                ],
-                borderColor: [
-                    '#0275d8',
-                ],
-                borderWidth: 1
-              },
-              {
-                label: 'Gustavo',
-                data: [],
-                backgroundColor: [
-                    '#292b2c',
-                ],
-                borderColor: [
-                    '#292b2c',
-                ],
-                borderWidth: 1
-              },
-              {
-                label: 'Geral',
-                data: [],
-                backgroundColor: [
-                    '#e2a24e',
-                ],
-                borderColor: [
-                    '#e2a24e',
-                ],
-                borderWidth: 1
-              }
-            
-            ],
-          
-      },        
-        options: {
-          responsive: true,
-          plugins: {
-            legend: {
-              position: 'top',
-            },
-            title: {
-              display: true,
-              text: 'Hístórico de Médias (*Em construção*)'
-            }
-          }
-          
-        }
-    });
-    </script>
 
 
   <script>
-    //Motrar nome da equipe
+    //Mostrar nome da equipe
     function equipe(){
 			var len = document.getElementsByClassName("equipe").length;
 			for (i = 0; i < len; i++){
