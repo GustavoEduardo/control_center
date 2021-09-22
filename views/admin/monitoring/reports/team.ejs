@@ -14,7 +14,20 @@
     height: 150px;
     padding: 5px 5px 0 10px;
     margin-bottom: 2px;
+    background-color: #2982ac;
 
+  }
+  .integrantes-equipe{
+    height: 150px;
+    padding: 5px 5px 0 10px;
+    margin: 10px 0 0 5px;
+    margin-top: 20px;
+
+  }
+ 
+  a{
+    color: rgb(49, 49, 49);
+    text-decoration: none;
   }
  
 </style>
@@ -26,7 +39,7 @@
 		<div class="container-table100">			
 			<div   class="wrap-table100">        
                 
-            <div style="background-color: white; padding: 15px 5px;" class="">
+            <div style="background-color: white; padding: 15px 5px;">
 
               <nav class="navbar navbar-light bg-secondary mb-3">
                
@@ -40,30 +53,59 @@
                 </form>
               </nav>
               
-              <div class="medias-equipes row">
-                <div style=" background-color: #2982ac;" class="col-md-6 mr-1 media-equipe">
-                    <h4><%=team%></h4>
+              <div class="medias-equipes row">             
+
+                <div class="col-md-6 mr-5">
+                  <div class=" media-equipe">
+                    <h4 class="equipe"><%=team%></h4>
                     <hr>
                     <span>Média no período</span>
-                    <h3><%=media%></h3>                
+                    <h3><%=media%></h3>
+                  </div> 
+                  
+                  <div class="integrantes-equipe">
+                    <h3>Vendedores</h3>
+                    <p>Clique no nome para mais detalhes</p>
+                    <hr>
+                    <table>
+                      <thead>
+                        <th>Nome</th>
+                        <th>Média no periodo</th>
+                      </thead>
+                      <tbody>
+                        
+                          <% sellers.forEach( s=> { %>
+                            <tr>
+                              <td>
+                                <a href="/admin/monitoring/report/seller/<%= s.id %>"><span class="h5"><%=s.name%></span></a><br>
+                              </td>
+                              <td>
+                                00
+                              </td>
+                            </tr>                            
+                          <%})%> 
+                        
+                      </tbody>
+                    </table>
+                   
+                  </div>
                 </div>
-                <div class="col-md-5 mr-4"  >
+
+                <div class="col-md-5 "  >
                   <canvas  id="ofensores" width="150" height="150"></canvas>
                   
-              </div>
+                </div>
+
 
               </div>
+
+              
               <hr>
-              <div class="row">
-                  
-                  <div class="col-md-12" >
-                     
-
-                  </div>  
-              </div>
+              
           </div>
 			</div>
     </div>
+
     <!--Média Ofensores-->
     <input type="hidden" value="<%=of1%>" id="of1">
     <input type="hidden" value="<%=of2%>" id="of2">
@@ -81,7 +123,7 @@
     <input type="hidden" value="<%=of14%>" id="of14">
 </div>
 
-    <script>
+  <script>
       var of1 = document.getElementById("of1").value;
       var of2 = document.getElementById("of2").value;
       var of3 = document.getElementById("of3").value;
@@ -98,74 +140,75 @@
       var of14 = document.getElementById("of14").value;
   
 
-    var ctx = document.getElementById('ofensores');
-    var myChart = new Chart(ctx, {
-        type: 'doughnut',
-        data: {
-            labels: ['Abordagem', 'Fechamento', 'Ausente', 'Empatia', 'Seguro', 'Giria', 'Objetivo','Conhecimento','Sondagem','Argumento','Negociacao','Ética','Falta Cordialidade','Risco'],
-            datasets: [{
-                label: '# of Votes',
-                data: [of1,of2,of3,of4,of5,of6,of7,of8,of9,of10,of11,of12,of13,of14],
-                backgroundColor: [
-                    'rgba(255, 99, 132)',
-                    'rgba(54, 162, 235)',
-                    'rgba(255, 206, 86)',
-                    'rgba(75, 192, 192)',
-                    'rgba(153, 102, 255)',
-                    'rgba(255, 159, 64)',
-                    '#0205d8',
-                    '#d96848',
-                    '#027518',
-                    '#9275d8',
-                    '#022511',
-                    '#0266d8',
-                    '#5250d8',
-                    '#1436d8'
-                ],
-                borderWidth: 1
-            }]
-        },
-        options: {
-          plugins: {
-              title: {
-                display: true,
-                text: 'Média Geral por ofensores em %',
-              }
-          },
+  
+      const data = {
+        labels: [
+        'Abordagem', 
+        'Fechamento',
+        'Ausência', 
+        'Empatia',
+        'Segurança', 
+        'Giria', 
+        'Objetivo',
+        'Conhecimento',
+        'Sondagem',
+        'Argumento',
+        'Negociacao',
+        'Ética',
+        'Falta Cordialidade',
+        'Risco'
+        ],
+        datasets: [{
+          label: 'Média Geral',
+          data: [20, 20, 20, 20, 20, 20, 20,20,20,20,20,5,5,5],
+          fill: true,
+          backgroundColor: 'rgba(255, 165, 0, 0.2)',
+          borderColor: 'rgb(255, 165, 0)',
+          pointBackgroundColor: 'rgb(255, 165, 0)',
+          pointBorderColor: '#fff',
+          pointHoverBackgroundColor: '#fff',
+          pointHoverBorderColor: 'rgb(255, 165, 0)',
+          
+        }, {
+          label: 'Porcentagem ideal',
+          data: [of1, of2, of3, of4, of5, of6, of7,of8,of9,of10,of11,of12,of13,of14],
+          fill: true,
+          backgroundColor: 'rgba(54, 162, 235, 0.2)',
+          borderColor: 'rgb(54, 162, 235)',
+          pointBackgroundColor: 'rgb(54, 162, 235)',
+          pointBorderColor: '#fff',
+          pointHoverBackgroundColor: '#fff',
+          pointHoverBorderColor: 'rgb(54, 162, 235)'
+        }]
+      };
+
+    const config = {
+      type: 'radar',
+      data: data,
+      options: {
+        elements: {
+          line: {
+            borderWidth: 3
+          }
         }
-    });
-    </script>
+      },
+    };
+    
+
+    var myChart = new Chart(
+      document.getElementById('ofensores'),
+      config
+    );
+  </script>
 
   <script>
-    //Função para preencher o campo da data
-    function data(){
-			var date = document.getElementById("dataAtendimento");
-      var newDate = new Date(date.value);
-      if(newDate.getMonth() < 9){//9 = outubro
-        if(newDate.getDate() < 10){
-          var d = "0"+newDate.getDate()+"/0"+(newDate.getMonth()+1)+"/"+newDate.getFullYear();
-        }else{
-          var d = newDate.getDate()+"/0"+(newDate.getMonth()+1)+"/"+newDate.getFullYear();
-        }
-      }else{
-        if(newDate.getDate() < 10){
-          var d = "0"+newDate.getDate()+"/"+(newDate.getMonth()+1)+"/"+newDate.getFullYear();;
-        }else{
-          var d = newDate.getDate()+"/0"+(newDate.getMonth()+1)+"/"+newDate.getFullYear();
-        }
-      }
-      var dtAtendimento = document.getElementById("dtAtendimento")
-      dtAtendimento.innerHTML = d;
-		}
-		
-		data();
-
     //Motrar nome da equipe
     function equipe(){
 			var len = document.getElementsByClassName("equipe").length;
+      
 			for (i = 0; i < len; i++){
 				var equipe = document.getElementsByClassName("equipe")[i];
-				if(equipe.innerHTML == "01"){
+       	if(equipe.innerHTML == "01"){
 					equipe.innerHTML = "Felipe";
 				}else if(equipe.innerHTML == "02"){
 					equipe.innerHTML = "Camila";

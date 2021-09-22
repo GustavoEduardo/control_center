@@ -54,6 +54,7 @@ function dia1Str(){
 }
 
 
+
 module.exports = {
 	diaMaisUm,
     diaMaisUmSearch,

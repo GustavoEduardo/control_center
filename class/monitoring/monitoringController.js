@@ -939,13 +939,20 @@ router.get("/admin/monitoring/report/:team",  adminAuth, (req,res)=>{
 		}else{
 			var media = nota/ qtd;
 		}
-		
-		res.render('admin/monitoring/reports/team', {
-			dtInicial, dtFinal: hoje,media,team,
-			of1,of2,of3,of4,of5,of6,of7,of8,of9,of10,of11,of12,of13,of14,
-			media: media.toFixed(2),adm: req.session.adm
-		});
 
+		Seller.findAll({
+			order:[
+				['updatedAt','DESC'] //ASC
+			],
+			where: { team: team }
+			
+		}).then(sellers => {
+			res.render('admin/monitoring/reports/team', {
+				dtInicial, dtFinal: hoje,media,team,
+				of1,of2,of3,of4,of5,of6,of7,of8,of9,of10,of11,of12,of13,of14,
+				media: media.toFixed(2),adm: req.session.adm, sellers
+			});
+		});
 		//res.json(monitorings)
 
 	});
@@ -958,7 +965,7 @@ router.get("/admin/monitoring/report/:team",  adminAuth, (req,res)=>{
 router.post("/admin/monitoring/report/team",  adminAuth, (req,res)=>{
 	let team = req.body.team;
 	var dtInicial = req.body.dtInicial;
-	var dtFinal =datas.diaMaisUm(req.body.dtFinal);
+	var dtFinal = datas.diaMaisUm(req.body.dtFinal);
 	
 	const Op = Sequelize.Op;
 
@@ -1068,18 +1075,33 @@ router.post("/admin/monitoring/report/team",  adminAuth, (req,res)=>{
 		}else{
 			var media = nota/ qtd;
 		}
-		
-		res.render('admin/monitoring/reports/team', {
-			dtInicial, dtFinal,media,team,
-			of1,of2,of3,of4,of5,of6,of7,of8,of9,of10,of11,of12,of13,of14,
-			media: media.toFixed(2),adm: req.session.adm
-		});
+
+		Seller.findAll({
+			order:[
+				['updatedAt','DESC'] //ASC
+			],
+			where: { team: team }
+			
+		}).then(sellers => {
+
+			res.render('admin/monitoring/reports/team', {
+				dtInicial, dtFinal: req.body.dtFinal,media,team,
+				of1,of2,of3,of4,of5,of6,of7,of8,of9,of10,of11,of12,of13,of14,
+				media: media.toFixed(2),adm: req.session.adm, sellers
+			});
+
+		})
 
 	});
 
+
 	
-	
-	
+})
+
+//Relatório por vendedor
+router.get("/admin/monitoring/report/seller/:id", adminAuth, (req, res)=>{
+
+	res.render('admin/monitoring/reports/seller')
 })
 
 
