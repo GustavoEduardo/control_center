@@ -37,8 +37,7 @@
 					<div class="form-group  col-sm-2">
 						<label for="foto">Parcelas</label>
 						<input id="parcela" onchange="umAdoze()" type="number" max="12" min="1" placeholder="Parcelas" class="form-control" style="border: none;" />
-					</div>		  
-
+					</div>		
 				</div>
 				
 				<div class="table100">
@@ -116,8 +115,14 @@
 			</div>
 		</div>
 	</div>
+	
 
 	<%- include ("partials/footer1.ejs"); %>
+
+	<script>
+		preencheParcela()
+
+	</script>
 
 
 </body>

@@ -55,48 +55,33 @@
               
               <div class="medias-equipes row">             
 
-                <div class="col-md-6 mr-5">
+                <div class="col-md-3">
                   <div class=" media-equipe">
                     <h4 class="equipe"><%=team%></h4>
                     <hr>
                     <span>Média no período</span>
                     <h3><%=media%></h3>
-                  </div> 
-                  
-                  <div class="integrantes-equipe">
-                    <h3>Vendedores</h3>
-                    <p>Clique no nome para mais detalhes</p>
-                    <hr>
-                    <table>
-                      <thead>
-                        <th>Nome</th>
-                        <th>Média no periodo</th>
-                      </thead>
-                      <tbody>
-                        
-                          <% sellers.forEach( s=> { %>
-                            <tr>
-                              <td>
-                                <a href="/admin/monitoring/report/seller/<%= s.id %>"><span class="h5"><%=s.name%></span></a><br>
-                              </td>
-                              <td>
-                                00
-                              </td>
-                            </tr>                            
-                          <%})%> 
-                        
-                      </tbody>
-                    </table>
                    
-                  </div>
+                  </div> 
                 </div>
-
-                <div class="col-md-5 "  >
+                <div class="col-md-5 ml-3 mr-4">
                   <canvas  id="ofensores" width="150" height="150"></canvas>
                   
                 </div>
 
+                <div class="col-md-3 ml-5">
+                  <h3>Vendedores</h3>
+                  <p>Clique para mais detalhes</p>
+                    <hr>
+                    <% sellers.forEach( s=> { %>                            
+                      <a href="/admin/monitoring/report/seller/<%= s.id %>">
+                        <span class="h6"><%=s.name%></span>
+                      </a><br>
+                                           
+                    <%})%>                  
 
+                </div>
+                
               </div>
 
               
@@ -159,7 +144,7 @@
         'Risco'
         ],
         datasets: [{
-          label: 'Média Geral',
+          label: 'Porcentagem Ideal',
           data: [20, 20, 20, 20, 20, 20, 20,20,20,20,20,5,5,5],
           fill: true,
           backgroundColor: 'rgba(255, 165, 0, 0.2)',
@@ -170,7 +155,7 @@
           pointHoverBorderColor: 'rgb(255, 165, 0)',
           
         }, {
-          label: 'Porcentagem ideal',
+          label: 'Porcentagem de apontamentos',
           data: [of1, of2, of3, of4, of5, of6, of7,of8,of9,of10,of11,of12,of13,of14],
           fill: true,
           backgroundColor: 'rgba(54, 162, 235, 0.2)',

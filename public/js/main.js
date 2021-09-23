@@ -40,6 +40,28 @@ function umAdoze(){
 }
 
 
+function preencheParcela(){
+    var parcela = document.getElementById("parcela").value;
+    
+    if(parcela == ""){
+    
+        document.getElementById("parcela").value = "12";
+
+        var x = document.getElementsByClassName("qtdParcB").length;
+        for (i = 0; i < x; i++){
+            document.getElementsByClassName("qtdParcC")[i].innerHTML = "12";
+            document.getElementsByClassName("qtdParcB")[i].innerHTML = "6";
+        }
+
+        parcela == "12";
+        defineValorParcela(12);                
+       
+    }
+
+}
+    
+
+
 function defineValorParcela(y){
     var x = Math.floor(y);
    

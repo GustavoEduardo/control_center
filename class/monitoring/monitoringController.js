@@ -931,7 +931,12 @@ router.get("/admin/monitoring/report/:team",  adminAuth, (req,res)=>{
 		monitorings.forEach(m => {				
 			nota = nota + m.nota
 			qtd ++				
-		});			
+		});
+		
+		//atribuir notas dos vendedores
+		monitorings.forEach(m => {				
+							
+		});
 
 		//Define média da equipe e evitando NaN
 		if(nota == 0){
@@ -1101,7 +1106,8 @@ router.post("/admin/monitoring/report/team",  adminAuth, (req,res)=>{
 //Relatório por vendedor
 router.get("/admin/monitoring/report/seller/:id", adminAuth, (req, res)=>{
 
-	res.render('admin/monitoring/reports/seller')
+
+	res.render('admin/monitoring/reports/seller',{adm: req.body.adm})
 })
 
 

@@ -123,14 +123,16 @@
 
 	<%- include ("../../partials/footer1.ejs"); %>
 	<script>
+
+	preencheParcela()
 	
-		function confirmaExclusao(event, form){
-			event.preventDefault();//não executa o evento.
-			var decision = confirm("Quer mesmo deletar esse item?");//Caixa com opção ok ou cancelar
-			if(decision){
-				form.submit();
-			}
+	function confirmaExclusao(event, form){
+		event.preventDefault();//não executa o evento.
+		var decision = confirm("Quer mesmo deletar esse item?");//Caixa com opção ok ou cancelar
+		if(decision){
+			form.submit();
 		}
+	}
 	</script>
 
 </body>
