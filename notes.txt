@@ -1,5 +1,9 @@
 Tarefas:
 
+filtro de monitoria filtrando ex integrantes*
+Média no index correta.
+Média na tela da equipe contendo ex inegrantes*
+
 
 Ralatórios
 Ofensores por equipe,

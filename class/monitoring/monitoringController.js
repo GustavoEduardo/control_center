@@ -933,11 +933,7 @@ router.get("/admin/monitoring/report/:team",  adminAuth, (req,res)=>{
 			qtd ++				
 		});
 		
-		//atribuir notas dos vendedores
-		monitorings.forEach(m => {				
-							
-		});
-
+		
 		//Define média da equipe e evitando NaN
 		if(nota == 0){
 			var media = 0;
