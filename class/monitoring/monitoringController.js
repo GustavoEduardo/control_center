@@ -840,8 +840,7 @@ router.get("/admin/monitoring/report/:team",  adminAuth, (req,res)=>{
 		include:[{model: Seller}],
 		where: {
 			dtMonitoria:{
-				[Op.between]: [dtInicial, dtFinal]},
-				[Op.and]: {equipe: team}
+				[Op.between]: [dtInicial, dtFinal]}
 			},
 	}).then(monitorings => {
 		//inicializando variaveis
@@ -865,73 +864,76 @@ router.get("/admin/monitoring/report/:team",  adminAuth, (req,res)=>{
 
 		//definindo qtd de apontamentos negativos para cada ofensor
 		monitorings.forEach(m=>{
-			if(m.abordagem == "nao"){
+			if(m.abordagem == "nao" && m.seller.team == team){
+				//se o fensor for negativo (apontado) e a equipe for a selecionada...
 				of1++
 			}
-			if(m.fechamento == "nao"){
+			if(m.fechamento == "nao" && m.seller.team == team){
 				of2++
 			}
-			if(m.ausente == "nao"){
+			if(m.ausente == "nao" && m.seller.team == team){
 				of3++
 			}
-			if(m.empatia == "nao"){
+			if(m.empatia == "nao" && m.seller.team == team){
 				of4++
 			}
-			if(m.seguro == "nao"){
+			if(m.seguro == "nao" && m.seller.team == team){
 				of5++
 			}
-			if(m.giria == "sim"){
+			if(m.giria == "sim" && m.seller.team == team){
 				of6++
 			}
-			if(m.objetivo == "nao"){
+			if(m.objetivo == "nao" && m.seller.team == team){
 				of7++
 			}
-			if(m.conhecimento == "nao"){
+			if(m.conhecimento == "nao" && m.seller.team == team){
 				of8++
 			}
-			if(m.sondagem == "nao"){
+			if(m.sondagem == "nao" && m.seller.team == team){
 				of9++
 			}
-			if(m.argumento == "nao"){
+			if(m.argumento == "nao" && m.seller.team == team){
 				of10++
 			}
-			if(m.negociacao == "nao"){
+			if(m.negociacao == "nao" && m.seller.team == team){
 				of11++
 			}
-			if(m.etica == "nao"){
+			if(m.etica == "nao" && m.seller.team == team){
 				of12++
 			}
-			if(m.faltaCordialidade == "sim"){
+			if(m.faltaCordialidade == "sim" && m.seller.team == team){
 				of13++
 			}
-			if(m.risco == "sim"){
+			if(m.risco == "sim" && m.seller.team == team){
 				of14++
 			}
 
 		})
 
-		var qtdM = monitorings.length;//qtd de monitorias no período informado
-		//definindo porcentagem de apontamentos negativos de cada ofensor
-		of1 = ((of1*100)/qtdM).toFixed(2);
-		of2 = ((of2*100)/qtdM).toFixed(2);
-		of3 = ((of3*100)/qtdM).toFixed(2);
-		of4 = ((of4*100)/qtdM).toFixed(2);
-		of5 = ((of5*100)/qtdM).toFixed(2);
-		of6 = ((of6*100)/qtdM).toFixed(2);
-		of7 = ((of7*100)/qtdM).toFixed(2);
-		of8 = ((of8*100)/qtdM).toFixed(2);
-		of9 = ((of9*100)/qtdM).toFixed(2);
-		of10 = ((of10*100)/qtdM).toFixed(2);
-		of11 = ((of11*100)/qtdM).toFixed(2);
-		of12 = ((of12*100)/qtdM).toFixed(2);
-		of13 = ((of13*100)/qtdM).toFixed(2);
-		of14 = ((of14*100)/qtdM).toFixed(2);
-
-		//atribuir notas da equipe
-		monitorings.forEach(m => {				
-			nota = nota + m.nota
-			qtd ++				
+		//atribuir nota da equipe selecionada
+		monitorings.forEach(m => {
+			if(m.seller.team == team){
+				nota = nota + m.nota
+				qtd ++
+			}
 		});
+
+		//definindo porcentagem de apontamentos negativos de cada ofensor
+		of1 = ((of1*100)/qtd).toFixed(2);
+		of2 = ((of2*100)/qtd).toFixed(2);
+		of3 = ((of3*100)/qtd).toFixed(2);
+		of4 = ((of4*100)/qtd).toFixed(2);
+		of5 = ((of5*100)/qtd).toFixed(2);
+		of6 = ((of6*100)/qtd).toFixed(2);
+		of7 = ((of7*100)/qtd).toFixed(2);
+		of8 = ((of8*100)/qtd).toFixed(2);
+		of9 = ((of9*100)/qtd).toFixed(2);
+		of10 = ((of10*100)/qtd).toFixed(2);
+		of11 = ((of11*100)/qtd).toFixed(2);
+		of12 = ((of12*100)/qtd).toFixed(2);
+		of13 = ((of13*100)/qtd).toFixed(2);
+		of14 = ((of14*100)/qtd).toFixed(2);
+	
 		
 		
 		//Define média da equipe e evitando NaN
@@ -977,8 +979,7 @@ router.post("/admin/monitoring/report/team",  adminAuth, (req,res)=>{
 		include:[{model: Seller}],
 		where: {
 			dtMonitoria:{
-				[Op.between]: [dtInicial, dtFinal]},
-				[Op.and]: {equipe: team}
+				[Op.between]: [dtInicial, dtFinal]}
 			},
 	}).then(monitorings => {
 		//inicializando variaveis
@@ -1002,73 +1003,76 @@ router.post("/admin/monitoring/report/team",  adminAuth, (req,res)=>{
 
 		//definindo qtd de apontamentos negativos para cada ofensor
 		monitorings.forEach(m=>{
-			if(m.abordagem == "nao"){
+			if(m.abordagem == "nao" && m.seller.team == team){
+				//se o fensor for negativo (apontado) e a equipe for a selecionada...
 				of1++
 			}
-			if(m.fechamento == "nao"){
+			if(m.fechamento == "nao" && m.seller.team == team){
 				of2++
 			}
-			if(m.ausente == "nao"){
+			if(m.ausente == "nao" && m.seller.team == team){
 				of3++
 			}
-			if(m.empatia == "nao"){
+			if(m.empatia == "nao" && m.seller.team == team){
 				of4++
 			}
-			if(m.seguro == "nao"){
+			if(m.seguro == "nao" && m.seller.team == team){
 				of5++
 			}
-			if(m.giria == "sim"){
+			if(m.giria == "sim" && m.seller.team == team){
 				of6++
 			}
-			if(m.objetivo == "nao"){
+			if(m.objetivo == "nao" && m.seller.team == team){
 				of7++
 			}
-			if(m.conhecimento == "nao"){
+			if(m.conhecimento == "nao" && m.seller.team == team){
 				of8++
 			}
-			if(m.sondagem == "nao"){
+			if(m.sondagem == "nao" && m.seller.team == team){
 				of9++
 			}
-			if(m.argumento == "nao"){
+			if(m.argumento == "nao" && m.seller.team == team){
 				of10++
 			}
-			if(m.negociacao == "nao"){
+			if(m.negociacao == "nao" && m.seller.team == team){
 				of11++
 			}
-			if(m.etica == "nao"){
+			if(m.etica == "nao" && m.seller.team == team){
 				of12++
 			}
-			if(m.faltaCordialidade == "sim"){
+			if(m.faltaCordialidade == "sim" && m.seller.team == team){
 				of13++
 			}
-			if(m.risco == "sim"){
+			if(m.risco == "sim" && m.seller.team == team){
 				of14++
 			}
 
 		})
 
-		var qtdM = monitorings.length;//qtd de monitorias no período informado
-		//definindo porcentagem de apontamentos negativos de cada ofensor
-		of1 = ((of1*100)/qtdM).toFixed(2);
-		of2 = ((of2*100)/qtdM).toFixed(2);
-		of3 = ((of3*100)/qtdM).toFixed(2);
-		of4 = ((of4*100)/qtdM).toFixed(2);
-		of5 = ((of5*100)/qtdM).toFixed(2);
-		of6 = ((of6*100)/qtdM).toFixed(2);
-		of7 = ((of7*100)/qtdM).toFixed(2);
-		of8 = ((of8*100)/qtdM).toFixed(2);
-		of9 = ((of9*100)/qtdM).toFixed(2);
-		of10 = ((of10*100)/qtdM).toFixed(2);
-		of11 = ((of11*100)/qtdM).toFixed(2);
-		of12 = ((of12*100)/qtdM).toFixed(2);
-		of13 = ((of13*100)/qtdM).toFixed(2);
-		of14 = ((of14*100)/qtdM).toFixed(2);
-
-		//atribuir notas da equipe
+		//atribuir nota da equipe selecionada
 		monitorings.forEach(m => {				
-			nota = nota + m.nota
-			qtd ++				
-		});			
+			if(m.seller.team == team){
+				nota = nota + m.nota
+				qtd ++
+			}				
+		});	
+
+		//definindo porcentagem de apontamentos negativos de cada ofensor
+		of1 = ((of1*100)/qtd).toFixed(2);
+		of2 = ((of2*100)/qtd).toFixed(2);
+		of3 = ((of3*100)/qtd).toFixed(2);
+		of4 = ((of4*100)/qtd).toFixed(2);
+		of5 = ((of5*100)/qtd).toFixed(2);
+		of6 = ((of6*100)/qtd).toFixed(2);
+		of7 = ((of7*100)/qtd).toFixed(2);
+		of8 = ((of8*100)/qtd).toFixed(2);
+		of9 = ((of9*100)/qtd).toFixed(2);
+		of10 = ((of10*100)/qtd).toFixed(2);
+		of11 = ((of11*100)/qtd).toFixed(2);
+		of12 = ((of12*100)/qtd).toFixed(2);
+		of13 = ((of13*100)/qtd).toFixed(2);
+		of14 = ((of14*100)/qtd).toFixed(2);
+		
 
 		//Define média da equipe e evitando NaN
 		if(nota == 0){
