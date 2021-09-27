@@ -163,7 +163,7 @@ const Monitoring = connection.define('monitorings',{
 
 });
 
-//relacionamento
+//relacionamento campo sellerId
 Seller.hasMany(Monitoring);
 Monitoring.belongsTo(Seller);
 

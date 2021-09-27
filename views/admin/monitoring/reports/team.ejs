@@ -174,12 +174,12 @@
         elements: {
           line: {
             borderWidth: 3
-          }
+          },
         }
       },
     };
     
-
+    Chart.defaults.font.size = 14;//tamanho padrão
     var myChart = new Chart(
       document.getElementById('ofensores'),
       config
@@ -187,7 +187,7 @@
   </script>
 
   <script>
-    //Motrar nome da equipe
+    //Mostrar nome da equipe
     function equipe(){
 			var len = document.getElementsByClassName("equipe").length;
       

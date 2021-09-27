@@ -666,8 +666,6 @@ router.post("/admin/monitoring/reports", adminAuth, (req, res)=>{
 	let dtInicial = req.body.dtInicial;
 	let dtFinal = datas.diaMaisUmSearch(req.body.dtFinal);
 
-	console.log("Inicial "+dtInicial)
-	console.log("Final "+dtFinal)
 
 	if(dtInicial != undefined && dtFinal != undefined){
 		const Op = Sequelize.Op;
@@ -1106,10 +1104,272 @@ router.post("/admin/monitoring/report/team",  adminAuth, (req,res)=>{
 //Relatório por vendedor
 router.get("/admin/monitoring/report/seller/:id", adminAuth, (req, res)=>{
 
+	let sellerId = req.params.id;
+	var dtInicial = datas.dia1Str();
+	var hoje = datas.hojeStr();
+	var dtFinal = datas.diaMaisUmSearch(hoje);
+	
+	const Op = Sequelize.Op;
 
-	res.render('admin/monitoring/reports/seller',{adm: req.body.adm})
+	//where com sequelize funcionando
+	Monitoring.findAll({
+		order:[
+			['updatedAt','DESC'] //ASC
+		],
+		include:[{model: Seller}],
+		where: {
+			dtMonitoria:{
+				[Op.between]: [dtInicial, dtFinal]},
+				[Op.and]: {sellerId: sellerId}
+			},
+	}).then(monitorings => { 
+		//inicializando variaveis
+		var nota = 0;
+		var qtd =0;		
+
+		var of1 = 0;
+		var of2 = 0;
+		var of3 = 0;
+		var of4 = 0;
+		var of5 = 0;
+		var of6 = 0;
+		var of7 = 0;
+		var of8 = 0;
+		var of9 = 0;
+		var of10 = 0;
+		var of11 = 0;
+		var of12 = 0;
+		var of13 = 0;
+		var of14 = 0;
+
+		//definindo qtd de apontamentos negativos para cada ofensor
+		monitorings.forEach(m=>{
+			if(m.abordagem == "nao"){
+				//se o fensor for negativo (apontado) e a equipe for a selecionada...
+				of1++
+			}
+			if(m.fechamento == "nao"){
+				of2++
+			}
+			if(m.ausente == "nao"){
+				of3++
+			}
+			if(m.empatia == "nao"){
+				of4++
+			}
+			if(m.seguro == "nao"){
+				of5++
+			}
+			if(m.giria == "sim"){
+				of6++
+			}
+			if(m.objetivo == "nao"){
+				of7++
+			}
+			if(m.conhecimento == "nao"){
+				of8++
+			}
+			if(m.sondagem == "nao"){
+				of9++
+			}
+			if(m.argumento == "nao"){
+				of10++
+			}
+			if(m.negociacao == "nao"){
+				of11++
+			}
+			if(m.etica == "nao"){
+				of12++
+			}
+			if(m.faltaCordialidade == "sim"){
+				of13++
+			}
+			if(m.risco == "sim"){
+				of14++
+			}
+
+		})
+
+		//atribuir nota ao vendedor
+		monitorings.forEach(m => {
+			nota = nota + m.nota
+			qtd ++			
+		});
+
+		//definindo porcentagem de apontamentos negativos de cada ofensor
+		of1 = ((of1*100)/qtd).toFixed(2);
+		of2 = ((of2*100)/qtd).toFixed(2);
+		of3 = ((of3*100)/qtd).toFixed(2);
+		of4 = ((of4*100)/qtd).toFixed(2);
+		of5 = ((of5*100)/qtd).toFixed(2);
+		of6 = ((of6*100)/qtd).toFixed(2);
+		of7 = ((of7*100)/qtd).toFixed(2);
+		of8 = ((of8*100)/qtd).toFixed(2);
+		of9 = ((of9*100)/qtd).toFixed(2);
+		of10 = ((of10*100)/qtd).toFixed(2);
+		of11 = ((of11*100)/qtd).toFixed(2);
+		of12 = ((of12*100)/qtd).toFixed(2);
+		of13 = ((of13*100)/qtd).toFixed(2);
+		of14 = ((of14*100)/qtd).toFixed(2);
+	
+		
+		
+		//Define média da vendedor e evita NaN
+		if(nota == 0){
+			var media = 0;
+		}else{
+			var media = nota/ qtd;
+		}
+
+		Seller.findOne({
+			where: {id: sellerId}	
+		}).then(s=>{
+			res.render('admin/monitoring/reports/seller', {
+				dtInicial, dtFinal: hoje,media,
+				of1,of2,of3,of4,of5,of6,of7,of8,of9,of10,of11,of12,of13,of14,
+				media: media.toFixed(2),adm: req.session.adm, vendedor: s.name, id:sellerId
+			});
+
+		})
+
+	});
+
 })
 
+//Relatório por vendedor por periodo informado
+router.post("/admin/monitoring/report/seller", adminAuth, (req, res)=>{
+
+	let dtInicial = req.body.dtInicial;
+	let dtFinal = datas.diaMaisUmSearch(req.body.dtFinal);
+	let sellerId = req.body.id;
+	var hoje = datas.hojeStr();
+	
+	const Op = Sequelize.Op;
+
+	//where com sequelize funcionando
+	Monitoring.findAll({
+		order:[
+			['updatedAt','DESC'] //ASC
+		],
+		include:[{model: Seller}],
+		where: {
+			dtMonitoria:{
+				[Op.between]: [dtInicial, dtFinal]},
+				[Op.and]: {sellerId: sellerId}
+			},
+	}).then(monitorings => { 
+		//inicializando variaveis
+		var nota = 0;
+		var qtd =0;		
+
+		var of1 = 0;
+		var of2 = 0;
+		var of3 = 0;
+		var of4 = 0;
+		var of5 = 0;
+		var of6 = 0;
+		var of7 = 0;
+		var of8 = 0;
+		var of9 = 0;
+		var of10 = 0;
+		var of11 = 0;
+		var of12 = 0;
+		var of13 = 0;
+		var of14 = 0;
+
+		//definindo qtd de apontamentos negativos para cada ofensor
+		monitorings.forEach(m=>{
+			if(m.abordagem == "nao"){
+				//se o fensor for negativo (apontado) e a equipe for a selecionada...
+				of1++
+			}
+			if(m.fechamento == "nao"){
+				of2++
+			}
+			if(m.ausente == "nao"){
+				of3++
+			}
+			if(m.empatia == "nao"){
+				of4++
+			}
+			if(m.seguro == "nao"){
+				of5++
+			}
+			if(m.giria == "sim"){
+				of6++
+			}
+			if(m.objetivo == "nao"){
+				of7++
+			}
+			if(m.conhecimento == "nao"){
+				of8++
+			}
+			if(m.sondagem == "nao"){
+				of9++
+			}
+			if(m.argumento == "nao"){
+				of10++
+			}
+			if(m.negociacao == "nao"){
+				of11++
+			}
+			if(m.etica == "nao"){
+				of12++
+			}
+			if(m.faltaCordialidade == "sim"){
+				of13++
+			}
+			if(m.risco == "sim"){
+				of14++
+			}
+
+		})
+
+		//atribuir nota ao vendedor
+		monitorings.forEach(m => {
+			nota = nota + m.nota
+			qtd ++			
+		});
+
+		//definindo porcentagem de apontamentos negativos de cada ofensor
+		of1 = ((of1*100)/qtd).toFixed(2);
+		of2 = ((of2*100)/qtd).toFixed(2);
+		of3 = ((of3*100)/qtd).toFixed(2);
+		of4 = ((of4*100)/qtd).toFixed(2);
+		of5 = ((of5*100)/qtd).toFixed(2);
+		of6 = ((of6*100)/qtd).toFixed(2);
+		of7 = ((of7*100)/qtd).toFixed(2);
+		of8 = ((of8*100)/qtd).toFixed(2);
+		of9 = ((of9*100)/qtd).toFixed(2);
+		of10 = ((of10*100)/qtd).toFixed(2);
+		of11 = ((of11*100)/qtd).toFixed(2);
+		of12 = ((of12*100)/qtd).toFixed(2);
+		of13 = ((of13*100)/qtd).toFixed(2);
+		of14 = ((of14*100)/qtd).toFixed(2);
+	
+		
+		
+		//Define média da vendedor e evita NaN
+		if(nota == 0){
+			var media = 0;
+		}else{
+			var media = nota/ qtd;
+		}
+
+		Seller.findOne({
+			where: {id: sellerId}	
+		}).then(s=>{
+			res.render('admin/monitoring/reports/seller', {
+				dtInicial, dtFinal: hoje,media,
+				of1,of2,of3,of4,of5,of6,of7,of8,of9,of10,of11,of12,of13,of14,
+				media: media.toFixed(2),adm: req.session.adm, vendedor: s.name, id:sellerId
+			});
+
+		})
+
+	});
+
+})
 
 
 module.exports = router;
