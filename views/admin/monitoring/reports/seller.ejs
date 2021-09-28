@@ -11,7 +11,7 @@
   }
   .media-equipe{
     color: white;
-    height: 150px;
+    height: 180px;
     padding: 5px 5px 0 10px;
     margin-bottom: 2px;
     background-color: #2982ac;
@@ -61,11 +61,15 @@
                     <hr>
                     <span>Média no período</span>
                     <h3><%=media%></h3>
+                    <h6>De <%=qtd%> monitorias</h6>
+                    <hr>
+                    
+                    
                    
                   </div> 
                 </div>
-                <div class="col-md-5 ml-3 mr-4">
-                  <canvas  id="ofensores" width="150" height="150"></canvas>
+                <div class="col-md-8 ml-5">
+                  <canvas  id="ofensores" width="150" height="80"></canvas>
                   
                 </div>
 
@@ -78,7 +82,7 @@
           </div>
 			</div>
     </div>
-
+    
     <!--Média Ofensores-->
     <input type="hidden" value="<%=of1%>" id="of1">
     <input type="hidden" value="<%=of2%>" id="of2">
@@ -97,81 +101,59 @@
 </div>
 
   <script>
-      var of1 = document.getElementById("of1").value;
-      var of2 = document.getElementById("of2").value;
-      var of3 = document.getElementById("of3").value;
-      var of4 = document.getElementById("of4").value;
-      var of5 = document.getElementById("of5").value;
-      var of6 = document.getElementById("of6").value;
-      var of7 = document.getElementById("of7").value;
-      var of8 = document.getElementById("of8").value;
-      var of9 = document.getElementById("of9").value;
-      var of10 = document.getElementById("of10").value;
-      var of11 = document.getElementById("of11").value;
-      var of12 = document.getElementById("of12").value;
-      var of13 = document.getElementById("of13").value;
-      var of14 = document.getElementById("of14").value;
+    var of1 = document.getElementById("of1").value;
+    var of2 = document.getElementById("of2").value;
+    var of3 = document.getElementById("of3").value;
+    var of4 = document.getElementById("of4").value;
+    var of5 = document.getElementById("of5").value;
+    var of6 = document.getElementById("of6").value;
+    var of7 = document.getElementById("of7").value;
+    var of8 = document.getElementById("of8").value;
+    var of9 = document.getElementById("of9").value;
+    var of10 = document.getElementById("of10").value;
+    var of11 = document.getElementById("of11").value;
+    var of12 = document.getElementById("of12").value;
+    var of13 = document.getElementById("of13").value;
+    var of14 = document.getElementById("of14").value;
   
-
-  
-      const data = {
-        labels: [
-        'Abordagem', 
-        'Fechamento',
-        'Ausência', 
-        'Empatia',
-        'Segurança', 
-        'Giria', 
-        'Objetivo',
-        'Conhecimento',
-        'Sondagem',
-        'Argumento',
-        'Negociacao',
-        'Ética',
-        'Falta Cordialidade',
-        'Risco'
-        ],
-        datasets: [{
-          label: 'Porcentagem Ideal',
-          data: [20, 20, 20, 20, 20, 20, 20,20,20,20,20,5,5,5],
-          fill: true,
-          backgroundColor: 'rgba(255, 165, 0, 0.2)',
-          borderColor: 'rgb(255, 165, 0)',
-          pointBackgroundColor: 'rgb(255, 165, 0)',
-          pointBorderColor: '#fff',
-          pointHoverBackgroundColor: '#fff',
-          pointHoverBorderColor: 'rgb(255, 165, 0)',
-          
-        }, {
-          label: 'Porcentagem de apontamentos',
-          data: [of1, of2, of3, of4, of5, of6, of7,of8,of9,of10,of11,of12,of13,of14],
-          fill: true,
-          backgroundColor: 'rgba(54, 162, 235, 0.2)',
-          borderColor: 'rgb(54, 162, 235)',
-          pointBackgroundColor: 'rgb(54, 162, 235)',
-          pointBorderColor: '#fff',
-          pointHoverBackgroundColor: '#fff',
-          pointHoverBorderColor: 'rgb(54, 162, 235)'
-        }]
-      };
-
-    const config = {
-      type: 'radar',
-      data: data,
-      options: {
-        elements: {
-          line: {
-            borderWidth: 3
+    Chart.defaults.font.size = 14;//tamanho padrão
+    var ctx = document.getElementById('ofensores')
+    var myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['Abordagem', 'Fechamento', 'Ausência', 'Empatia', 'Segurança', 'Giria', 'Objetivo','Conhecimento','Sondagem','Argumento','Negociacao','Ética','Falta Cordialidade','Risco'],
+            datasets: [{
+                label: 'Porcentagem',
+                data: [of1,of2,of3,of4,of5,of6,of7,of8,of9,of10,of11,of12,of13,of14],
+                backgroundColor: [
+                    'rgba(22, 99, 132)',                    
+                    'rgba(255,16, 126)',
+                    'rgba(54, 162, 235)',
+                    '#F55E00',
+                    '#525548',
+                    'rgba(255, 159, 64)',
+                    '#739653',
+                    '#d96848',
+                    '#027518',
+                    '#9275d8',
+                    '#022511',
+                    '#442261',
+                    '#000',
+                    '#C02323'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+          plugins: {
+              title: {
+                display: true,
+                text: 'Média Geral de apontamentos em %',
+              }
           },
         }
-      },
-    };
-    
-    Chart.defaults.font.size = 14;//tamanho padrão
-    var myChart = new Chart(
-      document.getElementById('ofensores'),
-      config
-    );
+    });
+
   </script>
 
   <script>

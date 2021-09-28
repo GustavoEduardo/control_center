@@ -5,6 +5,7 @@ function diaMaisUm(dataErrada){
     return data;
 }
 
+//verifica se o parametro está vazio
 function diaMaisUmSearch(dataErrada){
     if(dataErrada == undefined || dataErrada == "" || dataErrada == null){
         var data = new Date();
