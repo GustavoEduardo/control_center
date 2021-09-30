@@ -37,7 +37,11 @@ router.get("/admin/monitorings", adminAuth, (req,res) =>{
 			['updatedAt','DESC'] //ASC
 		]
 	}).then(monitorings=>{
-		Seller.findAll().then(sellers=>{		
+		Seller.findAll({
+			order:[
+				['name','ASC']
+			],
+		}).then(sellers=>{		
 		res.render("admin/monitoring/index",{dtInicial: "", dtFinal: "",team: "",seachAplicada:"",seachSeller: "",ramal: "",monitorings,sellers,adm: req.session.adm});
 		});	
 	});	
@@ -54,7 +58,11 @@ router.post("/admin/monitorings/ramal",adminAuth, (req,res) =>{
 			include:[{model: Seller}],
 			where: { ramal: ramal }})
 		.then(monitorings => {
-			Seller.findAll().then(sellers =>{
+			Seller.findAll({
+				order:[
+					['name','ASC']
+				],
+			}).then(sellers =>{
 				res.render("admin/monitoring/index", {dtInicial: "", dtFinal: "",team: "",seachSeller: "",seachAplicada:"",monitorings,ramal, sellers, adm: req.session.adm});
 			})
 		});
@@ -75,7 +83,11 @@ router.post("/admin/monitorings/aplicada",adminAuth, (req,res) =>{
 				where: { aplicada: aplicada }})
 			.then(monitorings => {
 
-				Seller.findAll().then(sellers =>{
+				Seller.findAll({
+					order:[
+						['name','ASC']
+					],
+				}).then(sellers =>{
 					res.render("admin/monitoring/index", {dtInicial: "", dtFinal: "",team: "",monitorings,seachAplicada,seachSeller: "",ramal: "", sellers, adm: req.session.adm});
 				})
 			});
@@ -93,7 +105,11 @@ router.post("/admin/monitorings/seller",adminAuth, (req,res) =>{
 	}else{
 		Monitoring.findAll({include:[{model: Seller}], where: { sellerId: seller } })
 		.then(monitorings => {
-			Seller.findAll().then(sellers =>{
+			Seller.findAll({
+				order:[
+					['name','ASC']
+				],
+			}).then(sellers =>{
 				Seller.findOne({where: {id: seller}}).then(s =>{
 					seachSeller = s.name;
 					res.render("admin/monitoring/index", {dtInicial: "", dtFinal: "",team: "",monitorings, sellers,seachAplicada:"",ramal:"",seachSeller, adm: req.session.adm});
@@ -112,10 +128,14 @@ router.post("/admin/monitorings/team",adminAuth, (req,res) =>{
 	if(team == undefined || team == "" || team == null ){
 		res.redirect("/admin/monitorings");
 	}else{
-		Monitoring.findAll({include:[{model: Seller}], where: { equipe: team } })
+		Monitoring.findAll({include:[{model: Seller}], where: { selle: team } })
 		.then(monitorings => {
 			team = pesquisas.equipe(team);//define o nome para aparecer no campo
-			Seller.findAll().then(sellers =>{
+			Seller.findAll({
+				order:[
+					['name','ASC']
+				],
+			}).then(sellers =>{
 				res.render("admin/monitoring/index", {dtInicial: "", dtFinal: "",team,monitorings,sellersTeam: "", sellers,seachAplicada:"",ramal:"",seachSeller: "", adm: req.session.adm});
 
 			});
@@ -145,7 +165,11 @@ router.post("/admin/monitorings/date", adminAuth, (req, res)=>{
 		})
 		.then(monitorings => {
 
-			Seller.findAll().then(sellers =>{
+			Seller.findAll({
+				order:[
+					['name','ASC']
+				],
+			}).then(sellers =>{
 				res.render("admin/monitoring/index", {dtInicial, dtFinal: req.body.dtFinal,team: "",monitorings,seachAplicada: "",seachSeller: "",ramal: "", sellers, adm: req.session.adm});
 			})
 		});
@@ -155,7 +179,11 @@ router.post("/admin/monitorings/date", adminAuth, (req, res)=>{
 
 //Pagina de Cadastro de nova monitoria
 router.get('/admin/monitoring/new', adminAuth, (req, res) => {
-	Seller.findAll().then(sellers =>{
+	Seller.findAll({
+		order:[
+			['name','ASC']
+		],
+	}).then(sellers =>{
 		res.render("admin/monitoring/new", {adm: req.session.adm,sellers, msg: ""});
 	})
 	
@@ -264,7 +292,7 @@ router.get("/admin/monitoring/adit/:id",  adminAuth, (req, res) =>{
 		where: {id: id}})
 	.then( m =>{
 		Seller.findAll({order:[
-			['updatedAt','DESC'] //ASC
+			['updatedAt','ASC'] //DESC
 		]})
 		.then( sellers =>{
 			res.render("admin/monitoring/edit", {m,sellers, adm: req.session.adm})
@@ -497,14 +525,18 @@ router.post("/applyfeedback", adminAuth,(req, res) =>{
 	})
 });
 
+
+
 //***********************************Relatórios da Monitoria******************************************
+
+
 
 //Relatório geral Mes atual
 router.get("/admin/monitoring/reports", adminAuth, (req, res)=>{
 
 	var dtInicial = datas.dia1Str();
 	var hoje = datas.hojeStr();
-	var dtFinal = datas.diaMaisUmSearch(hoje);
+	var dtFinal = datas.diaMaisUm(new Date());
 
 
 	const Op = Sequelize.Op;
@@ -647,7 +679,8 @@ router.get("/admin/monitoring/reports", adminAuth, (req, res)=>{
 				dtInicial,dtFinal: hoje,
 				of1,of2,of3,of4,of5,of6,of7,of8,of9,of10,of11,of12,of13,of14,
 				media1: media1.toFixed(2),media2: media2.toFixed(2),media3: media3.toFixed(2),mediaGeral: madiaGeral.toFixed(2),
-					adm: req.session.adm});
+				adm: req.session.adm, qtdM
+			});
 
 	});
 
@@ -804,11 +837,14 @@ router.post("/admin/monitoring/reports", adminAuth, (req, res)=>{
 			//definindo média geral
 			var madiaGeral = (media1 +media2 + media3)/3
 			
+			var qtdM = qtd1 + qtd2+ qtd3;
+			
 			res.render('admin/monitoring/reports/index', {
 				dtInicial,dtFinal: req.body.dtFinal,
 				of1,of2,of3,of4,of5,of6,of7,of8,of9,of10,of11,of12,of13,of14,
 				media1: media1.toFixed(2),media2: media2.toFixed(2),media3: media3.toFixed(2),mediaGeral: madiaGeral.toFixed(2),
-				 adm: req.session.adm});
+				adm: req.session.adm, qtdM
+			});
 
 		});
 
@@ -945,7 +981,10 @@ router.get("/admin/monitoring/report/:team",  adminAuth, (req,res)=>{
 			order:[
 				['updatedAt','DESC'] //ASC
 			],
-			where: { team: team }
+			where: { 
+				team: team,
+				[Op.and]: {status: "ativo"}
+				},
 			
 		}).then(sellers => {
 			res.render('admin/monitoring/reports/team', {

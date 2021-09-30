@@ -16,7 +16,7 @@
 							<label for="Search">Pesquise pelo nome</label>	
 							
 							<form class="input-group" method="POST" action="sellers">
-								<input type="search" name="search" class="form-control rounded" placeholder="Digite uma parte do nome aqui" aria-label="Search"/>
+								<input disabled type="search" name="search" class="form-control rounded" placeholder="Digite uma parte do nome aqui" aria-label="Search"/>
 								<div>
 									<button class="btn btn-primary btn-search" type="submit"><i class="fas fa-search"></i></button>
 								</div>
@@ -25,7 +25,7 @@
 						<div class="form-group col-sm-2">
 							<label for="foto">Filtre pela Equipe</label>						
 								<form action="" method="POST">
-									<select id="type" name="type" onchange="this.form.submit()" class="form-control">
+									<select disabled id="type" name="type" onchange="this.form.submit()" class="form-control">
 										<option selected value="team">Equipe</option>
 										<option value="">Todas</option>
 										<option value="01">Fenix</option>
@@ -45,7 +45,7 @@
 							<tr class="table100-head">
 								<th class="column2">Nome</th>
 								<th class="column3">Equipe</th>
-								<th class="column4">Nota</th>								
+								<th class="column4">Login</th>								
 								<th class="column6">Ações</th>
 							</tr>
 						</thead>
@@ -53,8 +53,8 @@
 							<% sellers.forEach(seller =>{ %>
 								<tr>
 									<td class="column2"><%= seller.name %></td>
-									<td class="column3"><%= seller.team %></td>
-									<td class="column4">100</td>
+									<td class="equipe column3"><%= seller.team %></td>
+									<td class="column4"><%= seller.login %></td>
 									<td class="column6" >
                                         <a href="/admin/seller/adit/<%= seller.id %>" class="btn btn-outline-primary " ><i class="fas fa-edit"></i></a><!--/admin/seller/adit/<%= seller.id %>-->
                                     </td>																
@@ -77,6 +77,28 @@
 			}
 		}
 	</script>
+
+<script>
+    //Mostrar nome da equipe
+    function equipe(){
+			var len = document.getElementsByClassName("equipe").length;
+			for (i = 0; i < len; i++){
+				var equipe = document.getElementsByClassName("equipe")[i];
+				if(equipe.innerHTML == "01"){
+					equipe.innerHTML = "Felipe";
+				}else if(equipe.innerHTML == "02"){
+					equipe.innerHTML = "Camila";
+        }else if(equipe.innerHTML == "03"){
+					equipe.innerHTML = "Gustavo";
+        }else{
+          equipe.innerHTML = "Sem Equipe";
+        }			
+			}
+		}
+
+		equipe();
+
+  </script>
 
 </body>
 </html>

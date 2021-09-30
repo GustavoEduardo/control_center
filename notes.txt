@@ -2,18 +2,9 @@ Tarefas:
 
 filtro de monitoria filtrando ex integrantes*
 
+filtro na tela de vendedores:
+Nome e equipe
 
-Ralatórios
-Ofensores por equipe,
-por consultor
-media mensal por equipe
-e por consultor
-
-
-Campo de login do vendedor na tela de cadastro
-Validar se ja existe login
-Filtros tela de vendedores
-Status na tela de editar vendedor
 Definir nova senha na tela de editar vendedor
 
 
@@ -35,11 +26,33 @@ Melhorias
 
 Bug no navbar-collapse do header
 
+Cadastro de item:
 Validação de imagem filter
 Multiplas imagens para kit
 Corretor ortografico tiny
 Tornar Descrição e Argumentos Obrigatórios
 
+
+Dicas*
 Buscas com sequelize
 
 https://sequelize.org/v3/docs/models-usage/
+
+Seller.findAll({
+			order:[
+				['updatedAt','DESC'] //ASC
+			],
+			where: { 
+				team: team,
+				[Op.and]: {status: "ativo"}
+				},
+			
+		}).then(sellers => {...
+
+        ou
+    where: {
+            dtMonitoria:{
+            [Op.between]: [dtInicial, dtFinal]},
+            [Op.and]: {equipe: team}
+            },
+         }).then(monitorings => {

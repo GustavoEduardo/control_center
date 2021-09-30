@@ -18,10 +18,10 @@ router.get("/admin/sellers", adminAuth, (req,res) =>{
 });
 
 
-//cadastrar de novo vendedor
+//tela de cadastro de vendedor
 router.get("/admin/seller/new", adminAuth,  (req,res) =>{
 
-	res.render("admin/seller/new", {adm: "", msg: ""});
+	res.render("admin/seller/new", {adm: req.session.adm, msg: ""});
 
 });
 
@@ -47,27 +47,41 @@ router.post("/createSeller", adminAuth,  (req,res) =>{
 
 		if (seller) {
 
-			res.send("Já existe um vendedor com esse nome no banco de dados!")
+			res.render("admin/seller/new", {adm: req.session.adm, msg: "Já existe um vendedor com esse nome no banco de dados!"});
 
 		}else{
 
-			Seller.create({
-				name: name,
-				email: email,
-				team: team,
-				login: login,
-				password: hash,
-				status: "ativo"
+			Seller.findOne({
+				where: {
+					login: login
+				}
+			}).then(seller =>{
+		
+				if (seller) {
+		
+					res.render("admin/seller/new", {adm: req.session.adm, msg: "Já existe um vendedor com esse login no banco de dados!"});
+		
+				}else{
 
-			}).then(() => {
-				res.redirect('/admin/sellers')
-			}).catch((err) => {
-				res.send(err)
+					Seller.create({
+						name: name,
+						email: email,
+						team: team,
+						login: login,
+						password: hash,
+						status: "ativo"
+
+					}).then(() => {
+						res.redirect('/admin/sellers')
+					}).catch((err) => {
+						res.send(err)
+
+					});
+				}
 
 			});
 		}
-
-	});	
+	});
 
 });
 
@@ -89,12 +103,13 @@ router.post("/updateSeller", adminAuth,(req, res) =>{
 	let name = req.body.name;
 	let team = req.body.team;
 	let email = req.body.email;
+	let status = req.body.status;
 
 	Seller.update({
 		name: name,
 		team: team,
 		email: email,
-		
+		status: status	
 	},
 	{where: {id: id}
 
