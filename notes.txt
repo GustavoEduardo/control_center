@@ -2,11 +2,8 @@ Tarefas:
 
 filtro de monitoria filtrando ex integrantes*
 
-filtro na tela de vendedores:
-Nome e equipe
 
 Definir nova senha na tela de editar vendedor
-
 
 
 Criar tela de cadastro de equipes
@@ -23,6 +20,8 @@ Guardar logs do sistema
 Enviar emails
 
 Melhorias
+
+Alguns js e css dentro do ejs (html) podem estar ficar em arquivos separados
 
 Bug no navbar-collapse do header
 

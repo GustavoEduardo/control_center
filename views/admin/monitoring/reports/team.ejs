@@ -57,7 +57,7 @@
 
                 <div class="col-md-3">
                   <div class=" media-equipe">
-                    <h4 class="equipe"><%=team%></h4>
+                    <h4 class="equipe">Equipe <%=team%></h4>
                     <hr>
                     <span>Média no período</span>
                     <h3><%=media%></h3>
@@ -190,24 +190,24 @@
 
   <script>
     //Mostrar nome da equipe
-    function equipe(){
-			var len = document.getElementsByClassName("equipe").length;
+    // function equipe(){
+		// 	var len = document.getElementsByClassName("equipe").length;
       
-			for (i = 0; i < len; i++){
-				var equipe = document.getElementsByClassName("equipe")[i];
-       	if(equipe.innerHTML == "01"){
-					equipe.innerHTML = "Felipe";
-				}else if(equipe.innerHTML == "02"){
-					equipe.innerHTML = "Camila";
-        }else if(equipe.innerHTML == "03"){
-					equipe.innerHTML = "Gustavo";
-        }else{
-          equipe.innerHTML = "Sem Equipe";
-        }			
-			}
-		}
+		// 	for (i = 0; i < len; i++){
+		// 		var equipe = document.getElementsByClassName("equipe")[i];
+    //    	if(equipe.innerHTML == "01"){
+		// 			equipe.innerHTML = "Felipe";
+		// 		}else if(equipe.innerHTML == "02"){
+		// 			equipe.innerHTML = "Camila";
+    //     }else if(equipe.innerHTML == "03"){
+		// 			equipe.innerHTML = "Gustavo";
+    //     }else{
+    //       equipe.innerHTML = "Sem Equipe";
+    //     }			
+		// 	}
+		// }
 
-		equipe();
+		// equipe();
 
   </script>
 

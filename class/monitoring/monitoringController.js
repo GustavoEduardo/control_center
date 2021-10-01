@@ -128,7 +128,7 @@ router.post("/admin/monitorings/team",adminAuth, (req,res) =>{
 	if(team == undefined || team == "" || team == null ){
 		res.redirect("/admin/monitorings");
 	}else{
-		Monitoring.findAll({include:[{model: Seller}], where: { selle: team } })
+		Monitoring.findAll({include:[{model: Seller}], where: { equipe: team } })
 		.then(monitorings => {
 			team = pesquisas.equipe(team);//define o nome para aparecer no campo
 			Seller.findAll({

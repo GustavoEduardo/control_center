@@ -49,7 +49,6 @@ router.post("/items", (req,res) =>{
 		if(items.length == 0){
 			var itemNF ="Nenhum item encontrado com esse nome. Informe ao supervisor para cadastrar o item.";
 		}
-		console.log(itemNF);
 		res.render("index", {items, itemNF,itemNF,pesquisa,pesquisaTipo: ""});
 		
 	});

@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const Seller = require('./Seller');
 const bcrypt = require('bcryptjs');
+const Sequelize = require('sequelize');
 const adminAuth = require('../../middlewares/adminAuth');
 
 
@@ -13,9 +14,41 @@ router.get("/admin/sellers", adminAuth, (req,res) =>{
 			['updatedAt','DESC'] //ASC
 		]
 	}).then(sellers=>{
-		res.render("admin/seller/index", {sellers, adm: req.session.adm});
+		res.render("admin/seller/index", {sellers, adm: req.session.adm, pesquisa: "", team: ""});
 	});	
 });
+
+//Pesquisa pelo nome no index
+router.post("/admin/sellers/search", adminAuth, (req,res) =>{
+	const Op = Sequelize.Op;              // biblioteca de operadores
+	const query = `%${req.body.search}%`; // string de consulta
+	let pesquisa = req.body.search;
+
+	Seller.findAll({ where: { name: { [Op.like]: query } } })
+	.then(sellers => {
+		res.render("admin/seller/index", {sellers, adm: req.session.adm, pesquisa, team: ""});
+	});	
+});
+
+
+//Pesquisa pela equipe no index
+router.post("/admin/sellers/team", adminAuth, (req,res) =>{
+
+	var team = req.body.team;
+	if(team == undefined || team == "" || team == null ){
+		res.redirect("/admin/sellers")
+	}else{
+	
+		Seller.findAll({ where: { team: team } })
+		.then(sellers => {		
+			res.render("admin/seller/index", {sellers, adm: req.session.adm, team, pesquisa: ""});
+		});
+	}
+	
+});
+
+
+
 
 
 //tela de cadastro de vendedor

@@ -20,7 +20,8 @@
               <tr>
                 <th>Consultor</th>
                 <th>Equipe</th>
-                <th>Data do Atendimento</th>
+                <th>Analista</th>
+                <th>Data do Atendimento</th>                
                 <th>ID da ligação</th>
                 <th>Nota</th>
               </tr>
@@ -28,6 +29,7 @@
                 <tr>
                   <td><%=m.seller.name%></td>
                   <td class="equipe"><%=m.seller.team%></td>
+                  <td><%=m.responsavel%></td>
                   <td id="dtAtendimento"></td>
                   <td><%=m.telefone%></td>
                   <td><%=m.nota%></td>
@@ -154,23 +156,23 @@
 		data();
 
     //Motrar nome da equipe
-    function equipe(){
-			var len = document.getElementsByClassName("equipe").length;
-			for (i = 0; i < len; i++){
-				var equipe = document.getElementsByClassName("equipe")[i];
-				if(equipe.innerHTML == "01"){
-					equipe.innerHTML = "Felipe";
-				}else if(equipe.innerHTML == "02"){
-					equipe.innerHTML = "Camila";
-        }else if(equipe.innerHTML == "03"){
-					equipe.innerHTML = "Gustavo";
-        }else{
-          equipe.innerHTML = "Sem Equipe";
-        }			
-			}
-		}
+    // function equipe(){
+		// 	var len = document.getElementsByClassName("equipe").length;
+		// 	for (i = 0; i < len; i++){
+		// 		var equipe = document.getElementsByClassName("equipe")[i];
+		// 		if(equipe.innerHTML == "01"){
+		// 			equipe.innerHTML = "Felipe";
+		// 		}else if(equipe.innerHTML == "02"){
+		// 			equipe.innerHTML = "Camila";
+    //     }else if(equipe.innerHTML == "03"){
+		// 			equipe.innerHTML = "Gustavo";
+    //     }else{
+    //       equipe.innerHTML = "Sem Equipe";
+    //     }			
+		// 	}
+		// }
 
-		equipe();
+		// equipe();
 
   </script>
 
