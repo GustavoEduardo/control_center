@@ -83,6 +83,8 @@
 								<th class="column2">Data da monitoria</th>
 								<th class="column2">Nota</th>
 								<th class="column2">Aplicada?</th>
+								<th class="column2">Equipe Atual</th>
+								<th class="column2">Equipe na data da monitoria</th>
 								<th class="column6">Ações</th>
 							</tr>
 						</thead>
@@ -94,6 +96,8 @@
 									<td class="column2 data"><%= m.dtMonitoria %></td>
 									<td class="column2"><%= m.nota %></td>									
 									<td class="column2 aplicada"><%= m.aplicada %></td>
+									<td class="column2 "><%= m.seller.team %></td>
+									<td class="column2 "><%= m.equipe%></td>
 									<td class="column6" >
 										<%if(m.aplicada == "n"){%>																			
 											<a href="/admin/monitoring/adit/<%= m.id %>"><button type="button" class="btn btn-outline-primary " ><i class="fas fa-edit"></i></button></a>
@@ -133,7 +137,8 @@
 				if(aplicada.innerHTML == "n"){
 					aplicada.innerHTML = "Não";
 					aplicada.style.color = 'red';
-				}else{
+				}
+				if(aplicada.innerHTML == "s"){
 					aplicada.innerHTML= "Sim";
 					aplicada.style.color = '#0275d8';
 				}

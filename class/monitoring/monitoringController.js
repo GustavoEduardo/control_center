@@ -411,6 +411,8 @@ router.get("/admin/monitoring/details/:id",  adminAuth, (req, res) =>{
 
 });
 
+//***************************PDF********************************/
+
 // //tela de pdf html-pdf
 // router.get("/admin/monitoring/pdf/:id",  adminAuth, (req, res) =>{
 
@@ -530,13 +532,12 @@ router.post("/applyfeedback", adminAuth,(req, res) =>{
 //***********************************Relatórios da Monitoria******************************************
 
 
-
 //Relatório geral Mes atual
 router.get("/admin/monitoring/reports", adminAuth, (req, res)=>{
 
 	var dtInicial = datas.dia1Str();
-	var hoje = datas.hojeStr();
-	var dtFinal = datas.diaMaisUm(new Date());
+	var hoje = datas.hojeStr();//string para preencher o input tipo date
+	var dtFinal = datas.diaMaisUm(new Date());//***** se eu passar "hoje" não add um dia pois preciso passar uma data */
 
 
 	const Op = Sequelize.Op;
@@ -641,15 +642,15 @@ router.get("/admin/monitoring/reports", adminAuth, (req, res)=>{
 
 			//atribuir notas das equipes
 			monitorings.forEach(m => {
-				if(m.seller.team == "01"){
+				if(m.equipe == "01"){//para selecionar monitorias por vendedores atuais da equipe _> m.seller.team == "01"
 					nota1 = nota1 + m.nota
 					qtd1 ++
 				}
-				if(m.seller.team == "02"){
+				if(m.equipe == "02"){
 					nota2 = nota2 + m.nota
 					qtd2 ++
 				}
-				if(m.seller.team == "03"){
+				if(m.equipe == "03"){
 					nota3 = nota3 + m.nota
 					qtd3 ++
 				}
@@ -684,21 +685,12 @@ router.get("/admin/monitoring/reports", adminAuth, (req, res)=>{
 
 	});
 
-
-
-
-	// res.render('admin/monitoring/reports/index', {
-	// 	of1: 0,of2: 0,of3: 0,of4: 0,of5: 0,of6: 0,of7: 0,of8: 0,of9: 0,of10: 0,of11: 0,of12: 0,of13: 0,of14: 0,
-	// 	media1: "",media2: "",media3: "",mediaGeral: "",adm: req.session.adm,
-	// 	dtInicial: dia1, dtFinal: hoje});
-
 })
 
 //Relatório geral filtrado por data
 router.post("/admin/monitoring/reports", adminAuth, (req, res)=>{
 	let dtInicial = req.body.dtInicial;
-	let dtFinal = datas.diaMaisUmSearch(req.body.dtFinal);
-
+	let dtFinal =  datas.diaMaisUmSearch(req.body.dtFinal);//não está acrescentando um dia, mas o filtro funciona... ???
 
 	if(dtInicial != undefined && dtFinal != undefined){
 		const Op = Sequelize.Op;
@@ -803,15 +795,15 @@ router.post("/admin/monitoring/reports", adminAuth, (req, res)=>{
 
 			//atribuir notas das equipes
 			monitorings.forEach(m => {
-				if(m.seller.team == "01"){
+				if(m.equipe == "01"){//para selecionar monitorias por vendedores atuais da equipe _> m.seller.team == "01"
 					nota1 = nota1 + m.nota
 					qtd1 ++
 				}
-				if(m.seller.team == "02"){
+				if(m.equipe == "02"){
 					nota2 = nota2 + m.nota
 					qtd2 ++
 				}
-				if(m.seller.team == "03"){
+				if(m.equipe == "03"){
 					nota3 = nota3 + m.nota
 					qtd3 ++
 				}
@@ -858,15 +850,14 @@ router.post("/admin/monitoring/reports", adminAuth, (req, res)=>{
 })
 
 //Relatório por equipe
-router.get("/admin/monitoring/report/:team",  adminAuth, (req,res)=>{
+router.get("/admin/monitoring/report/:team/:dtIni/:dtFim",  adminAuth, (req,res)=>{
 	let team = req.params.team;
-	var dtInicial = datas.dia1Str();
-	var hoje = datas.hojeStr();
-	var dtFinal = datas.diaMaisUmSearch(hoje);
-	
+	var dtInicial = req.params.dtIni;
+	var dtFinal = datas.diaMaisUmSearch(req.params.dtFim);
 	const Op = Sequelize.Op;
 
-	//where com sequelize funcionando
+	console.log("De"+dtInicial +" Até "+ dtFinal)
+
 	Monitoring.findAll({
 		order:[
 			['updatedAt','DESC'] //ASC
@@ -874,7 +865,8 @@ router.get("/admin/monitoring/report/:team",  adminAuth, (req,res)=>{
 		include:[{model: Seller}],
 		where: {
 			dtMonitoria:{
-				[Op.between]: [dtInicial, dtFinal]}
+				[Op.between]: [dtInicial, dtFinal]},
+				[Op.and]: {equipe: team}
 			},
 	}).then(monitorings => {
 		//inicializando variaveis
@@ -944,12 +936,19 @@ router.get("/admin/monitoring/report/:team",  adminAuth, (req,res)=>{
 
 		})
 
-		//atribuir nota da equipe selecionada
+		//atribuir nota da equipe pelas monitorias dos integrantes atuais
+		// monitorings.forEach(m => {
+		// 	if(m.seller.team == team){
+		// 		nota = nota + m.nota
+		// 		qtd ++
+		// 	}
+		// });
+
+		//atribuir nota da equipe pela equipe salva na monitoria (inclui ex integrantes)
 		monitorings.forEach(m => {
-			if(m.seller.team == team){
-				nota = nota + m.nota
-				qtd ++
-			}
+			nota = nota + m.nota
+			qtd ++
+			
 		});
 
 		//definindo porcentagem de apontamentos negativos de cada ofensor
@@ -988,18 +987,18 @@ router.get("/admin/monitoring/report/:team",  adminAuth, (req,res)=>{
 			
 		}).then(sellers => {
 			res.render('admin/monitoring/reports/team', {
-				dtInicial, dtFinal: hoje,media,team,
+				dtInicial, dtFinal: req.params.dtFim,media,team,
 				of1,of2,of3,of4,of5,of6,of7,of8,of9,of10,of11,of12,of13,of14,
 				media: media.toFixed(2),adm: req.session.adm, sellers, qtd
 			});
+			// res.json(monitorings)
 		});
-		//res.json(monitorings)
+		
 
 	});
 
 	
 })
-
 
 //Relatório por equipe por período informado
 router.post("/admin/monitoring/report/team",  adminAuth, (req,res)=>{
@@ -1016,7 +1015,8 @@ router.post("/admin/monitoring/report/team",  adminAuth, (req,res)=>{
 		include:[{model: Seller}],
 		where: {
 			dtMonitoria:{
-				[Op.between]: [dtInicial, dtFinal]}
+				[Op.between]: [dtInicial, dtFinal]},
+				[Op.and]: {equipe: team}
 			},
 	}).then(monitorings => {
 		//inicializando variaveis
@@ -1086,13 +1086,20 @@ router.post("/admin/monitoring/report/team",  adminAuth, (req,res)=>{
 
 		})
 
-		//atribuir nota da equipe selecionada
-		monitorings.forEach(m => {				
-			if(m.seller.team == team){
-				nota = nota + m.nota
-				qtd ++
-			}				
-		});	
+		// //atribuir nota da equipe pelas monitorias dos integrantes atuais
+		// monitorings.forEach(m => {				
+		// 	if(m.seller.team == team){
+		// 		nota = nota + m.nota
+		// 		qtd ++
+		// 	}				
+		// });
+		
+		//atribuir nota da equipe pela equipe salva na monitoria (inclui ex integrantes)
+		monitorings.forEach(m => {
+			nota = nota + m.nota
+			qtd ++
+			
+		});
 
 		//definindo porcentagem de apontamentos negativos de cada ofensor
 		of1 = ((of1*100)/qtd).toFixed(2);
@@ -1141,12 +1148,11 @@ router.post("/admin/monitoring/report/team",  adminAuth, (req,res)=>{
 })
 
 //Relatório por vendedor
-router.get("/admin/monitoring/report/seller/:id", adminAuth, (req, res)=>{
+router.get("/admin/monitoring/report/seller/:id/:dtIni/:dtFim", adminAuth, (req, res)=>{
 
 	let sellerId = req.params.id;
-	var dtInicial = datas.dia1Str();
-	var hoje = datas.hojeStr();
-	var dtFinal = datas.diaMaisUmSearch(hoje);
+	var dtInicial = req.params.dtIni;
+	var dtFinal = datas.diaMaisUmSearch(req.params.dtFim);
 	
 	const Op = Sequelize.Op;
 
@@ -1264,7 +1270,7 @@ router.get("/admin/monitoring/report/seller/:id", adminAuth, (req, res)=>{
 			where: {id: sellerId}	
 		}).then(s=>{
 			res.render('admin/monitoring/reports/seller', {
-				dtInicial, dtFinal: hoje,media,
+				dtInicial, dtFinal: req.params.dtFim,media,
 				of1,of2,of3,of4,of5,of6,of7,of8,of9,of10,of11,of12,of13,of14,
 				media: media.toFixed(2),adm: req.session.adm, vendedor: s.name, id:sellerId,qtd
 			});

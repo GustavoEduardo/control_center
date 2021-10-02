@@ -47,6 +47,12 @@
       content: "Aplicada?";
     }
     table tbody tr td:nth-child(6):before {
+      content: "Equipe Atual";
+    }
+    table tbody tr td:nth-child(7):before {
+      content: "Equipe na data da moni.";
+    }
+    table tbody tr td:nth-child(8):before {
       content: "Ações";
     }
   

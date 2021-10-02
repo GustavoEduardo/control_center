@@ -1,8 +1,7 @@
 
 function diaMaisUm(dataErrada){
     var data = new Date(dataErrada);
-        data.setDate(data.getDate() + 1);
-        console.log("dia+1.. : Data REcebida: "+dataErrada + "  Data +1 = "+ data)				
+        data.setDate(data.getDate() + 1);				
     return data;
 }
 
@@ -11,14 +10,12 @@ function diaMaisUmSearch(dataErrada){
     if(dataErrada == undefined || dataErrada == "" || dataErrada == null){
         var data = new Date();
 
-        console.log("dia+1Search... Nehuma data REcebida.  Data +1 = "+ data)
         return data;
     }
 
     var data = new Date(dataErrada);
         data.setDate(data.getDate() + 1);
 
-        console.log("dia+1Search... : Data REcebida: "+dataErrada + "  Data +1 = "+ data)
         return data;
 }
 
@@ -41,7 +38,6 @@ function hojeStr(){
         }
         
     }
-    console.log("hojeStr... Hoje:  "+newDate + "  d = "+ d)
     return d;
 
     
@@ -56,7 +52,6 @@ function dia1Str(){
     }else{
         var d = newDate.getFullYear()+"-"+(newDate.getMonth()+1)+"-01";
     }  
-    console.log("di1Str... Dia 1:  "+newDate + "  d = "+ d)
     return d;    
     
 }

@@ -76,7 +76,7 @@
                   <p>Clique para mais detalhes</p>
                     <hr>
                     <% sellers.forEach( s=> { %>                            
-                      <a href="/admin/monitoring/report/seller/<%= s.id %>">
+                      <a href="/admin/monitoring/report/seller/<%= s.id %>/<%=dtInicial%>/<%=dtFinal%>">
                         <span class="h6"><%=s.name%></span>
                       </a><br>
                                            
