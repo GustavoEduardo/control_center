@@ -180,6 +180,7 @@ router.post("/admin/monitorings/date", adminAuth, (req, res)=>{
 //Pagina de Cadastro de nova monitoria
 router.get('/admin/monitoring/new', adminAuth, (req, res) => {
 	Seller.findAll({
+		where: { status: "ativo" },
 		order:[
 			['name','ASC']
 		],
@@ -190,7 +191,7 @@ router.get('/admin/monitoring/new', adminAuth, (req, res) => {
 	
 });
 
-//Salva o novo item no banco de dados
+//Salva o nova monitoria no banco de dados
 router.post("/admin/monitoring/save", adminAuth, (req, res)=>{
 	var positivos = req.body.positivos;
 	var responsavel = req.session.adm.name;
@@ -291,7 +292,9 @@ router.get("/admin/monitoring/adit/:id",  adminAuth, (req, res) =>{
 		include: [{model: Seller}],
 		where: {id: id}})
 	.then( m =>{
-		Seller.findAll({order:[
+		Seller.findAll({
+			where: { status: "ativo" },			
+			order:[			
 			['updatedAt','ASC'] //DESC
 		]})
 		.then( sellers =>{

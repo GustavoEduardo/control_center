@@ -96,8 +96,8 @@
 									<td class="column2 data"><%= m.dtMonitoria %></td>
 									<td class="column2"><%= m.nota %></td>									
 									<td class="column2 aplicada"><%= m.aplicada %></td>
-									<td class="column2 "><%= m.seller.team %></td>
-									<td class="column2 "><%= m.equipe%></td>
+									<td class="column2 equipeAtual"><%= m.seller.team %></td>
+									<td class="column2 equipeNaMonit"><%= m.equipe%></td>
 									<td class="column6" >
 										<%if(m.aplicada == "n"){%>																			
 											<a href="/admin/monitoring/adit/<%= m.id %>"><button type="button" class="btn btn-outline-primary " ><i class="fas fa-edit"></i></button></a>
@@ -146,6 +146,21 @@
 		}
 
 		aplicada();
+
+
+		function equipeAlterada(){
+			var len = document.getElementsByClassName("equipeAtual").length;
+			for (i = 0; i < len; i++){
+				var equipeAtual = document.getElementsByClassName("equipeAtual")[i];
+				var equipeMonit = document.getElementsByClassName("equipeNaMonit")[i];
+				if(equipeAtual.innerHTML != equipeMonit.innerHTML){
+					equipeMonit.style.color = 'red';
+				}
+				
+			}
+		}
+
+		equipeAlterada();
 	</script>
 
 	<%- include ("../../partials/footer1.ejs"); %>
