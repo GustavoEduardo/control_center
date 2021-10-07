@@ -11,6 +11,7 @@ const adminController = require("./class/item/itemController");
 const itemController = require("./class/admin/adminController");
 const sellerController = require("./class/seller/sellerController");
 const monitoringController = require("./class/monitoring/monitoringController");
+const promotionController = require("./class/promotion/promotionController");
 
 
 //Models
@@ -18,6 +19,7 @@ const Item = require("./class/item/Item");
 const Admin = require("./class/admin/Admin");
 const Seller = require("./class/seller/Seller");
 const Monitoring = require("./class/monitoring/Monitoring");
+const Promotion = require("./class/promotion/Promotion");
 
 
 //connection 
@@ -63,6 +65,7 @@ app.use('/',adminController);
 app.use('/',itemController);
 app.use('/',sellerController);
 app.use('/',monitoringController);
+app.use('/',promotionController);
 
 
 
