@@ -295,7 +295,7 @@ router.get("/admin/monitoring/adit/:id",  adminAuth, (req, res) =>{
 		Seller.findAll({
 			where: { status: "ativo" },			
 			order:[			
-			['updatedAt','ASC'] //DESC
+			['name','ASC'] //DESC
 		]})
 		.then( sellers =>{
 			res.render("admin/monitoring/edit", {m,sellers, adm: req.session.adm})

@@ -1,7 +1,5 @@
 Tarefas:
 
-filtro de monitoria filtrando ex integrantes*
-
 
 Definir nova senha na tela de editar vendedor
 
