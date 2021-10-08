@@ -20,7 +20,7 @@ const Promotion = connection.define('promotions',{
 //Item.hasMany(Promotion);
 //Promotion.hasMany(Item);
 
-Promotion.sync({force: true}).then(() =>{});//se precisar recriar a tabela
+//Promotion.sync({force: true}).then(() =>{});//se precisar recriar a tabela
 
 module.exports = Promotion;
 
