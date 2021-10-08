@@ -1,5 +1,6 @@
 Tarefas:
 
+renderizar tela de politica de c´rdito wem outro controller. (está na monitoria)
 
 Definir nova senha na tela de editar vendedor
 

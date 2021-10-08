@@ -20,6 +20,13 @@ router.get("/monitoring/glossario", (req,res) =>{
 
 });
 
+//tela de politica de crédito. Colocar em outro controlller
+router.get("/politicadecredito", (req,res) =>{
+			
+	res.render("politicadecredito");
+
+});
+
 //Tela Glossario Admin
 router.get("/admin/monitoring/glossario", adminAuth, (req,res) =>{
 			

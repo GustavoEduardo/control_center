@@ -4,21 +4,35 @@
 <link rel="stylesheet" type="text/css" href="/css/items-index.css">
 
 <style>
-	.container{
-		background-color: #fff;
-		box-shadow: 0px 0px 5px 2px rgba(0, 0, 0, 0.2);
+	.limiter{
+		background-color: rgb(255, 165, 81);
 	}
 	.titulo{
 		text-align: center;
-		padding-top: 10px;
+	}
+	.container{
+		padding: 0;
+		background-color: #fff;
+		box-shadow: 0px 0px 5px 2px rgba(0, 0, 0, 0.2);
 	}
 	.atalhos{
 		text-align: center;
+	}
+	.btpromo{
+		white-space: nowrap; 
+		width: 12em; 
+		overflow: hidden;
+		text-overflow: ellipsis;
+		margin-bottom: 3px;
 	}
 	.header{
 		text-align: center;
 		color: rgb(65, 65, 65);
 		padding-bottom: 10px;
+		background-color: rgb(221, 221, 221);
+		padding: 0;
+		margin: 0;
+		box-shadow: 0px 8px 10px  rgba(0, 0, 0, 0.4);
 	}
 	.prodName {
 		max-height: 50px;
@@ -41,88 +55,97 @@
 	<%- include ("partials/header.ejs"); %>
 
 	<div class="limiter">
-		<div class="container-table100">			
+		<div class="container-table100">	<!-- container-table100-->
 			<div class="wrap-table100">	
 				<div class="titulo">
-					<h3 class="titulo-h">Promoção Limpa Estoque</h3>					
+					<h3>Promoção Limpa Estoque</h3>
+					<br>
 				</div>
 				<div class="atalhos">
-					<a style="color: rgb(255, 255, 255);" class="btn btn-secondary">2 img por R$ 1600</a>
-					<a style="color: rgb(255, 255, 255);" class="btn btn-secondary">2 img por R$ 1600</a>
-					<a style="color: rgb(255, 255, 255);" class="btn btn-secondary">2 img por R$ 1600</a>
+					<% promos.forEach(p =>{ %>
+						<a href="#<%=p.id%>" style="color: rgb(255, 255, 255);" class="btpromo btn btn-success"><%=p.nome%></a>
+					<%})%>
 				</div>
-				<div class="container ">
+				<div class="container">
+					<% promos.forEach(p =>{ %>
 					<div class="products" >
-						<div class="header">
+						<div id="<%=p.id%>" class="header">
 							<hr>
-							<h3>2 imagens por 1600 escolha 1 presente</h3>
+							<h3><%=p.nome%></h3>
+							<p><%=p.descricao%></p>
 							<hr>
 						</div>
 						<div class="listProd" style="padding: 8px 8px 8px 5px;">
 							
+							<% items.forEach(item =>{ %>
+								<%if(item.promo == p.id){%>
+									<div data-toggle="modal" data-target="#ModalInfoItem<%= item.id %>" class="prod ml-2" style="width: 13rem; display: inline-block;">
+										<img style="width: 80px; margin-left: 35%;" class="img-responsive card-img-top" src="<%= item.img %>">
+										 
+										<div class="" style=" height: 50px; padding: 2px; margin: 0;">
+											<p class="prodName"><%= item.name %></p>
+										</div>
+									</div>
+									<!-- Modal -->
+									<div class="modal fade" id="ModalInfoItem<%= item.id %>" tabindex="-1" role="dialog" aria-labelledby="TituloModalCentralizado" aria-hidden="true">
+										<div  class="modal-dialog modal-lg modal-dialog-centered" role="document">
+										<div class="modal-content" style="width: 100%;">
+											<div class="modal-header">
+											<h4 class="modal-title" id="TituloModal"><%= item.name %></h4>
+											<button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+												<span aria-hidden="true">&times;</span>
+											</button>
+											</div>
+											<div class="modal-body row">
+												<div class="modal-img col-lg-7">
+													<a href="<%= item.img %>" target="_blank"><img class="img-responsive" alt="Clique para ver melhor" src="<%= item.img %>"></a>
+												</div>
+																							
+												<div class="col-lg-5">
+													<h4>Preços</h4>
+													<br>
+													<ul style="list-style-type: circle;">
+														<li>
+															<span>Cartão R$ <%- item.valCard %></span><span> - Até 12x R$ <%-item.valCard /12 %></span>
+														</li>
+														<li>
+															<span>Boleto R$ <%- item.valBlt %></span><span> - Até 6x R$ <%-item.valBlt /6 %></span>
+														</li>
+													</ul>
+													
+													<br>
+													
+													<br><br>									
+													<h4>Principais Argumentos</h4>
+													<br>
+													<%- item.argument %>
+													<br>
 
-							<div class="prod ml-2" style="width: 13rem; display: inline-block;">
-								<img style="width: 80px; margin-left: 35%;" src="https://http2.mlstatic.com/D_NQ_NP_668891-MLB44230261954_122020-O.webp" class="card-img-top" alt="...">
-								<div class="" style=" height: 50px; padding: 2px; margin: 0;">
-									<p class="prodName">Maria Passa na Frente com LED 30cm</p>
-								</div>
-							</div>
-
-							<div class="prod ml-2" style="width: 13rem; display: inline-block;">
-								<img style="width: 80px; margin-left: 35%;" src="https://http2.mlstatic.com/D_NQ_NP_668891-MLB44230261954_122020-O.webp" class="card-img-top" alt="...">
-								<div class="" style=" height: 50px; padding: 2px; margin: 0;">
-									<p class="prodName">Maria Passa na Frente com LED 30cm</p>
-								</div>
-							</div>
-							<div class="prod ml-2" style="width: 13rem; display: inline-block;">
-								<img style="width: 80px; margin-left: 35%;" src="https://http2.mlstatic.com/D_NQ_NP_668891-MLB44230261954_122020-O.webp" class="card-img-top" alt="...">
-								<div class="" style=" height: 50px; padding: 2px; margin: 0;">
-									<p class="prodName">Maria Passa na Frente com LED 30cm</p>
-								</div>
-							</div>
-
-							<div class="prod ml-2" style="width: 13rem; display: inline-block;">
-								<img style="width: 80px; margin-left: 35%;" src="https://http2.mlstatic.com/D_NQ_NP_668891-MLB44230261954_122020-O.webp" class="card-img-top" alt="...">
-								<div class="" style=" height: 50px; padding: 2px; margin: 0;">
-									<p class="prodName">Maria Passa na Frente com LED 30cm</p>
-								</div>
-							</div>
-
-							<div class="prod ml-2" style="width: 13rem; display: inline-block;">
-								<img style="width: 80px; margin-left: 35%;" src="https://http2.mlstatic.com/D_NQ_NP_668891-MLB44230261954_122020-O.webp" class="card-img-top" alt="...">
-								<div class="" style=" height: 50px; padding: 2px; margin: 0;">
-									<p class="prodName">Maria Passa na Frente com LED 30cm</p>
-								</div>
-							</div>
-
-							<div class="prod ml-2" style="width: 13rem; display: inline-block;">
-								<img style="width: 80px; margin-left: 35%;" src="https://http2.mlstatic.com/D_NQ_NP_668891-MLB44230261954_122020-O.webp" class="card-img-top" alt="...">
-								<div class="" style=" height: 50px; padding: 2px; margin: 0;">
-									<p class="prodName">Maria Passa na Frente com LED 30cm</p>
-								</div>
-							</div>
-
-							<div class="prod ml-2" style="width: 13rem; display: inline-block;">
-								<img style="width: 80px; margin-left: 35%;" src="https://http2.mlstatic.com/D_NQ_NP_668891-MLB44230261954_122020-O.webp" class="card-img-top" alt="...">
-								<div class="" style=" height: 50px; padding: 2px; margin: 0;">
-									<p class="prodName">Maria Passa na Frente com LED 30cm</p>
-								</div>
-							</div>
-
-							<div class="prod ml-2" style="width: 13rem; display: inline-block;">
-								<img style="width: 80px; margin-left: 35%;" src="https://http2.mlstatic.com/D_NQ_NP_668891-MLB44230261954_122020-O.webp" class="card-img-top" alt="...">
-								<div class="" style=" height: 50px; padding: 2px; margin: 0;">
-									<p class="prodName">Maria Passa na Frente com LED 30cm</p>
-								</div>
-							</div>
-
-
-
-							  
-							  
+												</div>
+												<div class="col-12">
+												<div class="descItem">
+													<hr>
+													<h4>Descrição</h4>
+													<br>
+													<p><%- item.description %></p>
+													<br>
+												</div>					
+													
+											</div>											
+											</div>
+											<div class="modal-footer">
+											<button type="button" class="btn btn-danger" data-dismiss="modal">Fechar</button>
+											</div>
+										</div>
+										</div>
+									</div>
+								<%}%>
+							
+							<%})%> 
 						 
 						</div>
-					  </div>
+					</div>
+					<%})%>
 				
 					
 				</div>

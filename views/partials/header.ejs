@@ -7,15 +7,23 @@
   
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav ml-auto">
+        <li id="login" class="nav-item">
+          <a class="nav-link"" href="/promotions"><img src="/images/limpa-estoque.gif"  style="height: 60px; border-radius: 5px;"></a>
+        </li>
         <li id="produtos" class="nav-item active">
           <a class="nav-link" href="/">Produtos</a>
         </li> 
         <li id="monitoria" class="nav-item active">
           <a class="nav-link" href="/monitoring/glossario">Monitoria</a>
-        </li>     
+        </li>
+        <li id="pcredito" class="nav-item active">
+          <a class="nav-link" href="/politicadecredito">Politica de Crédito</a>
+        </li>
+
         <li id="login" class="nav-item">
           <a class="nav-link" href="/login"><i class="fas fa-key"></i></a>
         </li>
+        
       </ul>     
     </div>    
   </nav>
@@ -27,17 +35,27 @@
         document.getElementById("login").className = "nav-item active";
         document.getElementById("produtos").className = "nav-item";
         document.getElementById("monitoria").className = "nav-item";
+        document.getElementById("pcredito").className = "nav-item";
 
       }else if(window.location.href == "http://54.207.207.252:3000/monitoring/glossario"){
 
         document.getElementById("login").className = "nav-item";
         document.getElementById("produtos").className = "nav-item";
         document.getElementById("monitoria").className = "nav-item active";
+        document.getElementById("pcredito").className = "nav-item";
+
+      }else if(window.location.href == "http://54.207.207.252:3000/monitoring/politicadecredito"){
+
+        document.getElementById("login").className = "nav-item";
+        document.getElementById("produtos").className = "nav-item";
+        document.getElementById("monitoria").className = "nav-item";
+        document.getElementById("pcredito").className = "nav-item active";
 
       }else{
         document.getElementById("login").className = "nav-item";
         document.getElementById("produtos").className = "nav-item active";
         document.getElementById("monitoria").className = "nav-item";
+        document.getElementById("pcredito").className = "nav-item";
       }
     }
      

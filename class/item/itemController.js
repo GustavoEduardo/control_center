@@ -7,7 +7,9 @@ const path = require('path');
 const adminAuth = require('../../middlewares/adminAuth');
 //session no index. É global para a aplicação e com o explress-session é salva por padrão na memoria ram do servidor
 const Item = require('./Item');
+const Promotion = require('../promotion/Promotion');
 var pesquisas = require("../../helpers/pesquisas");
+
 
 
 //renomear-arquivos
@@ -187,7 +189,10 @@ router.get("/admin/item/adit/:id",  adminAuth, (req, res) =>{
 			type ="Outros"
 		}
 
-		res.render("admin/item/edit", {item, adm: req.session.adm, type})
+		Promotion.findAll()
+		.then(promos =>{
+			res.render("admin/item/edit", {item, adm: req.session.adm, type, promos})
+		});
 
 	});
 
@@ -205,6 +210,7 @@ router.post("/updateItem", upload.single("foto"), adminAuth,(req, res) =>{
     let argument = req.body.argument;
 	let image = req.file? req.file.path: undefined;
 	let imgNew = image? image.substring(7,image.length): undefined;
+	let promo = req.body.promo;
 
 	Item.update({
 		name: name,
@@ -214,7 +220,8 @@ router.post("/updateItem", upload.single("foto"), adminAuth,(req, res) =>{
 		valPix: valPix,
 		description: description,
 		argument: argument,
-		img: imgNew? imgNew : Item.img
+		img: imgNew? imgNew : Item.img,
+		promo: promo
 
 	},
 	{where: {id: id}
