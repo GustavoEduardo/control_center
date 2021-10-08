@@ -17,10 +17,10 @@ const Promotion = connection.define('promotions',{
 
 
 //relacionamento campo itemId e promotionsId;
-Item.hasMany(Promotion);
-Promotion.hasMany(Item);
+//Item.hasMany(Promotion);
+//Promotion.hasMany(Item);
 
-//Promotion.sync({force: true}).then(() =>{});//se precisar recriar a tabela
+Promotion.sync({force: true}).then(() =>{});//se precisar recriar a tabela
 
 module.exports = Promotion;
 
