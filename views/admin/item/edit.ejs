@@ -55,13 +55,17 @@
 									<label for="valPix">Valor a vista</label>
 									<input class="form-control" type="number" id="valPix" name="valPix" value="<%= item.valPix %>" placeholder="Valor com desconto" required>									
 								</div>
-								<div class="form-group col-md-5 ml-5" >
+								<div class="form-group col-md-6" >
 									<label>Promoção</label>
 									<select name="promo" id="promo" class="form-control col-5">
-										<option value="<%= item.promo %>"><%=item.promo%></option>
 										<option value=""> Nenhuma </option>
 										<% promos.forEach(p =>{ %>
-											<option value="<%= p.id %>"><%= p.nome %></option>
+											<%if(item.promo == p.id){ %>
+												<option selected value="<%= p.id %>"><%= p.nome %></option>
+											<%}else{%>
+												<option value="<%= p.id %>"><%= p.nome %></option>
+											<%}%>
+											
 										<%})%>																
 									</select>
 								</div>
