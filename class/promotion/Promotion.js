@@ -1,6 +1,5 @@
 const Sequelize = require('sequelize');
 const connection  = require('../../database/connection');
-const Item = require('../item/Item');
 
 const Promotion = connection.define('promotions',{
     nome:{

@@ -1,5 +1,6 @@
 
 <%- include ("../../partials/head.ejs"); %>
+<script src="https://cdn.jsdelivr.net/npm/@editorjs/editorjs@latest"></script><!--Intalado também pel npm-->
 
 <body>
 	<%- include ("../../partials/header-admin.ejs"); %>
@@ -148,7 +149,7 @@
             <label class="btn btn-outline-danger" for="9-n">NÃO</label>
             <br>
             <div class="mb-3 motivo" >
-              <textarea class="form-control" id="ofensor9" name="ofensor9Txt" rows="4" placeholder="Descreva aqui oque fez o consultor perder essa nota..."></textarea>
+              <textarea class="form-control " id="ofensor9" name="ofensor9Txt" rows="4" placeholder="Descreva aqui oque fez o consultor perder essa nota..."></textarea>
             </div>
             <br>
             <h5>Argumentação/ quebra de objeção?</h5><!--Não-->
@@ -158,7 +159,7 @@
             <label class="btn btn-outline-danger" for="10-n">NÃO</label>
             <br>
             <div class="mb-3 motivo" >
-              <textarea class="form-control" id="ofensor10" name="ofensor10Txt" rows="4" placeholder="Descreva aqui oque fez o consultor perder essa nota..."></textarea>
+              <textarea class="form-control " id="ofensor10" name="ofensor10Txt" rows="4" placeholder="Descreva aqui oque fez o consultor perder essa nota..."></textarea>
             </div>
             <br>
             <h5>Negociação?</h5><!--Não-->
@@ -168,7 +169,7 @@
             <label class="btn btn-outline-danger" for="11-n">NÃO</label>
             <br>
             <div class="mb-3 motivo">
-              <textarea class="form-control" id="ofensor11" name="ofensor11Txt" rows="4" placeholder="Descreva aqui oque fez o consultor perder essa nota..."></textarea>
+              <textarea class="form-control " id="ofensor11" name="ofensor11Txt" rows="4" placeholder="Descreva aqui oque fez o consultor perder essa nota..."></textarea>
             </div>
             <hr>
             <h6 class="sub-titulo" style="color: red;">Não conformidade Grave</h6><br>
@@ -189,7 +190,7 @@
             <label class="btn btn-outline-danger" for="13-n">NÃO</label>
             <br>
             <div class="mb-3 motivo" >
-              <textarea class="form-control" id="ofensor13" name="ofensor13Txt" rows="4" placeholder="Descreva aqui oque fez o consultor perder essa nota..."></textarea>
+              <textarea class="form-control " id="ofensor13" name="ofensor13Txt" rows="4" placeholder="Descreva aqui oque fez o consultor perder essa nota..."></textarea>
             </div>
             <br>
             <h5>Risco em venda?</h5><!--Sim-->
@@ -201,7 +202,7 @@
             <div class="mb-3 motivo">
               <textarea class="form-control" id="ofensor14" name="ofensor14Txt" rows="4" placeholder="Descreva aqui oque fez o consultor perder essa nota..."></textarea>
             </div>
-            <hr><br>
+            <hr><br>            
             
 							<div style="width: 100%; margin-top: 25px;" class="form-row">
 								<div class="form-group col-md-8">									
@@ -218,10 +219,25 @@
           </form>
         </div>        
 			</div>
-		</div>			
+		</div>
+    
+     <!--Teste editojs-->    
+     <div id="editorjs">
+             
+      </div>
+
 	</div>
 
   <script src="/js/newMonit.js"></script>
+
+
+  <!--editorjs-->
+  <script>
+    import EditorJS from '@editorjs/editorjs';
+    const editor = new EditorJS({editorjs});
+
+
+  </script>
   
 <%- include ("../../partials/footer1.ejs"); %>
 </body>

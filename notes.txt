@@ -2,6 +2,8 @@ Tarefas:
 
 renderizar tela de politica de crédito em outro controller. (está na monitoria)
 
+Tela de promoções no  mobile
+
 Definir nova senha na tela de editar vendedor
 
 
@@ -11,10 +13,9 @@ Rotas para ativar ou inativar equipe
 
 
 
-Dividir acessos (Admin, Supervisor, Monitor e vndedor)
+Dividir acessos (Admin, Supervisor, Monitor e vendedor)
 
 Guardar logs do sistema
-
 
 Enviar emails
 

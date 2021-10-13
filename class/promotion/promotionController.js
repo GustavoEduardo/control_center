@@ -36,7 +36,7 @@ router.get('/admin/promotion/new', adminAuth, (req, res) => {
 	
 });
 
-//Salva o novo item no banco de dados
+//Salva o nova promoção no banco de dados
 router.post('/createpromo', adminAuth, (req, res) => {
 
 	let nome = req.body.nome;
