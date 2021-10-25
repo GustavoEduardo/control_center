@@ -18,7 +18,7 @@ const Tip = connection.define('tips',{
 });
 
 
-Tip.sync({force: true}).then(() =>{});//se precisar recriar a tabela
+//Tip.sync({force: true}).then(() =>{});//se precisar recriar a tabela
 
 module.exports = Tip;
 
