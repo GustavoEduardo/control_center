@@ -12,6 +12,7 @@ const itemController = require("./class/admin/adminController");
 const sellerController = require("./class/seller/sellerController");
 const monitoringController = require("./class/monitoring/monitoringController");
 const promotionController = require("./class/promotion/promotionController");
+const tipController = require("./class/tip/tipController");
 
 
 //Models
@@ -20,6 +21,7 @@ const Admin = require("./class/admin/Admin");
 const Seller = require("./class/seller/Seller");
 const Monitoring = require("./class/monitoring/Monitoring");
 const Promotion = require("./class/promotion/Promotion");
+const Tip = require("./class/tip/Tip");
 
 
 //connection 
@@ -66,7 +68,7 @@ app.use('/',itemController);
 app.use('/',sellerController);
 app.use('/',monitoringController);
 app.use('/',promotionController);
-
+app.use('/',tipController);
 
 
 //Iniciando o servidor

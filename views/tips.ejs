@@ -1,15 +1,69 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-    <%- include ("partials/head.ejs"); %>
+<%- include ("partials/head.ejs"); %>
 <link rel="stylesheet" type="text/css" href="/css/items-index.css">
+
+<style>
+	.card{
+		border-radius: 5px;
+		-webkit-border-radius: 5px; 
+		-moz-border-radius: 5px; 
+	}
+	.card-body{
+		background-color: rgb(250, 250, 250);
+		color: black;
+		border-radius: 5px;
+		-webkit-border-radius: 5px; 
+		-moz-border-radius: 5px;
+	}
+	.center{
+		text-align: center;
+	}
+	
+</style>
 <body>
-    <%- include ("partials/header.ejs"); %>
+	<%- include ("partials/header.ejs"); %>
 
 	<div class="limiter">
-		<div class="container-table100">			
-			<div class="wrap-table100">
-                <div class="container" style="background-color: seashell; padding: 10px;">
-                    <h2 class="mb-3">Glossário da Monitoria</h2>
+		<div class="container-table100">
+			<div class="wrap-table100">	
+				
+				<div class="jumbotron jumbotron-fluid">
+					<div class="container">
+						<h1 class="display-8">Dicas sobre qualidade de atendimento</h1>
+						<hr>
+						<p class="lead">Aqui você encontrará dica de qualidade de ligação escritas pelo departamento de QTD (Qualidade, treinamento e desenvolvimento).<br>
+							Essas dicas são preciosas e podem fazer a diferença na hora de fechar uma venda e nas notas aplicadas na ligação.<br>
+							Abaixo você poderá conferir um glossário de cada ofenssor fundamental para manter uma boa ligação. &#128521
+						</p>
+						<p class="lead">
+							<a class="btn btn-primary btn-lg" href="#glossario" role="button">Ler Glossário</a>
+					 	</p>
+					</div>
+				  </div>
+				  <div class="center"  >
+					<h3>Dicas</h3>
+				  </div>				  
+
+				<div class="card-columns" style="background-color: rgb(255, 255, 255); padding: 10px;">					
+					<% tips.forEach(t =>{ %>
+					<div class="card border-secondary mb-2">
+						<div class="card-header">
+							<h4><%=t.id%> - <%-t.title%></h4>							
+						</div>
+						<div class="card-body text-dark">
+							<p class="card-text"><%-t.description%></p>
+						</div>
+					</div>
+					<%})%>				
+					
+				</div>
+
+				<div id="glossario" class="jumbotron jumbotron-fluid mt-4" style=" padding: 10px;">
+					<div class="center">
+						<h2 class="mb-3">Glossário da Monitoria</h2>
+					</div>
+                    
                     <hr><br>
                     <p class="mb-4"><b>Abordagem/apresentação:</b>	 Apresentar-se adequadamente( Nome e Empresa)</p>
                     <p class="mb-4"><b>Condução do atendimento:</b>	 Posicionamento ao cliente quando se ausentar/ entusiasmo/ clareza/ sorriso na voz/empatia/ segurança nas informações/ vícios de linguagem/objetividade e esculta ativa</p>
@@ -22,17 +76,20 @@
                     <p class="mb-4"><b>Não conformidade Grave:</b>	 Ocultar informações do produto/passar informaçoes improcedentes/ realizar a venda sem a autorizam do cliente/ omissão do atendimento/ser ríspido/ irônico ou utilizar palavras ofensivas/ passar informações confidenciais a terceiros.</p>
                    
                 </div>
-				
-               
-				
-				
-				
+
+			
+
+					
+
+							
+
 			</div>
 		</div>
 	</div>
+	
 
 	<%- include ("partials/footer1.ejs"); %>
-
+	
 
 </body>
 </html>

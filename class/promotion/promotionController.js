@@ -55,7 +55,7 @@ router.post('/createpromo', adminAuth, (req, res) => {
 		    }).catch(err => res.send(err));
 
 		}else{
-			res.render("admin/promotion/new", {adm: req.session.adm, msg: "Já existe um promoção com esse nome!"});
+			res.render("admin/promotion/new", {adm: req.session.adm, msg: "Já existe uma promoção com esse nome!"});
 		}
 	   
 
