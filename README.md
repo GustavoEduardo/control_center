@@ -6,7 +6,7 @@ Gestão de qualidade de atendimento e catalogo de produtos
 Sistema com finalidade de ser a intranet de uma empresa de call-center com diversas funcionalidades. Entre elas, aplicar monitorias nas ligações e mediar a qualidade dos atendimentos das equipes e dos vendedores em cada ofensor através de relatórios.
 Também conta com um módulo de gestão de produtos para serem exibidos em uma lista com preços parcelados no cartão em até 12x e no boleto em até 6x,
 além de exibir os detalhes do produto.
-Gestão de vendedores e telas informativas para a central de vendas.
+Gestão de vendedores, telas informativas para a central de vendas e gestão de lista de promoções vigentes.
 
 🚀 Começando
 
