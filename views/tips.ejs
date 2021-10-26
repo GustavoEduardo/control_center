@@ -19,19 +19,17 @@
 	.center{
 		text-align: center;
 	}
-	.btn-mostrar{
+	/* .btn-mostrar{
 		padding: 2px 10px 2px 2px;
-		cursor: pointer;
-		/* float: right; */
+		cursor: pointer;		
 		display: block;
 		background-color: rgb(250, 250, 250);
 		text-align: right;
 		border-radius: 5px;
-	}
+	} */
 	.card p{
 		margin-bottom: 0px;
 	}
-	
 	
 	
 </style>
@@ -59,76 +57,48 @@
 					<h3>Dicas</h3>
 				  </div>				  
 
-				<div class="card-columns" style="background-color: rgb(255, 255, 255); padding: 10px;">					
+				<div class="card-columns" style="background-color: rgb(255, 255, 255); padding: 10px;">							
 					<% tips.forEach(t =>{ %>
 					<div class="card border-secondary mb-2">
 						<div class="card-header">
 							<h4><%-t.title%></h4>							
 						</div>
-
-						<div style="display: inline-block;" class="card-body text-dark retraido">
-							<p class="card-text"><%-t.description.substring(0,300)%>...</p>							
-						</div>						
-						<div class="card-body text-dark completo" style="display: none;">							
+					
+						<div class="card-body text-dark completo" >							
 							<p ><%-t.description%></p>
-						</div>
-						<a id="<%=t.id-1%>" class="btn-mostrar" style="color:rgb(56, 150, 150); display: block;" onclick="mudaTexto(this.id)">Mostrar mais</a>						
-						
+						</div>						
 					</div>
 					<%})%>				
 					
-				</div>
-
-				<div id="glossario" class="jumbotron jumbotron-fluid mt-4" style=" padding: 10px;">
-					<div class="center">
-						<h2 class="mb-3">Glossário da Monitoria</h2>
-					</div>
-                    
-                    <hr><br>
-                    <p class="mb-4"><b>Abordagem/apresentação:</b>	 Apresentar-se adequadamente( Nome e Empresa)</p>
-                    <p class="mb-4"><b>Condução do atendimento:</b>	 Posicionamento ao cliente quando se ausentar/ entusiasmo/ clareza/ sorriso na voz/empatia/ segurança nas informações/ vícios de linguagem/objetividade e esculta ativa</p>
-                    <p class="mb-4"><b>Conhecimento técnico do produto:</b>	 Apresentar o produto de forma atrativa demonstrando conhecimento ( Características e beneficio)</p>
-                    <p class="mb-4"><b>Sondagem/ necessidade:</b>	Identificar as necessidades do cliente (Realizar perguntas abertas de forma assertiva)</p>
-                    <p class="mb-4"><b>Argumentação/ quebra de objeções:</b>	  Argumentação assertiva  e criação de cenários</p>
-                    <p class="mb-4"><b>Negociação:</b>	Ofertar primeiramente cartão de credito/ esgotar todas as possibilidades de negociação antes de desistir da venda</p>
-                    <p class="mb-4"><b>Fechamento/ Poder de decisão:</b>	 Conduzir o cliente ao fechamento no momento oportuno/ poder de decisão</p>
-                    <p class="mb-4"><b>Confirmação de dados:</b>	Buscar confirmar todos os dados do cliente para que não haja erros( habito de parafrasear)/ solicitar 2º telefone/ finalizar corretamente o contato</p>
-                    <p class="mb-4"><b>Não conformidade Grave:</b>	 Ocultar informações do produto/passar informaçoes improcedentes/ realizar a venda sem a autorizam do cliente/ omissão do atendimento/ser ríspido/ irônico ou utilizar palavras ofensivas/ passar informações confidenciais a terceiros.</p>
-                   
-                </div>
-
-			
-
-					
-
-							
+				</div>							
 
 			</div>
+			
+			<div id="glossario" class="jumbotron jumbotron-fluid mt-4" style=" padding: 10px;">
+				<div class="center">
+					<h2 class="mb-3">Glossário da Monitoria</h2>
+				</div>
+				
+				<hr><br>
+				<p class="mb-4"><b>Abordagem/apresentação:</b>	 Apresentar-se adequadamente( Nome e Empresa)</p>
+				<p class="mb-4"><b>Condução do atendimento:</b>	 Posicionamento ao cliente quando se ausentar/ entusiasmo/ clareza/ sorriso na voz/empatia/ segurança nas informações/ vícios de linguagem/objetividade e esculta ativa</p>
+				<p class="mb-4"><b>Conhecimento técnico do produto:</b>	 Apresentar o produto de forma atrativa demonstrando conhecimento ( Características e beneficio)</p>
+				<p class="mb-4"><b>Sondagem/ necessidade:</b>	Identificar as necessidades do cliente (Realizar perguntas abertas de forma assertiva)</p>
+				<p class="mb-4"><b>Argumentação/ quebra de objeções:</b>	  Argumentação assertiva  e criação de cenários</p>
+				<p class="mb-4"><b>Negociação:</b>	Ofertar primeiramente cartão de credito/ esgotar todas as possibilidades de negociação antes de desistir da venda</p>
+				<p class="mb-4"><b>Fechamento/ Poder de decisão:</b>	 Conduzir o cliente ao fechamento no momento oportuno/ poder de decisão</p>
+				<p class="mb-4"><b>Confirmação de dados:</b>	Buscar confirmar todos os dados do cliente para que não haja erros( habito de parafrasear)/ solicitar 2º telefone/ finalizar corretamente o contato</p>
+				<p class="mb-4"><b>Não conformidade Grave:</b>	 Ocultar informações do produto/passar informaçoes improcedentes/ realizar a venda sem a autorizam do cliente/ omissão do atendimento/ser ríspido/ irônico ou utilizar palavras ofensivas/ passar informações confidenciais a terceiros.</p>
+			   
+			</div>
 		</div>
+
+		
 	</div>
 	
 
 	<%- include ("partials/footer1.ejs"); %>
 
-	<script>
-		function mudaTexto(p){
-			var btn = document.getElementById(p);	        
-			var retraido = document.getElementsByClassName("retraido")[p];
-			var completo = document.getElementsByClassName("completo")[p];
-
-			if(btn.innerHTML == "Mostrar mais"){
-				retraido.style.display = "none";
-				completo.style.display = "inline-block";
-				btn.innerHTML = "Mostrar menos";
-			}else{
-				retraido.style.display = "inline-block";
-				completo.style.display = "none";
-				btn.innerHTML = "Mostrar mais";
-			}
 	
-		}
-	</script>
-	
-
 </body>
 </html>
