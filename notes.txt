@@ -2,7 +2,6 @@ Tarefas:
 
 renderizar tela de politica de crédito em outro controller. (está na monitoria)
 
-Tela de promoções no mobile
 
 Definir nova senha e tela de editar vendedor
 

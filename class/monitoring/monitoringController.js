@@ -999,7 +999,7 @@ router.get("/admin/monitoring/report/:team/:dtIni/:dtFim",  adminAuth, (req,res)
 			res.render('admin/monitoring/reports/team', {
 				dtInicial, dtFinal: req.params.dtFim,media,team,
 				of1,of2,of3,of4,of5,of6,of7,of8,of9,of10,of11,of12,of13,of14,
-				media: media.toFixed(2),adm: req.session.adm, sellers, qtd
+				media: media.toFixed(2),adm: req.session.adm, sellers, qtd,monitorings
 			});
 			// res.json(monitorings)
 		});

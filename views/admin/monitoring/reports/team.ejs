@@ -28,7 +28,7 @@
   a{
     color: rgb(49, 49, 49);
     text-decoration: none;
-  }
+  } 
  
 </style>
 
@@ -72,15 +72,31 @@
                 </div>
 
                 <div class="col-md-3 ml-5">
-                  <h3>Vendedores</h3>
-                  <p>Clique para mais detalhes</p>
+                  <h3>Média Vendedores</h3>
+                  <i>Clique para mais detalhes</i>
                     <hr>
-                    <% sellers.forEach( s=> { %>                            
-                      <a href="/admin/monitoring/report/seller/<%= s.id %>/<%=dtInicial%>/<%=dtFinal%>">
-                        <span class="h6"><%=s.name%></span>
-                      </a><br>
-                                           
-                    <%})%>                  
+                      <% sellers.forEach( s=> { %>
+                        
+                        <%var n = 0%>
+                        <%var qtd = 0%>
+                        <%monitorings.forEach(m =>{%>
+                          <%if(m.sellerId == s.id){%>
+                            <%n = n+ m.nota%>
+                            <%qtd++%>                          
+                          <%}%>
+                        <%})%>
+
+                        <ul class="list-group ">
+                          <a href="/admin/monitoring/report/seller/<%= s.id %>/<%=dtInicial%>/<%=dtFinal%>">
+                          <li class="list-group-item ">
+                            <span class="h6"><%=s.name%></span> - 
+                            <span class="mediaSeller badge badge-primary badge-pill"><%= qtd<1? 0: n/qtd %></span>
+                          </li>
+                          </a>
+                        </ul>
+                      
+                      <%})%> 
+                  </table>                
 
                 </div>
                 
@@ -209,6 +225,18 @@
 
 		// equipe();
 
+  </script>
+  <script>
+    //reduz casas decimais da média do vendedor
+    function toFix(){
+      var len = document.getElementsByClassName("mediaSeller").length;
+        for (i = 0; i < len; i++){
+            var ms = document.getElementsByClassName("mediaSeller")[i];
+            console.log(parseFloat(ms.innerHTML).toFixed(2));
+            ms.innerHTML = parseFloat(ms.innerHTML).toFixed(2);    
+        }        
+    }
+    toFix();
   </script>
 
  

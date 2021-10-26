@@ -40,44 +40,49 @@
 
         document.getElementById("login").className = "nav-item active";
         document.getElementById("produtos").className = "nav-item";
-        document.getElementById("monitoria").className = "nav-item";
+        document.getElementById("dicas").className = "nav-item";
         document.getElementById("pcredito").className = "nav-item";
         document.getElementById("promoções").className = "nav-item";
+        console.log(window.location.href)
 
-      }else if(window.location.href == "http://54.207.207.252:3000/tips"){
+      }else if(window.location.href == "http://54.207.207.252:3000/tips" || window.location.href == "54.207.207.252:3000/tips"){
 
         document.getElementById("login").className = "nav-item";
         document.getElementById("produtos").className = "nav-item";
         document.getElementById("dicas").className = "nav-item active";
         document.getElementById("pcredito").className = "nav-item";
         document.getElementById("promoções").className = "nav-item";
+        console.log(window.location.href)
 
-      }else if(window.location.href == "http://54.207.207.252:3000/politicadecredito"){
+      }else if(window.location.href == "http://54.207.207.252:3000/politicadecredito" || window.location.href == "54.207.207.252:3000/politicadecredito"){
 
         document.getElementById("login").className = "nav-item";
         document.getElementById("produtos").className = "nav-item";
-        document.getElementById("monitoria").className = "nav-item";
+        document.getElementById("dicas").className = "nav-item";
         document.getElementById("pcredito").className = "nav-item active";
         document.getElementById("promoções").className = "nav-item";
+        console.log(window.location.href)
 
-      }else if(window.location.href == "http://54.207.207.252:3000/promotions"){
+      }else if(window.location.href == "http://54.207.207.252:3000/promotions" || window.location.href == "54.207.207.252:3000/promotions"){
 
         document.getElementById("login").className = "nav-item";
         document.getElementById("produtos").className = "nav-item";
-        document.getElementById("monitoria").className = "nav-item";
+        document.getElementById("dicas").className = "nav-item";
         document.getElementById("pcredito").className = "nav-item";
         document.getElementById("promoções").className = "nav-item active";
+        console.log(window.location.href)
 
       }else{
         document.getElementById("login").className = "nav-item";
         document.getElementById("produtos").className = "nav-item active";
-        document.getElementById("monitoria").className = "nav-item";
+        document.getElementById("dicas").className = "nav-item";
         document.getElementById("pcredito").className = "nav-item";
         document.getElementById("promoções").className = "nav-item";
+        console.log(window.location.href)
       }
     }
      
 
-    active()
+    window.onload = active();
     
   </script>
