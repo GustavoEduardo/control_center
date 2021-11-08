@@ -49,8 +49,6 @@ router.post("/admin/sellers/team", adminAuth, (req,res) =>{
 
 
 
-
-
 //tela de cadastro de vendedor
 router.get("/admin/seller/new", adminAuth,  (req,res) =>{
 
@@ -102,7 +100,8 @@ router.post("/createSeller", adminAuth,  (req,res) =>{
 						team: team,
 						login: login,
 						password: hash,
-						status: "ativo"
+						status: "ativo",
+						role: 0
 
 					}).then(() => {
 						res.redirect('/admin/sellers')
@@ -137,12 +136,14 @@ router.post("/updateSeller", adminAuth,(req, res) =>{
 	let team = req.body.team;
 	let email = req.body.email;
 	let status = req.body.status;
+	let role = req.body.role;
 
 	Seller.update({
 		name: name,
 		team: team,
 		email: email,
-		status: status	
+		status: status,
+		role: role
 	},
 	{where: {id: id}
 

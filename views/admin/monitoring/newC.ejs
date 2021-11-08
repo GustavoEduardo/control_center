@@ -9,12 +9,12 @@
 			<div   class="wrap-table100">        
         <div class="card">
           <div class="card-header">
-            <h2>Nova Monitoria de Vendedor</h2>
+            <h2>Nova Monitoria da Cobrança</h2>
           </div>
           <form class="feedback mt-3" method="POST" action="/admin/monitoring/save">
             <div class="row" style="margin: 10px 15px;">
               <div class="col-md-2">
-                <label for="vendedor" class="form-label"><h6>Selecione um vendedor</h6></label>
+                <label for="vendedor" class="form-label"><h6>Selecione o colaborador</h6></label>
                 <select class="form-control " id="vendedor" name="vendedor" required>
                   <option>  </option>
                   <% sellers.forEach(seller =>{ %>
@@ -58,8 +58,8 @@
               <textarea style="display: inline-block;" class="form-control mb-4" rows="5" placeholder="Informe aqui os pontos positivos da ligação." name="positivos"></textarea>              
             </div>
 
-            <h6 class="sub-titulo">Abertura e Encerramento</h6><br>            
-            <h5>Teve boa Abordagem/ apresentação?</h5><!--Não-->
+            <h6 class="sub-titulo">Abordagem e Encerramento</h6><br>            
+            <h5>Apresentou-se corretamente informando o nome da empresa?</h5><!--Sim-->
             <input  type="radio" class="btn-check" name="ofensor1" id="1-s" value="sim" onclick="voltaNota(this.id)" autocomplete="off" >
             <label class="btn btn-outline-success" for="1-s">SIM</label>
             <input required type="radio" class="btn-check" name="ofensor1" id="1-n" value="nao" onclick="resNao(this.id)" autocomplete="off">
@@ -69,7 +69,7 @@
               <textarea class="form-control" name="ofensor1Txt" id="ofensor1" rows="4" placeholder="Descreva aqui oque fez o consultor perder essa nota..."></textarea>
             </div>
             <br>
-            <h5>Teve bom Fechamento /Poder de decisão/ Confirmação de dados?</h5><!--Não-->
+            <h5>Informou de maneira clara o motivo do contato?</h5><!--Sim-->
             <input type="radio" class="btn-check" name="ofensor2" id="2-s" value="sim" onclick="voltaNota(this.id)" autocomplete="off" >
             <label class="btn btn-outline-success" for="2-s">SIM</label>
             <input required type="radio" class="btn-check" name="ofensor2" id="2-n" value="nao" onclick="resNao(this.id)" autocomplete="off">
@@ -78,9 +78,8 @@
             <div class="mb-3 motivo" >
               <textarea class="form-control" name="ofensor2Txt" id="ofensor2" rows="4" placeholder="Descreva aqui oque fez o consultor perder essa nota..."></textarea>
             </div>
-            <hr>
-            <h6 class="sub-titulo"> Condução do atendimento</h6><br>
-            <h5>Deu posicionamento ao se ausentar?</h5><!--Não-->
+            <br>
+            <h5>Confirmou todos os pontos acordados?</h5><!--Sim-->
             <input type="radio" class="btn-check" name="ofensor3" id="3-s" value="sim" onclick="voltaNota(this.id)" autocomplete="off" >
             <label class="btn btn-outline-success" for="3-s">SIM</label>
             <input required type="radio" class="btn-check" name="ofensor3" id="3-n" value="nao" onclick="resNao(this.id)" autocomplete="off">
@@ -90,7 +89,7 @@
               <textarea class="form-control" id="ofensor3" name="ofensor3Txt" rows="4" placeholder="Descreva aqui oque fez o consultor perder essa nota..."></textarea>
             </div>
             <br>
-            <h5>Teve Entusiasmo/ Sorriso na voz/ Empatia?</h5><!--Não-->
+            <h5>Encerrou adequadamente o atendimento?</h5><!--Sim-->
             <input type="radio" class="btn-check" name="ofensor4" id="4-s" value="sim" onclick="voltaNota(this.id)" autocomplete="off" >
             <label class="btn btn-outline-success" for="4-s">SIM</label>
             <input required type="radio" class="btn-check" name="ofensor4" id="4-n" value="nao" onclick="resNao(this.id)" autocomplete="off">
@@ -100,7 +99,9 @@
               <textarea class="form-control" id="ofensor4" name="ofensor4Txt" rows="4" placeholder="Descreva aqui oque fez o consultor perder essa nota..."></textarea>
             </div>
             <br>
-            <h5>Seguro(a) nas informações passadas?</h5><!--Não-->
+            <hr>
+            <h6 class="sub-titulo">Condução do atendimento</h6><br>
+            <h5>Posicionou o cliente corretamente ao se ausentar?</h5><!--Sim-->
             <input type="radio" class="btn-check" name="ofensor5" id="5-s" value="sim" onclick="voltaNota(this.id)" autocomplete="off" >
             <label class="btn btn-outline-success" for="5-s">SIM</label>
             <input required type="radio" class="btn-check" name="ofensor5" id="5-n" value="nao" onclick="resNao(this.id)" autocomplete="off">
@@ -110,17 +111,17 @@
               <textarea class="form-control" id="ofensor5" name="ofensor5Txt" rows="4" placeholder="Descreva aqui oque fez o consultor perder essa nota..."></textarea>
             </div>
             <br>
-            <h5>Vícios de linguagem/girias?</h5><!--Sim-->
-            <input type="radio" class="btn-check" name="ofensor6" id="6-s" value="sim" onclick="resSim(this.id)" autocomplete="off" >
+            <h5>Demonstrou simpatia, entusiasmo, sorriso na voz e empatia?</h5><!--Sim-->
+            <input type="radio" class="btn-check" name="ofensor6" id="6-s" value="sim" onclick="voltaNota(this.id)"  autocomplete="off" >
             <label class="btn btn-outline-success" for="6-s">SIM</label>
-            <input required type="radio" class="btn-check" name="ofensor6" id="6-n" value="nao" onclick="voltaNota(this.id)" autocomplete="off">
+            <input required type="radio" class="btn-check" name="ofensor6" id="6-n" value="nao" onclick="resNao(this.id)" autocomplete="off">
             <label class="btn btn-outline-danger" for="6-n">NÃO</label>
             <br>
             <div class="mb-3 motivo" >
               <textarea class="form-control" id="ofensor6" name="ofensor6Txt" rows="4" placeholder="Descreva aqui oque fez o consultor perder essa nota..."></textarea>
             </div>
             <br>
-            <h5>Objetividade/ esculta ativa?</h5><!--Não-->
+            <h5>Demonstrou segurança nas informações passadas?</h5><!--Sim-->
             <input type="radio" class="btn-check" name="ofensor7" id="7-s" value="sim" onclick="voltaNota(this.id)" autocomplete="off" >
             <label class="btn btn-outline-success" for="7-s">SIM</label>
             <input required type="radio" class="btn-check" name="ofensor7" id="7-n" value="nao" onclick="resNao(this.id)" autocomplete="off">
@@ -129,9 +130,8 @@
             <div class="mb-3 motivo" >
               <textarea class="form-control" id="ofensor7" name="ofensor7Txt" rows="4" placeholder="Descreva aqui oque fez o consultor perder essa nota..."></textarea>
             </div>
-            <hr>
-            <h6 class="sub-titulo">Tenicas de venda</h6><br>
-            <h5>Apresentação do produto/ conhecimento?</h5><!--Não-->
+            <br>
+            <h5>Manteve a esculta ativa e objetividade?</h5><!--Sim-->
             <input type="radio" class="btn-check" name="ofensor8" id="8-s" value="sim" onclick="voltaNota(this.id)" autocomplete="off" >
             <label class="btn btn-outline-success" for="8-s">SIM</label>
             <input required type="radio" class="btn-check" name="ofensor8" id="8-n" value="nao" onclick="resNao(this.id)" autocomplete="off">
@@ -140,8 +140,9 @@
             <div class="mb-3 motivo" >
               <textarea class="form-control" id="ofensor8" name="ofensor8Txt" rows="4" placeholder="Descreva aqui oque fez o consultor perder essa nota..."></textarea>
             </div>
-            <br>
-            <h5>Sondagem?</h5><!--Não-->
+            <hr>
+            <h6 class="sub-titulo">Tenicas</h6><br>
+            <h5>Demonstrou conhecimento?</h5><!--Sim-->
             <input type="radio" class="btn-check" name="ofensor9" id="9-s" value="sim" onclick="voltaNota(this.id)" autocomplete="off" >
             <label class="btn btn-outline-success" for="9-s">SIM</label>
             <input required type="radio" class="btn-check" name="ofensor9" id="9-n" value="nao" onclick="resNao(this.id)" autocomplete="off">
@@ -151,7 +152,7 @@
               <textarea class="form-control " id="ofensor9" name="ofensor9Txt" rows="4" placeholder="Descreva aqui oque fez o consultor perder essa nota..."></textarea>
             </div>
             <br>
-            <h5>Argumentação/ quebra de objeção?</h5><!--Não-->
+            <h5>Relizou sondagem para identificar o motivo da inadimplência e o perfil do cliente?</h5><!--Sim-->
             <input type="radio" class="btn-check" name="ofensor10" id="10-s" value="sim" onclick="voltaNota(this.id)" autocomplete="off" >
             <label class="btn btn-outline-success" for="10-s">SIM</label>
             <input required type="radio" class="btn-check" name="ofensor10" id="10-n" value="nao" onclick="resNao(this.id)" autocomplete="off">
@@ -161,7 +162,7 @@
               <textarea class="form-control " id="ofensor10" name="ofensor10Txt" rows="4" placeholder="Descreva aqui oque fez o consultor perder essa nota..."></textarea>
             </div>
             <br>
-            <h5>Negociação?</h5><!--Não-->
+            <h5>Argumentou mostrando vantagens e trazendo soluções?</h5><!--Sim-->
             <input type="radio" class="btn-check" name="ofensor11" id="11-s" value="sim" onclick="voltaNota(this.id)" autocomplete="off" >
             <label class="btn btn-outline-success" for="11-s">SIM</label>
             <input required type="radio" class="btn-check" name="ofensor11" id="11-n" value="nao" onclick="resNao(this.id)" autocomplete="off">
@@ -170,19 +171,29 @@
             <div class="mb-3 motivo">
               <textarea class="form-control " id="ofensor11" name="ofensor11Txt" rows="4" placeholder="Descreva aqui oque fez o consultor perder essa nota..."></textarea>
             </div>
+            <br>
+            <h5>Negociou adequadamente?</h5><!--Sim-->
+            <input type="radio" class="btn-check" name="ofensor15" id="15-s" value="sim" onclick="voltaNota(this.id)" autocomplete="off" >
+            <label class="btn btn-outline-success" for="15-s">SIM</label>
+            <input required type="radio" class="btn-check" name="ofensor15" id="15-n" value="nao" onclick="resNao(this.id)" autocomplete="off">
+            <label class="btn btn-outline-danger" for="15-n">NÃO</label>
+            <br>
+            <div class="mb-3 motivo">
+              <textarea class="form-control " id="ofensor15" name="ofensor11Txt" rows="4" placeholder="Descreva aqui oque fez o consultor perder essa nota..."></textarea>
+            </div>
             <hr>
             <h6 class="sub-titulo" style="color: red;">Não conformidade Grave</h6><br>
-            <h5>Ética?</h5><!--Não-->
-            <input type="radio" class="btn-check" name="ofensor12" id="12-s" value="sim" onclick="voltaNota(this.id)" autocomplete="off" >
+            <h5>Houve falta de ética?</h5><!--Não-->
+            <input type="radio" class="btn-check" name="ofensor12" id="12-s" value="sim" onclick="resSim(this.id)" autocomplete="off" >
             <label class="btn btn-outline-success" for="12-s">SIM</label>
-            <input required type="radio" class="btn-check" name="ofensor12" id="12-n" value="nao" onclick="resNao(this.id)" autocomplete="off">
+            <input required type="radio" class="btn-check" name="ofensor12" id="12-n" value="nao"onclick="voltaNota(this.id)" autocomplete="off">
             <label class="btn btn-outline-danger" for="12-n">NÃO</label>
             <br>
             <div class="mb-3 motivo" >
               <textarea class="form-control" id="ofensor12" name="ofensor12Txt" rows="4" placeholder="Descreva aqui oque fez o consultor perder essa nota..."></textarea>
             </div>
             <br>
-            <h5>Falta de Cordialidade?</h5><!--Sim-->
+            <h5>Falta de Cordialidade?</h5><!--Não-->
             <input type="radio" class="btn-check" name="ofensor13" id="13-s" value="sim" onclick="resSim(this.id)" autocomplete="off" >
             <label class="btn btn-outline-success" for="13-s">SIM</label>
             <input required type="radio" class="btn-check" name="ofensor13" id="13-n" value="nao" onclick="voltaNota(this.id)" autocomplete="off">
@@ -192,7 +203,7 @@
               <textarea class="form-control " id="ofensor13" name="ofensor13Txt" rows="4" placeholder="Descreva aqui oque fez o consultor perder essa nota..."></textarea>
             </div>
             <br>
-            <h5>Risco em venda?</h5><!--Sim-->
+            <h5>Argumentações que podem causar riscos para a empresa ou para o cliente?</h5><!--Não-->
             <input type="radio" class="btn-check" name="ofensor14" id="14-s" value="sim" onclick="resSim(this.id)" autocomplete="off" >
             <label class="btn btn-outline-success" for="14-s">SIM</label>
             <input required type="radio" class="btn-check" name="ofensor14" id="14-n" value="nao" onclick="voltaNota(this.id)" autocomplete="off">
@@ -222,7 +233,7 @@
 
 	</div>
 
-  <script src="/js/newMonit.js"></script>
+  <script src="/js/newMonitCobranca.js"></script>
  
 <%- include ("../../partials/footer1.ejs"); %>
 </body>
