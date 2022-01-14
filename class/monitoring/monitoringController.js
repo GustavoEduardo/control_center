@@ -20,7 +20,7 @@ router.get("/monitoring/glossario", (req,res) =>{
 
 });
 
-//tela de politica de crédito. Colocar em outro controlller
+//Tela de politica de crédito. Colocar em outro controlller
 router.get("/politicadecredito", (req,res) =>{
 			
 	res.render("politicadecredito");
@@ -184,10 +184,15 @@ router.post("/admin/monitorings/date", adminAuth, (req, res)=>{
 
 });
 
-//Pagina de Cadastro de nova monitoria
+/***************************Monitoria de Vendas********************************* */
+//Pagina de Cadastro de nova monitoria de vendas
 router.get('/admin/monitoring/new', adminAuth, (req, res) => {
+	const Op = Sequelize.Op;
 	Seller.findAll({
-		where: { status: "ativo" },
+		where: {
+			status: "ativo",
+			[Op.or]: [{team: 1}, {team: 2}, {team: 3}]//Somente times de vendas
+			},
 		order:[
 			['name','ASC']
 		],
@@ -198,7 +203,7 @@ router.get('/admin/monitoring/new', adminAuth, (req, res) => {
 	
 });
 
-//Salva o nova monitoria no banco de dados
+//Salva o nova monitoria de vendas no banco de dados
 router.post("/admin/monitoring/save", adminAuth, (req, res)=>{
 	var positivos = req.body.positivos;
 	var responsavel = req.session.adm.name;
@@ -290,17 +295,19 @@ router.post("/admin/monitoring/save", adminAuth, (req, res)=>{
 
 });
 
-//Tela de edição de monitoria
+//Tela de edição de monitoria de vendas
 router.get("/admin/monitoring/adit/:id",  adminAuth, (req, res) =>{
-
 	var id = req.params.id;
-
+	const Op = Sequelize.Op;
 	Monitoring.findOne({
 		include: [{model: Seller}],
 		where: {id: id}})
 	.then( m =>{
 		Seller.findAll({
-			where: { status: "ativo" },			
+			where: {
+				status: "ativo",
+				[Op.or]: [{team: 1}, {team: 2}, {team: 3}]//Somente times de vendas
+			},			
 			order:[			
 			['name','ASC'] //DESC
 		]})
@@ -312,7 +319,7 @@ router.get("/admin/monitoring/adit/:id",  adminAuth, (req, res) =>{
 
 });
 
-//salva alterações no banco
+//salva alterações de monitoria de vendas no banco
 router.post("/updateMonitoring", adminAuth,(req, res) =>{
 	var positivos = req.body.positivos;
 	var telefone = req.body.telefone;
@@ -406,7 +413,7 @@ router.post("/updateMonitoring", adminAuth,(req, res) =>{
 	});
 });
 
-//tela de detalhes
+//Tela de detalhes de monitoria de vendas
 router.get("/admin/monitoring/details/:id",  adminAuth, (req, res) =>{
 
 	var id = req.params.id;
@@ -419,6 +426,25 @@ router.get("/admin/monitoring/details/:id",  adminAuth, (req, res) =>{
 		res.render("admin/monitoring/details", {m, adm})
 	});
 
+});
+
+/***************************Monitoria de Cobrança********************************* */
+//Pagina de Cadastro de nova monitoria de Cobrança
+router.get('/admin/monitoring/new/charge', adminAuth, (req, res) => {
+	const Op = Sequelize.Op;
+	Seller.findAll({	
+		where: {
+			status: "ativo",
+			[Op.and]: {team: "90"}//90 cobrança
+			},
+		order:[
+			['name','ASC']
+		],
+	}).then(sellers =>{
+		res.render("admin/monitoring/newC", {adm: req.session.adm,sellers, msg: ""});
+	})
+	
+	
 });
 
 //***************************PDF********************************/
@@ -464,7 +490,6 @@ router.get("/admin/monitoring/pdf/:id", (req, res) =>{
 	});
 
 });
-
 
 //rota para iniciar o puppeteer
 router.get("/pdf/:id", async(req, res)=>{
@@ -518,7 +543,6 @@ router.get('/download/:nome', function(req, res){
 	download()
 	
 });
-
 
 //Aplicar feedback. Muda campo aplicada para s "Feedback aplicado ao vendedor"
 router.post("/applyfeedback", adminAuth,(req, res) =>{

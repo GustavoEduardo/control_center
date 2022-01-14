@@ -25,6 +25,10 @@ const Seller = connection.define('sellers',{
 	status:{
 		type: Sequelize.STRING,
 		allowNull: false
+	},
+	role:{
+		type: Sequelize.INTEGER,
+		allowNull: false
 	}
 	
 });

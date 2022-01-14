@@ -9,7 +9,7 @@
 
 				<div class="card">
 					<div class="card-header">
-						<h2>Cadastro de novo Vendedor</h2>
+						<h2>Cadastro de novo Colaborador</h2>
 					</div>
 					<div class="card-body">
 						<form method="POST" action="/createSeller"  onsubmit="comparaPass(event,this)">
@@ -23,12 +23,13 @@
 									<input type="text" class="form-control" placeholder="Informe o Nome do Vendedor" id="name" name="name" required>
 								</div>
 								<div class="form-group col-md-4">
-									<label>Equipe</label>
+									<label>Equipe/Departamento</label>
 									<select name="team" id="team" class="form-control" required>
 										<option value="">Selecione</option>
 										<option value="01">01</option>
 										<option value="02">02</option>
-										<option value="03">03</option>															
+										<option value="03">03</option>
+										<option value="90">Cobrança</option>															
 									</select>
 								</div>
 							</div>
