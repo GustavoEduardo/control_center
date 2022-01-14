@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<%- include ("../../partials/head.ejs"); %>
+<link rel="stylesheet" type="text/css" href="/css/sellers-index.css">
+<body>
+	<%- include ("../../partials/header-admin.ejs"); %>
+
+	<div class="limiter"> 
+		<h4 class="title">Lista de Promoções Ativas</h4>      
+		<div class="container-table100">            
+			<div class="wrap-table100">
+				<div class="row painel">
+					
+					<!-- <div class="form-row painel">
+						<div class="form-group col-sm-4">
+							<label for="Search">Pesquise pelo nome</label>	
+							
+							<form class="input-group" method="POST" action="/admin/sellers/search">
+								<input type="search" name="search" class="form-control rounded" value="<%=pesquisa%>" placeholder="Digite uma parte do nome aqui" aria-label="Search"/>
+								<div>
+									<button class="btn btn-primary btn-search" type="submit"><i class="fas fa-search"></i></button>
+								</div>
+							</form>												
+						</div>
+					</div>					 -->
+											  
+
+				</div>
+				<div class="table100">
+					<table>
+						<thead>							
+							<tr class="table100-head">
+								<th class="column2">Nome</th>
+								<th class="column3">Descrição</th>
+                                <th class="column6">Ações</th>
+							</tr>
+						</thead>
+						<tbody>							
+							<% promos.forEach(p =>{ %>
+								<tr>
+									<td class="column1"><%= p.nome %></td>
+									<td class="equipe column3"><%= p.descricao %></td>
+									<td class="column6" >
+                                        <a href="/admin/promotion/adit/<%= p.id %>" class="btn btn-outline-primary " ><i class="fas fa-edit"></i></a>
+										<form style="display: inline;" method="post" action="promotion/delete" onsubmit="confirmaExclusao(event,this)">
+											<input type="hidden" name="id" value="<%= p.id %>">
+											<button type="submit" class="btn btn-outline-danger " ><i class="fas fa-trash-alt"></i></button>
+										</form>
+                                    </td>																
+								</tr>
+							<% }) %>																
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<%- include ("../../partials/footer1.ejs"); %>
+	<script>	
+		function confirmaExclusao(event, form){
+			event.preventDefault();
+			var decision = confirm("Quer mesmo deletar essa promoção?");
+			if(decision){
+				form.submit();
+			}
+		}
+	</script>
+
+</body>
+</html>

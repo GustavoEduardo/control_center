@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<%- include ("../../partials/head.ejs"); %>
+<link rel="stylesheet" type="text/css" href="/css/sellers-index.css">
+<body>
+	<%- include ("../../partials/header-admin.ejs"); %>
+
+	<div class="limiter"> 
+		<h4 class="title">Lista de Vendedores</h4>      
+		<div class="container-table100">            
+			<div class="wrap-table100">
+				<div class="row painel">
+					
+					<div class="form-row painel">
+						<div class="form-group col-sm-4">
+							<label for="Search">Pesquise pelo nome</label>	
+							
+							<form class="input-group" method="POST" action="/admin/sellers/search">
+								<input type="search" name="search" class="form-control rounded" value="<%=pesquisa%>" placeholder="Digite uma parte do nome aqui" aria-label="Search"/>
+								<div>
+									<button class="btn btn-primary btn-search" type="submit"><i class="fas fa-search"></i></button>
+								</div>
+							</form>												
+						</div>
+						<div class="form-group col-sm-2">
+							<label for="team">Filtre pela Equipe</label>						
+								<form action="/admin/sellers/team" method="POST">
+									<select id="team" name="team" onchange="this.form.submit()" class="form-control">
+										<option><%=team%></option>
+										<option value="">Todas</option>
+										<option value="01">01</option>
+										<option value="02">02</option>
+										<option value="03">03</option>	
+									</select>
+								</form>
+						</div>								  
+	
+					</div>					
+											  
+
+				</div>
+				<div class="table100">
+					<table>
+						<thead>							
+							<tr class="table100-head">
+								<th class="column2">Nome</th>
+								<th class="column3">Equipe</th>
+								<th class="column4">Login</th>								
+								<th class="column6">Ações</th>
+							</tr>
+						</thead>
+						<tbody>							
+							<% sellers.forEach(seller =>{ %>
+								<tr>
+									<td class="column2"><%= seller.name %></td>
+									<td class="equipe column3"><%= seller.team %></td>
+									<td class="column4"><%= seller.login %></td>
+									<td class="column6" >
+                                        <a href="/admin/seller/adit/<%= seller.id %>" class="btn btn-outline-primary " ><i class="fas fa-edit"></i></a><!--/admin/seller/adit/<%= seller.id %>-->
+                                    </td>																
+								</tr>
+							<% }) %>																
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<%- include ("../../partials/footer1.ejs"); %>
+	<script>	
+		function confirmaExclusao(event, form){
+			event.preventDefault();
+			var decision = confirm("Quer mesmo deletar esse Vendedor?");//Caixa com opção ok ou cancelar
+			if(decision){
+				form.submit();
+			}
+		}
+	</script>
+
+<script>
+    //Mostrar nome da equipe
+    // function equipe(){
+	// 		var len = document.getElementsByClassName("equipe").length;
+	// 		for (i = 0; i < len; i++){
+	// 			var equipe = document.getElementsByClassName("equipe")[i];
+	// 			if(equipe.innerHTML == "01"){
+	// 				equipe.innerHTML = "Felipe";
+	// 			}else if(equipe.innerHTML == "02"){
+	// 				equipe.innerHTML = "Camila";
+    //     }else if(equipe.innerHTML == "03"){
+	// 				equipe.innerHTML = "Gustavo";
+    //     }else{
+    //       equipe.innerHTML = "Sem Equipe";
+    //     }			
+	// 		}
+	// 	}
+
+	// 	equipe();
+
+  </script>
+
+</body>
+</html>

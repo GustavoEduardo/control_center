@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<%- include ("../../partials/head.ejs"); %>
+<link rel="stylesheet" type="text/css" href="/css/monitorings-index.css">
+<body>
+	<%- include ("../../partials/header-admin.ejs"); %>
+
+	<div class="limiter">
+		<h4 class="title">Lista de Monitorias</h4>
+		<div class="container-table100">				
+			<div class="wrap-table100">				
+					
+				<div class="form-row painel">
+					<div class="form-group col-sm-2">
+						<label for="Search">Ramal</label>						
+						<form class="input-group" method="POST" action="/admin/monitorings/ramal">
+							<input value="<%=ramal%>" type="number" name="search" class="form-control rounded" placeholder="Informe o Ramal" aria-label="Search"/>
+							<div>
+								<button class="btn btn-primary btn-search" type="submit"><i class="fas fa-search"></i></button>
+							</div>
+						</form>												
+					</div>
+					<div class="form-group col-sm-2">
+						<label for="Search">Vendedor</label>						
+						<form class="input-group" method="POST" action="/admin/monitorings/seller">
+							<select id="seller" name="seller" class="form-control" onchange="this.form.submit()">
+								<option value=""><%=seachSeller%> </option>
+								<option value="">Todos</option>
+								<% sellers.forEach(seller =>{ %>
+									<option value="<%=seller.id%>"><%=seller.name%></option>
+								  <% }); %>
+							</select>
+						</form>												
+					</div>
+					<div class="form-group col-sm-1">
+						<label for="status">Feedback</label>						
+							<form action="/admin/monitorings/aplicada" method="POST">
+								<select id="aplicada" name="aplicada" onchange="this.form.submit()"  class="form-control"> 
+									<option><%=seachAplicada%></option>
+									<option value="">Todas</option>
+									<option value="s">Aplicadas</option>
+									<option value="n">Não aplicadas</option>
+								</select>
+							</form>
+					</div>
+					<div class="form-group col-sm-1">
+						<label for="foto">Equipe</label>						
+							<form action="/admin/monitorings/team" method="POST">
+								 <select id="team" name="team" onchange="this.form.submit()"  class="form-control">
+									<option><%=team%></option>
+									<option value="">Todas </option>
+									<option value="01">01</option>
+									<option value="02">02</option>
+									<option value="03">03</option>										
+								</select>
+							</form>
+					</div>
+					
+					
+					<form class="form-group col-sm-5" method="POST"  action="/admin/monitorings/date">
+						<div class="form-row ml-5" >
+							<div class="form-group col-sm-5">
+								<label for="Search">De</label>
+								<input name="dtInicial" class="form-control" type="date" value="<%=dtInicial%>">
+							</div>
+							<div class="form-group col-sm-5">
+								<label for="Search">Até</label>
+								<input name="dtFinal" class="form-control" type="date" value="<%=dtFinal%>">
+							</div>
+							<div class=" form-group col-sm-2">
+								<button style="display: inline-block; margin-top: 35px; height: auto;" class="btn btn-primary btn-search" type="submit"><i class="fas fa-search"></i></button>
+							</div>						
+						</div>
+					</form>	
+			</div>
+				
+				<div class="table100">
+					<table>
+						<thead>							
+							<tr class="table100-head">
+								<th class="column2">Nome</th>
+								<th class="column2">Telefone</th>
+								<th class="column2">Data da monitoria</th>
+								<th class="column2">Nota</th>
+								<th class="column2">Aplicada?</th>
+								<th class="column2">Equipe Atual</th>
+								<th class="column2">Equipe na data da monitoria</th>
+								<th class="column6">Ações</th>
+							</tr>
+						</thead>
+						<tbody>							
+							<% monitorings.forEach(m =>{ %>
+								<tr>
+									<td class="column2"><%= m.seller.name %></td>
+									<td class="column2"><%= m.telefone %></td>
+									<td class="column2 data"><%= m.dtMonitoria %></td>
+									<td class="column2"><%= m.nota %></td>									
+									<td class="column2 aplicada"><%= m.aplicada %></td>
+									<td class="column2 equipeAtual"><%= m.seller.team %></td>
+									<td class="column2 equipeNaMonit"><%= m.equipe%></td>
+									<td class="column6" >
+										<%if(m.aplicada == "n"){%>																			
+											<a href="/admin/monitoring/adit/<%= m.id %>"><button type="button" class="btn btn-outline-primary " ><i class="fas fa-edit"></i></button></a>
+										<%}%>
+										<a href="/admin/monitoring/details/<%= m.id %>"  type="button" class="btn btn-outline-success "><i class="fas fa-search-plus"></i></a>										
+									</td>
+								</tr>
+							<% }) %>																
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script>
+		function data(){
+			var len = document.getElementsByClassName("data").length;
+			for (i = 0; i < len; i++){
+				var date = document.getElementsByClassName("data")[i];
+				var newDate = new Date(date.innerHTML);
+				if(newDate.getMonth() < 9){
+					var d = newDate.getDate()+"/0"+(newDate.getMonth()+1)+"/"+newDate.getFullYear();
+				}else{
+					var d = newDate.getDate()+"/"+(newDate.getMonth()+1)+"/"+newDate.getFullYear();
+				}				
+				date.innerHTML = d;
+			}
+		}
+		
+		data();
+
+		function aplicada(){
+			var len = document.getElementsByClassName("aplicada").length;
+			for (i = 0; i < len; i++){
+				var aplicada = document.getElementsByClassName("aplicada")[i];
+				if(aplicada.innerHTML == "n"){
+					aplicada.innerHTML = "Não";
+					aplicada.style.color = 'red';
+				}
+				if(aplicada.innerHTML == "s"){
+					aplicada.innerHTML= "Sim";
+					aplicada.style.color = '#0275d8';
+				}
+			}
+		}
+
+		aplicada();
+
+
+		function equipeAlterada(){
+			var len = document.getElementsByClassName("equipeAtual").length;
+			for (i = 0; i < len; i++){
+				var equipeAtual = document.getElementsByClassName("equipeAtual")[i];
+				var equipeMonit = document.getElementsByClassName("equipeNaMonit")[i];
+				if(equipeAtual.innerHTML != equipeMonit.innerHTML){
+					equipeMonit.style.color = 'red';
+				}
+				
+			}
+		}
+
+		equipeAlterada();
+	</script>
+
+	<%- include ("../../partials/footer1.ejs"); %>
+	
+
+</body>
+</html>

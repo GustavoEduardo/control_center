@@ -1,0 +1,109 @@
+
+<%- include ("../../partials/head.ejs"); %>
+<body>
+	<%- include ("../../partials/header-admin.ejs"); %>
+
+	<div class="limiter">
+		<div class="container-table100">			
+			<div   class="wrap-table100">
+
+				<div class="card">
+					<div class="card-header">
+						<h2>Cadastro de novo item</h2>
+					</div>
+					<div class="card-body">
+						<form method="POST" action="/cadastrarItem" enctype="multipart/form-data">
+							<span style="font-size: x-large; color: red;"><%=msg%></span>
+							<hr>
+							<h3>Informações Básicas</h3>
+							<br>
+							<div class="form-row">
+								<div class="form-group col-md-6">
+									<label for="name">Nome</label>
+									<input type="text" class="form-control" placeholder="Informe o Nome do Item" id="name" name="name" required>
+								</div>
+								<div class="form-group col-md-4">
+									<label>Tipo</label>
+									<select name="type" id="type" class="form-control" required>
+										<option value="">------</option>
+										<option value="kit">Kit</option>
+										<option value="img">Imagem</option>
+										<option value="ter">Terço</option>
+										<option value="med">Medalhão</option>
+										<option value="out">Outros</option>						
+									</select>
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="foto">Insira uma imagem</label>							
+								<input class="form-control-file col-12"  type="file" multiple accept ="image/*" id="foto" name="foto" required>
+							</div>
+							<hr>
+							<h4>Valores</h4>
+							<br>
+							<div class="form-row">
+								<div class="form-group col-md-2">
+									<label for="valBlt">Total Boleto</label>								
+									<input class="form-control" type="number" id="valBol" name="valBlt" placeholder="Valor no boleto" required>
+								</div>
+								<div class="form-group col-md-2">
+									<label for="valCard">Total Cartão</label>
+									<input class="form-control" type="number" id="valCard" name="valCard" placeholder="Valor no cartão" required>
+								</div>
+								<div class="form-group col-md-2 ">
+									<label for="valPix">Valor a vista</label>
+									<input class="form-control" type="number" id="valPix" name="valPix" placeholder="Valor com desconto" required>									
+								</div>
+							</div>
+							<hr>
+							<h3>Informações Adicionais</h3>
+							<br>
+							<div class="form-row">
+							<div class="form-group col-md-12">
+								<label for="inputCity">Principais Argumentos</label>
+								<textarea class="form-control campo-de-texto" placeholder="Escreva as principais argumentações aqui" name="argument" rows="15"></textarea>
+								<br>
+							</div>							
+							<div class="form-group col-md-12">
+								<label for="inputCity">Descrição</label>
+								<textarea class="form-control campo-de-texto" placeholder="Escreva a Descrição aqui" name="description" rows="20" ></textarea>
+							</div>
+							
+							<br><br>
+							<div style="width: 100%; margin-top: 25px;" class="form-row">
+								<div class="form-group col-md-8">									
+								</div>
+								<div class="form-group col-md-2">												
+									<button type="submit" class="form-control btn btn-success">Cadastrar <i class="fas fa-check"></i></button>
+								</div>
+								<div class="form-group col-md-2">
+									<button onclick="window.history.back()" class="form-control btn btn-danger" >Cancelar <i class="fas fa-times"></i></button>
+								</div>
+								
+							</div>
+							
+						</form>
+					</div>
+
+				</div>		
+			</div>
+		</div>			
+	</div>
+
+<%- include ("../../partials/footer1.ejs"); %>
+
+<script src="/tinymce/tinymce.min.js"></script><!--Importando editor na pasta public-->
+<script>//configurando tynymce
+	tinymce.init({
+		language: 'pt_BR',//baixar em https://www.tiny.cloud/get-tiny/language-packages/ e colar na pasta langs
+		selector: ".campo-de-texto",//class name da textarea a ser utilizada 
+		plugins: [
+			'lists spellchecker advlist autolink link image lists print preview hr searchreplace wordcount fullscreen insertdatetime media save table paste emoticons'
+		],//plugins com mais funcionalidades
+	})
+</script>
+     
+
+
+</body>
+</html>

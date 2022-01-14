@@ -1,0 +1,99 @@
+.form-group button{
+    width: 100%;
+    height: 60px;
+    font-weight: bold;
+    font-size: 1.2em;  
+}
+
+.form-group label{    
+    font-size: 1.2em;  
+}
+
+.card-body{
+    background-color: #acacac;
+    color: #fff;
+  }
+.card-body textarea{
+  min-height: 400px;
+}
+.card-header{
+  text-align: center;
+}
+.modal-body h4{
+  display: inline-block;   
+  margin-bottom: 25px;
+}
+
+.item404{
+  margin-top: 50px;
+  color: #fff;
+  display: inline-block;
+  font-weight: bold;
+  font-size: x-large;
+}
+
+
+  /*/////////////////////////Feedback/////////////////////////////////////////////*/
+
+  .feedback{
+    background-color: #fff;
+    width: 100%;
+  }
+
+  
+   .feedback h5{
+    display: inline-block;
+    width: auto;
+    margin: 0 15px;    
+    }
+    .feedback h3{
+      margin: 20px 0 30px 15px ; 
+    }
+    .feedback select{
+      margin: 0 15px ;
+      display: inline-block;       
+      
+    }
+    .feedback .nota{
+      text-align: right; 
+    }
+    .feedback .nota h3{
+      font-size: 2.5em;
+      padding-right: 10px;
+    }
+    .feedback #notaFinal{
+      
+    }
+    .feedback input{
+      display: inline-block;
+      border: 1px solid black;
+    }
+    .feedback textarea{
+      display: none;
+      border: 1px solid #999;
+      margin-top: 15px;
+    }
+
+    .motivo{
+      display: inline-block;
+      width: 90%;
+      margin: 0 15px;
+    }
+
+    .sub-titulo{
+      margin-bottom: 45px;
+      display: inline-block;
+      margin-left: 40%;
+      color: #494949;
+    }
+
+    .sub-titulo2{
+      margin-bottom: 10px;
+      display: inline-block;
+      margin-left: 40%;
+      color: #1a1a1a;
+    }
+
+    .positivos{
+      padding: 0 30px;
+    }

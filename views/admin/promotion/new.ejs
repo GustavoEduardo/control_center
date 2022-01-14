@@ -1,0 +1,59 @@
+
+<%- include ("../../partials/head.ejs"); %>
+<body>
+	<%- include ("../../partials/header-admin.ejs"); %>
+
+	<div class="limiter">
+		<div class="container-table100">			
+			<div   class="wrap-table100">
+
+				<div class="card">
+					<div class="card-header">
+						<h2>Cadastro de nova Promoção</h2>
+					</div>
+					<div class="card-body">
+						<form method="POST" action="/createpromo">
+							<span style="font-size: x-large; color: red; "><%=msg%></span>
+							<hr>
+							<h4>Características da Promoção</h4>
+							<br>
+							<div class="form-row">
+								<div class="form-group col-md-8">
+									<label for="nome">Nome</label>
+									<input type="text" class="form-control" placeholder="Informe o Nome da Promoção" name="nome" required>
+								</div>
+	
+							</div>
+							<div class="form-row">
+								<div class="form-group col-md-8">
+									<label for="password">Descrição</label>
+									<textarea class="form-control" name="descricao" rows="10"></textarea>
+								</div>
+								
+							</div>						
+							<hr>
+							<div style="width: 100%; margin-top: 25px;" class="form-row">
+								<div class="form-group col-md-8">									
+								</div>
+								<div class="form-group col-md-2">												
+									<button type="submit" class="form-control btn btn-success">Cadastrar <i class="fas fa-check"></i></button>
+								</div>
+								<div class="form-group col-md-2">
+									<button onclick="window.history.back()" class="form-control btn btn-danger" >Cancelar <i class="fas fa-times"></i></button>
+								</div>
+								
+							</div>
+							
+							
+						</form>
+					</div>
+
+				</div>		
+			</div>
+		</div>			
+	</div>
+
+	<%- include ("../../partials/footer1.ejs"); %>
+	
+</body>
+</html>
